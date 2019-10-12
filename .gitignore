@@ -1,2 +1,4 @@
 .idea
 vendor/
+scrap-json/*
+scrap-torrent/*
