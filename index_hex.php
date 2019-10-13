@@ -55,8 +55,6 @@ try {
 
             $elementGeneral->setElementDetail($elementDetail);
         }
-
-        var_dump($elementGeneral);
     }
 } catch (\Exception $e) {
     echo "[Exception]...{$e->getMessage()}\n";

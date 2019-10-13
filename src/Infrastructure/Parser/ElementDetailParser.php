@@ -178,7 +178,7 @@ final class ElementDetailParser implements ElementDetailParserInterface
         $elementDescription = [];
 
         preg_match(
-            '/Descripción\:(?<elementDescription>.*)/',
+            '/Descripción\:(?<elementDescription>[^.]+)/',
             $rawText,
             $elementDescription
         );
@@ -187,7 +187,7 @@ final class ElementDetailParser implements ElementDetailParserInterface
             return null;
         }
 
-        return $elementDescription['elementDescription'];
+        return trim($elementDescription['elementDescription']);
     }
 
     /**

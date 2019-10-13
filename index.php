@@ -10,7 +10,7 @@ $downloadElementTorrent = '/uploads/torrents/peliculas/';
 $linkArr = [];
 $finalLinkArr = [];
 
-for ($i = 1; $i < 30; $i++) {
+for ($i = 1; $i < 2; $i++) {
     echo "[SCRAPPING]...Page: {$i}\n";
 
     $finalFilmUrl = sprintf(
