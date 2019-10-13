@@ -2,3 +2,4 @@
 vendor/
 scrap-json/*
 scrap-torrent/*
+.phpunit.result.cache
