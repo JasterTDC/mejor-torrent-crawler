@@ -1,6 +1,13 @@
 <?php
 
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCaseArguments;
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
+use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
@@ -24,65 +31,91 @@ $firstPage = sprintf(
 
 $html = file_get_contents($firstPage);
 
-if (empty($html)) {
-    echo "[HTML]...We could not retrieve main information\n";
-
-    exit(1);
-}
-
 try {
-    $dataTransformer = new ElementGeneralCollectionDataTransformer();
+    // Element general
     $elementGeneralFactory = new ElementGeneralFactory();
     $elementGeneralParser = new ElementGeneralParser(
         $elementGeneralFactory
     );
+    $retrieveElementGeneralUseCase = new RetrieveElementGeneralUseCase(
+        $elementGeneralParser
+    );
+
+    // Element detail
     $elementDetailFactory = new ElementDetailFactory(
         __DIR__ . '/scrap-torrent'
     );
+    $elementDetailParser = new ElementDetailParser(
+        $elementDetailFactory
+    );
+    $retrieveElementDetailUseCase = new RetrieveElementDetailUseCase(
+        $elementDetailParser
+    );
+
+    // Element download
     $elementDownloadFactory = new ElementDownloadFactory(
         $homeUrl . $downloadElementTorrentUrl
     );
+    $elementDownloadParser = new ElementDownloadParser(
+        $elementDownloadFactory
+    );
+    $retrieveElementDownloadUseCase = new RetrieveElementDownloadUseCase(
+        $elementDownloadParser
+    );
 
-    $elementGeneralParser->setContent($html);
+    $retrieveElementGeneralUseCaseArgument = new RetrieveElementGeneralUseCaseArguments(
+        empty($html) ? null : $html
+    );
+    $retrieveElementGeneralUseCaseResponse = $retrieveElementGeneralUseCase
+        ->handle($retrieveElementGeneralUseCaseArgument);
 
-    $elementGeneralCollection = $elementGeneralParser->getElementGeneral();
+    if (!$retrieveElementGeneralUseCaseResponse->isSuccess() &&
+        empty($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection())) {
+        echo $retrieveElementGeneralUseCaseResponse->getError() . "\n";
+
+        exit(1);
+    }
+
+    $elementGeneralCollection = new ElementGeneralCollection();
 
     /** @var ElementGeneral $elementGeneral */
-    foreach ($elementGeneralCollection as $elementGeneral) {
-        $html = file_get_contents($homeUrl . $elementGeneral->getElementLink());
+    foreach ($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection() as $elementGeneral) {
+        $elementDetailHtml = file_get_contents($homeUrl . $elementGeneral->getElementLink());
 
         $elementDownloadUrl = $homeUrl . sprintf(
                 $downloadElementUrl,
                 $elementGeneral->getElementId()
             );
 
-        if (!empty($html)) {
-            $elementDetailParser = new ElementDetailParser(
-                $elementDetailFactory
-            );
+        $retrieveElementDetailUseCaseArguments = new RetrieveElementDetailUseCaseArguments(
+            empty($elementDetailHtml) ? null : $elementDetailHtml,
+            $elementGeneral
+        );
+        $retrieveElementDetailUseCaseResponse = $retrieveElementDetailUseCase
+            ->handle($retrieveElementDetailUseCaseArguments);
 
-            $elementDetailParser->setContent($html);
-
-            $elementDetail = $elementDetailParser->getElementDetail();
-
-            $elementGeneral->setElementDetail($elementDetail);
-        }
+        $elementGeneral = $retrieveElementDetailUseCaseResponse
+            ->getElementGeneral();
 
         $elementDownloadHtml = file_get_contents($elementDownloadUrl);
 
-        if (!empty($elementDownloadHtml)) {
-            $elementDownloadParser = new ElementDownloadParser(
-                $elementDownloadFactory
-            );
-            $elementDownloadParser->setContent($elementDownloadHtml);
+        $retrieveElementDownloadUseCaseArguments = new RetrieveElementDownloadUseCaseArguments(
+            empty($elementDownloadHtml) ? null : $elementDownloadHtml,
+            $elementGeneral
+        );
+        $retrieveElementDownloadUseCaseResponse = $retrieveElementDownloadUseCase
+            ->handle($retrieveElementDownloadUseCaseArguments);
 
-            $elementDownload = $elementDownloadParser->getElementDownload();
-            $elementDownload = $elementDownload->setElementDownloadUrl(
+        $elementGeneral = $retrieveElementDownloadUseCaseResponse
+            ->getElementGeneral();
+
+        $elementGeneral->setElementDownload(
+            $elementGeneral->getElementDownload()->setElementDownloadUrl(
                 $elementDownloadUrl
-            );
+            )
+        );
 
-            $elementGeneral->setElementDownload($elementDownload);
-        }
+        $elementGeneralCollection->add($elementGeneral);
     }
 
     file_put_contents(
