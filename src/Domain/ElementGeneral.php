@@ -38,6 +38,11 @@ final class ElementGeneral
     protected $elementDetail;
 
     /**
+     * @var ElementDownload|null
+     */
+    protected $elementDownload;
+
+    /**
      * Element constructor.
      *
      * @param int $elementId
@@ -45,19 +50,22 @@ final class ElementGeneral
      * @param string $elementSlug
      * @param string $elementLink
      * @param ElementDetail|null $elementDetail
+     * @param ElementDownload|null $elementDownload
      */
     public function __construct(
         int $elementId,
         string $elementName,
         string $elementSlug,
         string $elementLink,
-        ?ElementDetail $elementDetail
+        ?ElementDetail $elementDetail,
+        ?ElementDownload $elementDownload
     ) {
         $this->elementId = $elementId;
         $this->elementName = $elementName;
         $this->elementSlug = $elementSlug;
         $this->elementLink = $elementLink;
         $this->elementDetail = $elementDetail;
+        $this->elementDownload = $elementDownload;
     }
 
     /**
@@ -138,5 +146,21 @@ final class ElementGeneral
     public function setElementDetail(?ElementDetail $elementDetail): void
     {
         $this->elementDetail = $elementDetail;
+    }
+
+    /**
+     * @return ElementDownload|null
+     */
+    public function getElementDownload(): ?ElementDownload
+    {
+        return $this->elementDownload;
+    }
+
+    /**
+     * @param ElementDownload|null $elementDownload
+     */
+    public function setElementDownload(?ElementDownload $elementDownload): void
+    {
+        $this->elementDownload = $elementDownload;
     }
 }
