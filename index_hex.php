@@ -2,9 +2,12 @@
 
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCaseArguments;
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
+use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
@@ -53,6 +56,12 @@ try {
     $elementDownloadFactory = new ElementDownloadFactory(
         $homeUrl . $downloadElementTorrentUrl
     );
+    $elementDownloadParser = new ElementDownloadParser(
+        $elementDownloadFactory
+    );
+    $retrieveElementDownloadUseCase = new RetrieveElementDownloadUseCase(
+        $elementDownloadParser
+    );
 
     $retrieveElementGeneralUseCaseArgument = new RetrieveElementGeneralUseCaseArguments(
         empty($html) ? null : $html
@@ -66,6 +75,8 @@ try {
 
         exit(1);
     }
+
+    $elementGeneralCollection = new ElementGeneralCollection();
 
     /** @var ElementGeneral $elementGeneral */
     foreach ($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection() as $elementGeneral) {
@@ -88,24 +99,28 @@ try {
 
         $elementDownloadHtml = file_get_contents($elementDownloadUrl);
 
-        if (!empty($elementDownloadHtml)) {
-            $elementDownloadParser = new ElementDownloadParser(
-                $elementDownloadFactory
-            );
-            $elementDownloadParser->setContent($elementDownloadHtml);
+        $retrieveElementDownloadUseCaseArguments = new RetrieveElementDownloadUseCaseArguments(
+            empty($elementDownloadHtml) ? null : $elementDownloadHtml,
+            $elementGeneral
+        );
+        $retrieveElementDownloadUseCaseResponse = $retrieveElementDownloadUseCase
+            ->handle($retrieveElementDownloadUseCaseArguments);
 
-            $elementDownload = $elementDownloadParser->getElementDownload();
-            $elementDownload = $elementDownload->setElementDownloadUrl(
+        $elementGeneral = $retrieveElementDownloadUseCaseResponse
+            ->getElementGeneral();
+
+        $elementGeneral->setElementDownload(
+            $elementGeneral->getElementDownload()->setElementDownloadUrl(
                 $elementDownloadUrl
-            );
+            )
+        );
 
-            $elementGeneral->setElementDownload($elementDownload);
-        }
+        $elementGeneralCollection->add($elementGeneral);
     }
 
     file_put_contents(
         __DIR__ . '/scrap-json/' . md5(time()),
-        serialize($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection())
+        serialize($elementGeneralCollection)
     );
 } catch (\Exception $e) {
     echo "[Exception]...{$e->getMessage()}\n";
