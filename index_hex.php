@@ -1,5 +1,7 @@
 <?php
 
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCaseArguments;
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
@@ -24,17 +26,13 @@ $firstPage = sprintf(
 
 $html = file_get_contents($firstPage);
 
-if (empty($html)) {
-    echo "[HTML]...We could not retrieve main information\n";
-
-    exit(1);
-}
-
 try {
-    $dataTransformer = new ElementGeneralCollectionDataTransformer();
     $elementGeneralFactory = new ElementGeneralFactory();
     $elementGeneralParser = new ElementGeneralParser(
         $elementGeneralFactory
+    );
+    $retrieveElementGeneralUseCase = new RetrieveElementGeneralUseCase(
+        $elementGeneralParser
     );
     $elementDetailFactory = new ElementDetailFactory(
         __DIR__ . '/scrap-torrent'
@@ -43,12 +41,21 @@ try {
         $homeUrl . $downloadElementTorrentUrl
     );
 
-    $elementGeneralParser->setContent($html);
+    $retrieveElementGeneralUseCaseArgument = new RetrieveElementGeneralUseCaseArguments(
+        $html
+    );
+    $retrieveElementGeneralUseCaseResponse = $retrieveElementGeneralUseCase
+        ->handle($retrieveElementGeneralUseCaseArgument);
 
-    $elementGeneralCollection = $elementGeneralParser->getElementGeneral();
+    if (!$retrieveElementGeneralUseCaseResponse->isSuccess() &&
+        empty($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection())) {
+        echo $retrieveElementGeneralUseCaseResponse->getError() . "\n";
+
+        exit(1);
+    }
 
     /** @var ElementGeneral $elementGeneral */
-    foreach ($elementGeneralCollection as $elementGeneral) {
+    foreach ($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection() as $elementGeneral) {
         $html = file_get_contents($homeUrl . $elementGeneral->getElementLink());
 
         $elementDownloadUrl = $homeUrl . sprintf(
@@ -87,7 +94,7 @@ try {
 
     file_put_contents(
         __DIR__ . '/scrap-json/' . md5(time()),
-        serialize($elementGeneralCollection)
+        serialize($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection())
     );
 } catch (\Exception $e) {
     echo "[Exception]...{$e->getMessage()}\n";
