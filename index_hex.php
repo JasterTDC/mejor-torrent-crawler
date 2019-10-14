@@ -1,5 +1,7 @@
 <?php
 
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCaseArguments;
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
@@ -27,6 +29,7 @@ $firstPage = sprintf(
 $html = file_get_contents($firstPage);
 
 try {
+    // Element general
     $elementGeneralFactory = new ElementGeneralFactory();
     $elementGeneralParser = new ElementGeneralParser(
         $elementGeneralFactory
@@ -34,15 +37,25 @@ try {
     $retrieveElementGeneralUseCase = new RetrieveElementGeneralUseCase(
         $elementGeneralParser
     );
+
+    // Element detail
     $elementDetailFactory = new ElementDetailFactory(
         __DIR__ . '/scrap-torrent'
     );
+    $elementDetailParser = new ElementDetailParser(
+        $elementDetailFactory
+    );
+    $retrieveElementDetailUseCase = new RetrieveElementDetailUseCase(
+        $elementDetailParser
+    );
+
+    // Element download
     $elementDownloadFactory = new ElementDownloadFactory(
         $homeUrl . $downloadElementTorrentUrl
     );
 
     $retrieveElementGeneralUseCaseArgument = new RetrieveElementGeneralUseCaseArguments(
-        $html
+        empty($html) ? null : $html
     );
     $retrieveElementGeneralUseCaseResponse = $retrieveElementGeneralUseCase
         ->handle($retrieveElementGeneralUseCaseArgument);
@@ -56,24 +69,22 @@ try {
 
     /** @var ElementGeneral $elementGeneral */
     foreach ($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection() as $elementGeneral) {
-        $html = file_get_contents($homeUrl . $elementGeneral->getElementLink());
+        $elementDetailHtml = file_get_contents($homeUrl . $elementGeneral->getElementLink());
 
         $elementDownloadUrl = $homeUrl . sprintf(
                 $downloadElementUrl,
                 $elementGeneral->getElementId()
             );
 
-        if (!empty($html)) {
-            $elementDetailParser = new ElementDetailParser(
-                $elementDetailFactory
-            );
+        $retrieveElementDetailUseCaseArguments = new RetrieveElementDetailUseCaseArguments(
+            empty($elementDetailHtml) ? null : $elementDetailHtml,
+            $elementGeneral
+        );
+        $retrieveElementDetailUseCaseResponse = $retrieveElementDetailUseCase
+            ->handle($retrieveElementDetailUseCaseArguments);
 
-            $elementDetailParser->setContent($html);
-
-            $elementDetail = $elementDetailParser->getElementDetail();
-
-            $elementGeneral->setElementDetail($elementDetail);
-        }
+        $elementGeneral = $retrieveElementDetailUseCaseResponse
+            ->getElementGeneral();
 
         $elementDownloadHtml = file_get_contents($elementDownloadUrl);
 
