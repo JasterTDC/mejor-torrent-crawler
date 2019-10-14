@@ -29,6 +29,7 @@ final class ElementGeneralFactory implements ElementGeneralFactoryInterface
             (string) $rawElementGeneral['elementName'],
             (string) $rawElementGeneral['elementSlug'],
             (string) $rawElementGeneral['elementLink'],
+            null,
             null
         );
     }
