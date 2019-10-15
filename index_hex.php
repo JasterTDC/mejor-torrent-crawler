@@ -1,15 +1,12 @@
 <?php
 
+use BestThor\ScrappingMaster\Application\Service\RetrieveElementService;
+use BestThor\ScrappingMaster\Application\Service\RetrieveElementServiceArguments;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCaseArguments;
-use BestThor\ScrappingMaster\Domain\ElementGeneral;
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Application\UseCase\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;
@@ -50,7 +47,7 @@ try {
 
     // Element download
     $elementDownloadFactory = new ElementDownloadFactory(
-        $homeUrl . $downloadElementTorrentUrl
+        $downloadElementTorrentUrl
     );
     $elementDownloadParser = new ElementDownloadParser(
         $elementDownloadFactory
@@ -65,69 +62,40 @@ try {
         $downloadElementUrl
     );
 
-    $elementGeneralHtmlContent = $guzzleMTContentReaderRepository
-        ->getElementGeneralContent(1);
-
-    $retrieveElementGeneralUseCaseArgument = new RetrieveElementGeneralUseCaseArguments(
-        empty($elementGeneralHtmlContent) ? null : $elementGeneralHtmlContent
+    $saveElementInFileUseCase = new SaveElementInFileUseCase(
+        $guzzleMTContentReaderRepository
     );
-    $retrieveElementGeneralUseCaseResponse = $retrieveElementGeneralUseCase
-        ->handle($retrieveElementGeneralUseCaseArgument);
 
-    if (!$retrieveElementGeneralUseCaseResponse->isSuccess() &&
-        empty($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection())) {
-        echo $retrieveElementGeneralUseCaseResponse->getError() . "\n";
+    $retrieveElementService = new RetrieveElementService(
+        $retrieveElementGeneralUseCase,
+        $retrieveElementDetailUseCase,
+        $retrieveElementDownloadUseCase,
+        $guzzleMTContentReaderRepository,
+        $saveElementInFileUseCase
+    );
+
+    $retrieveElementServiceResponse = $retrieveElementService
+        ->handle(
+            new RetrieveElementServiceArguments(
+                1
+            )
+        );
+
+    if (!$retrieveElementServiceResponse->isSuccess()) {
+        echo $retrieveElementServiceResponse->getError() . "\n";
 
         exit(1);
     }
 
-    $elementGeneralCollection = new ElementGeneralCollection();
-
-    /** @var ElementGeneral $elementGeneral */
-    foreach ($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection() as $elementGeneral) {
-        $elementDetailHtmlContent = $guzzleMTContentReaderRepository
-            ->getElementDetailContent($elementGeneral->getElementLink());
-
-        $retrieveElementDetailUseCaseArguments = new RetrieveElementDetailUseCaseArguments(
-            empty($elementDetailHtmlContent) ? null : $elementDetailHtmlContent,
-            $elementGeneral
-        );
-        $retrieveElementDetailUseCaseResponse = $retrieveElementDetailUseCase
-            ->handle($retrieveElementDetailUseCaseArguments);
-
-        $elementGeneral = $retrieveElementDetailUseCaseResponse
-            ->getElementGeneral();
-
-        $elementDownloadHtmlContent = $guzzleMTContentReaderRepository
-            ->getElementDownloadContent($elementGeneral->getElementId());
-
-        $retrieveElementDownloadUseCaseArguments = new RetrieveElementDownloadUseCaseArguments(
-            empty($elementDownloadHtmlContent) ? null : $elementDownloadHtmlContent,
-            $elementGeneral
-        );
-        $retrieveElementDownloadUseCaseResponse = $retrieveElementDownloadUseCase
-            ->handle($retrieveElementDownloadUseCaseArguments);
-
-        $elementGeneral = $retrieveElementDownloadUseCaseResponse
-            ->getElementGeneral();
-
-        $elementGeneral->setElementDownload(
-            $elementGeneral->getElementDownload()->setElementDownloadUrl(
-                $guzzleMTContentReaderRepository->getElementDownloadUrl(
-                    $elementGeneral->getElementId()
-                )
-            )
-        );
-
-        $elementGeneralCollection->add($elementGeneral);
-
-        $transformer = new ElementGeneralDataTransformer();
-    }
+    $elementGeneralCollection = $retrieveElementServiceResponse
+        ->getElementGeneralCollection();
 
     $dataTransformer = new ElementGeneralCollectionDataTransformer();
 
     $elementGeneralCollectionTransformed = $dataTransformer
-        ->transform($elementGeneralCollection);
+        ->transform(
+            $elementGeneralCollection
+        );
 
     file_put_contents(
         __DIR__ . '/scrap-json/' . md5(time()) . '.json',

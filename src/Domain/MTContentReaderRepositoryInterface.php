@@ -50,4 +50,24 @@ interface MTContentReaderRepositoryInterface
     public function getElementDownloadUrl(
         int $elementId
     ) : string;
+
+    /**
+     * @param string $downloadPath
+     *
+     * @return string
+     * @throws ElementDownloadContentEmptyException
+     */
+    public function getElementDownloadFile(
+        string $downloadPath
+    ) : string;
+
+    /**
+     * @param string $imageUrl
+     *
+     * @return string
+     * @throws ElementImageEmptyException
+     */
+    public function getElementImageFile(
+        string $imageUrl
+    ) : string;
 }

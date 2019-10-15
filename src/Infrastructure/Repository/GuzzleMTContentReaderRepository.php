@@ -6,6 +6,7 @@ namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 use BestThor\ScrappingMaster\Domain\ElementDetailContentEmptyException;
 use BestThor\ScrappingMaster\Domain\ElementDownloadContentEmptyException;
 use BestThor\ScrappingMaster\Domain\ElementGeneralContentEmptyException;
+use BestThor\ScrappingMaster\Domain\ElementImageEmptyException;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -74,9 +75,37 @@ final class GuzzleMTContentReaderRepository
             $response = $this->httpClient->get($detailUrl);
 
             return (string) $response->getBody();
-        } catch (ClientException $e) {
+        } catch (\Exception $e) {
             throw new ElementDetailContentEmptyException(
                 'We could not retrieve detail content',
+                1
+            );
+        }
+    }
+
+    /**
+     * @param string $imageUrl
+     *
+     * @return string|null
+     * @throws ElementImageEmptyException
+     */
+    public function getElementImageFile(
+        ?string $imageUrl
+    ) : string {
+        if (empty($imageUrl)) {
+            throw new ElementImageEmptyException(
+                'We need a valid image path',
+                0
+            );
+        }
+
+        try {
+            $response = $this->httpClient->get($imageUrl);
+
+            return $response->getBody()->getContents();
+        } catch (\Exception $e) {
+            throw new ElementImageEmptyException(
+                'We could not retrieve the poster',
                 1
             );
         }
@@ -100,7 +129,7 @@ final class GuzzleMTContentReaderRepository
             $response = $this->httpClient->get($elementGeneralUrl);
 
             return (string) $response->getBody();
-        } catch (ClientException $e) {
+        } catch (\Exception $e) {
             throw new ElementGeneralContentEmptyException(
                 'We could not retrieve general content',
                 1
@@ -126,9 +155,30 @@ final class GuzzleMTContentReaderRepository
             $response = $this->httpClient->get($elementDownloadUrl);
 
             return (string) $response->getBody();
-        } catch (ClientException $e) {
+        } catch (\Exception $e) {
             throw new ElementDownloadContentEmptyException(
                 'We could not retrieve download content',
+                1
+            );
+        }
+    }
+
+    /**
+     * @param string $downloadPath
+     *
+     * @return string
+     * @throws ElementDownloadContentEmptyException
+     */
+    public function getElementDownloadFile(
+        string $downloadPath
+    ) : string {
+        try {
+            $response = $this->httpClient->get($downloadPath);
+
+            return $response->getBody()->getContents();
+        } catch (\Exception $e) {
+            throw new ElementDownloadContentEmptyException(
+                'We could not get element file',
                 1
             );
         }
