@@ -178,4 +178,25 @@ final class ElementDetail
     {
         return $this->elementMonthDir;
     }
+
+    /**
+     * @param string $elementDir
+     *
+     * @return ElementDetail
+     */
+    public function setElementDir(string $elementDir) : self
+    {
+        return new ElementDetail(
+            $this->elementPublishedDate,
+            $this->elementGenre,
+            $this->elementFormat,
+            $this->elementDescription,
+            $this->elementCoverImg,
+            $this->elementCoverImgName,
+            $this->elementDownloadLink,
+            $elementDir,
+            $this->elementYearDir,
+            $this->elementMonthDir
+        );
+    }
 }

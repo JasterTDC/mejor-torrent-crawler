@@ -82,10 +82,10 @@ final class ElementDetailParser implements ElementDetailParserInterface
             if (!empty($coverImgNode)) {
                 $imgMatch = [];
 
-                if (!empty($coverImgNode->attributes->getNamedItem('data-cfsrc'))) {
+                if (!empty($coverImgNode->attributes->getNamedItem('src'))) {
                     $elementDetail['elementCoverImg'] = $coverImgNode
                         ->attributes
-                        ->getNamedItem('data-cfsrc')
+                        ->getNamedItem('src')
                         ->nodeValue;
 
                     preg_match(

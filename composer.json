@@ -2,7 +2,8 @@
     "require": {
         "ext-dom": "20031129",
         "ext-libxml": "^7.2",
-        "ext-json": "^1.6"
+        "ext-json": "^1.6",
+        "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
