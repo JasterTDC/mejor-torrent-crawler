@@ -9,12 +9,14 @@ use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCaseAr
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDetailParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDownloadParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementGeneralParser;
+use BestThor\ScrappingMaster\Infrastructure\Repository\GuzzleMTContentReaderRepository;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -24,14 +26,8 @@ $filmUrl = '/secciones.php?sec=descargas&ap=peliculas&p=%s';
 $downloadElementUrl = '/secciones.php?sec=descargas&ap=contar&tabla=peliculas&id=%s&link_bajar=1';
 $downloadElementTorrentUrl = '/uploads/torrents/peliculas/';
 
-$firstPage = sprintf(
-    $homeUrl . $filmUrl,
-    1
-);
-
-$html = file_get_contents($firstPage);
-
 try {
+
     // Element general
     $elementGeneralFactory = new ElementGeneralFactory();
     $elementGeneralParser = new ElementGeneralParser(
@@ -63,8 +59,17 @@ try {
         $elementDownloadParser
     );
 
+    $guzzleMTContentReaderRepository = new GuzzleMTContentReaderRepository(
+        $homeUrl,
+        $filmUrl,
+        $downloadElementUrl
+    );
+
+    $elementGeneralHtmlContent = $guzzleMTContentReaderRepository
+        ->getElementGeneralContent(1);
+
     $retrieveElementGeneralUseCaseArgument = new RetrieveElementGeneralUseCaseArguments(
-        empty($html) ? null : $html
+        empty($elementGeneralHtmlContent) ? null : $elementGeneralHtmlContent
     );
     $retrieveElementGeneralUseCaseResponse = $retrieveElementGeneralUseCase
         ->handle($retrieveElementGeneralUseCaseArgument);
@@ -80,15 +85,11 @@ try {
 
     /** @var ElementGeneral $elementGeneral */
     foreach ($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection() as $elementGeneral) {
-        $elementDetailHtml = file_get_contents($homeUrl . $elementGeneral->getElementLink());
-
-        $elementDownloadUrl = $homeUrl . sprintf(
-                $downloadElementUrl,
-                $elementGeneral->getElementId()
-            );
+        $elementDetailHtmlContent = $guzzleMTContentReaderRepository
+            ->getElementDetailContent($elementGeneral->getElementLink());
 
         $retrieveElementDetailUseCaseArguments = new RetrieveElementDetailUseCaseArguments(
-            empty($elementDetailHtml) ? null : $elementDetailHtml,
+            empty($elementDetailHtmlContent) ? null : $elementDetailHtmlContent,
             $elementGeneral
         );
         $retrieveElementDetailUseCaseResponse = $retrieveElementDetailUseCase
@@ -97,10 +98,11 @@ try {
         $elementGeneral = $retrieveElementDetailUseCaseResponse
             ->getElementGeneral();
 
-        $elementDownloadHtml = file_get_contents($elementDownloadUrl);
+        $elementDownloadHtmlContent = $guzzleMTContentReaderRepository
+            ->getElementDownloadContent($elementGeneral->getElementId());
 
         $retrieveElementDownloadUseCaseArguments = new RetrieveElementDownloadUseCaseArguments(
-            empty($elementDownloadHtml) ? null : $elementDownloadHtml,
+            empty($elementDownloadHtmlContent) ? null : $elementDownloadHtmlContent,
             $elementGeneral
         );
         $retrieveElementDownloadUseCaseResponse = $retrieveElementDownloadUseCase
@@ -111,16 +113,27 @@ try {
 
         $elementGeneral->setElementDownload(
             $elementGeneral->getElementDownload()->setElementDownloadUrl(
-                $elementDownloadUrl
+                $guzzleMTContentReaderRepository->getElementDownloadUrl(
+                    $elementGeneral->getElementId()
+                )
             )
         );
 
         $elementGeneralCollection->add($elementGeneral);
+
+        $transformer = new ElementGeneralDataTransformer();
     }
 
+    $dataTransformer = new ElementGeneralCollectionDataTransformer();
+
+    $elementGeneralCollectionTransformed = $dataTransformer
+        ->transform($elementGeneralCollection);
+
     file_put_contents(
-        __DIR__ . '/scrap-json/' . md5(time()),
-        serialize($elementGeneralCollection)
+        __DIR__ . '/scrap-json/' . md5(time()) . '.json',
+        json_encode($elementGeneralCollectionTransformed,
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
+        )
     );
 } catch (\Exception $e) {
     echo "[Exception]...{$e->getMessage()}\n";

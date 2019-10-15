@@ -48,7 +48,8 @@ final class ElementDownloadFactory implements ElementDownloadFactoryInterface
 
         return new ElementDownload(
             null,
-            $downloadTorrentName
+            $downloadTorrentName,
+            $rawElementDownload['elementDownloadName']
         );
     }
 }

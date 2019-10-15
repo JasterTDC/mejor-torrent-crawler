@@ -14,6 +14,19 @@ use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
  */
 final class ElementGeneralCollectionDataTransformer
 {
+
+    /**
+     * @var ElementGeneralDataTransformer
+     */
+    protected $elementGeneralDataTransformer;
+
+    /**
+     * ElementGeneralCollectionDataTransformer constructor.
+     */
+    public function __construct()
+    {
+        $this->elementGeneralDataTransformer    = new ElementGeneralDataTransformer();
+    }
     /**
      * @param ElementGeneralCollection $collection
      *
@@ -26,12 +39,10 @@ final class ElementGeneralCollectionDataTransformer
 
         /** @var ElementGeneral $elementGeneral */
         foreach ($collection as $elementGeneral) {
-            $ret[] = [
-                'elementId'     => $elementGeneral->getElementId(),
-                'elementLink'   => $elementGeneral->getElementLink(),
-                'elementSlug'   => $elementGeneral->getElementSlug(),
-                'elementName'   => $elementGeneral->getElementName()
-            ];
+            $tmp = $this->elementGeneralDataTransformer
+                ->transform($elementGeneral);
+
+            $ret[] = $tmp;
         }
 
         return $ret;

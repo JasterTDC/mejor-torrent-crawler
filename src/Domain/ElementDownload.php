@@ -20,20 +20,28 @@ final class ElementDownload
     /**
      * @var string|null
      */
+    protected $elementDownloadName;
+
+    /**
+     * @var string|null
+     */
     protected $elementDownloadTorrentUrl;
 
     /**
      * ElementDownload constructor.
      *
-     * @param string|null $elementDownloadUrl
-     * @param string|null $elementDownloadTorrentUrl
+     * @param string|null   $elementDownloadUrl
+     * @param string|null   $elementDownloadTorrentUrl
+     * @param string|null   $elementDownloadName
      */
     public function __construct(
         ?string $elementDownloadUrl,
-        ?string $elementDownloadTorrentUrl
+        ?string $elementDownloadTorrentUrl,
+        ?string $elementDownloadName
     ) {
-        $this->elementDownloadUrl = $elementDownloadUrl;
-        $this->elementDownloadTorrentUrl = $elementDownloadTorrentUrl;
+        $this->elementDownloadUrl           = $elementDownloadUrl;
+        $this->elementDownloadTorrentUrl    = $elementDownloadTorrentUrl;
+        $this->elementDownloadName          = $elementDownloadName;
     }
 
     /**
@@ -61,7 +69,8 @@ final class ElementDownload
     {
         return new static(
             $elementDownloadUrl,
-            $this->elementDownloadTorrentUrl
+            $this->elementDownloadTorrentUrl,
+            $this->elementDownloadName
         );
     }
 
@@ -74,7 +83,16 @@ final class ElementDownload
     {
         return new static(
             $this->elementDownloadUrl,
-            $elementDownloadTorrentUrl
+            $elementDownloadTorrentUrl,
+            $this->elementDownloadName
         );
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getElementDownloadName(): ?string
+    {
+        return $this->elementDownloadName;
     }
 }

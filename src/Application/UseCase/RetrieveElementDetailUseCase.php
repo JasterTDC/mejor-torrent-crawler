@@ -65,6 +65,11 @@ final class RetrieveElementDetailUseCase
                 ->elementDetailParser
                 ->getElementDetail();
 
+            $elementDetail = $elementDetail->setElementDir(
+                $elementDetail->getElementDir() .
+                $argument->getElementGeneral()->getElementName()
+            );
+
             $elementGeneral = $argument
                 ->getElementGeneral();
 
