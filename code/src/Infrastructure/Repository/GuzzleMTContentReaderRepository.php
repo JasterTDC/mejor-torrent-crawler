@@ -9,7 +9,6 @@ use BestThor\ScrappingMaster\Domain\ElementGeneralContentEmptyException;
 use BestThor\ScrappingMaster\Domain\ElementImageEmptyException;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 
 /**
  * Class GuzzleMTContentReaderRepository
@@ -17,8 +16,8 @@ use GuzzleHttp\Exception\ClientException;
  * @package BestThor\ScrappingMaster\Infrastructure\Repository
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class GuzzleMTContentReaderRepository
-    implements MTContentReaderRepositoryInterface
+final class GuzzleMTContentReaderRepository implements
+    MTContentReaderRepositoryInterface
 {
 
     /**
@@ -86,7 +85,7 @@ final class GuzzleMTContentReaderRepository
     /**
      * @param string $imageUrl
      *
-     * @return string|null
+     * @return string
      * @throws ElementImageEmptyException
      */
     public function getElementImageFile(

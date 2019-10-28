@@ -83,7 +83,7 @@ final class RetrieveElementService
         try {
             $elementGeneralHtmlContent = $this
                 ->mtContentReaderRepository
-                ->getElementGeneralContent(1);
+                ->getElementGeneralContent($argument->getPage());
 
             $retrieveElementGeneralUseCaseArgument = new RetrieveElementGeneralUseCaseArguments(
                 empty($elementGeneralHtmlContent) ? null : $elementGeneralHtmlContent
@@ -93,8 +93,8 @@ final class RetrieveElementService
                 ->handle($retrieveElementGeneralUseCaseArgument);
 
             if (!$retrieveElementGeneralUseCaseResponse->isSuccess() &&
-                empty($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection())) {
-
+                empty($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection())
+            ) {
                 return new RetrieveElementServiceResponse(
                     false,
                     'We could not retrieve element general information',
@@ -114,21 +114,55 @@ final class RetrieveElementService
 
             /** @var ElementGeneral $elementGeneral */
             foreach ($retrieveElementGeneralUseCaseResponse->getElementGeneralCollection() as $elementGeneral) {
-                $elementDetailHtmlContent = $this
-                    ->mtContentReaderRepository
-                    ->getElementDetailContent($elementGeneral->getElementLink());
-
-                $retrieveElementDetailUseCaseArguments = new RetrieveElementDetailUseCaseArguments(
-                    empty($elementDetailHtmlContent) ? null : $elementDetailHtmlContent,
+                $elementGeneral = $this->retrieveElement(
                     $elementGeneral
                 );
-                $retrieveElementDetailUseCaseResponse = $this
-                    ->retrieveElementDetailUseCase
-                    ->handle($retrieveElementDetailUseCaseArguments);
 
-                $elementGeneral = $retrieveElementDetailUseCaseResponse
-                    ->getElementGeneral();
+                if (!empty($elementGeneral)) {
+                    $elementGeneralCollection->add($elementGeneral);
+                }
+            }
 
+            return new RetrieveElementServiceResponse(
+                true,
+                null,
+                $elementGeneralCollection
+            );
+        } catch (\Exception $e) {
+            return new RetrieveElementServiceResponse(
+                false,
+                $e->getMessage(),
+                null
+            );
+        }
+    }
+
+    /**
+     * @param ElementGeneral $elementGeneral
+     *
+     * @return ElementGeneral|null
+     */
+    protected function retrieveElement(
+        ElementGeneral $elementGeneral
+    ) : ?ElementGeneral {
+
+        try {
+            $elementDetailHtmlContent = $this
+                ->mtContentReaderRepository
+                ->getElementDetailContent($elementGeneral->getElementLink());
+
+            $retrieveElementDetailUseCaseArguments = new RetrieveElementDetailUseCaseArguments(
+                empty($elementDetailHtmlContent) ? null : $elementDetailHtmlContent,
+                $elementGeneral
+            );
+            $retrieveElementDetailUseCaseResponse = $this
+                ->retrieveElementDetailUseCase
+                ->handle($retrieveElementDetailUseCaseArguments);
+
+            $elementGeneral = $retrieveElementDetailUseCaseResponse
+                ->getElementGeneral();
+
+            if (!empty($elementGeneral)) {
                 $elementDownloadHtmlContent = $this
                     ->mtContentReaderRepository
                     ->getElementDownloadContent($elementGeneral->getElementId());
@@ -143,7 +177,11 @@ final class RetrieveElementService
 
                 $elementGeneral = $retrieveElementDownloadUseCaseResponse
                     ->getElementGeneral();
+            }
 
+            if (!empty($elementGeneral) &&
+                !empty($elementGeneral->getElementDownload())
+            ) {
                 $elementGeneral->setElementDownload(
                     $elementGeneral->getElementDownload()->setElementDownloadUrl(
                         $this
@@ -159,21 +197,11 @@ final class RetrieveElementService
                         $elementGeneral
                     )
                 );
-
-                $elementGeneralCollection->add($elementGeneral);
             }
 
-            return new RetrieveElementServiceResponse(
-                true,
-                null,
-                $elementGeneralCollection
-            );
+            return $elementGeneral;
         } catch (\Exception $e) {
-            return new RetrieveElementServiceResponse(
-                false,
-                $e->getMessage(),
-                null
-            );
+            return null;
         }
     }
 }

@@ -41,20 +41,22 @@ final class SaveElementInFileUseCase
         try {
             $elementGeneral = $arguments->getElementGeneral();
 
+            if (empty($elementGeneral->getElementDetail()) ||
+                empty($elementGeneral->getElementDetail()->getElementDir()) ||
+                empty($elementGeneral->getElementDetail()->getElementYearDir()) ||
+                empty($elementGeneral->getElementDetail()->getElementMonthDir()) ||
+                empty($elementGeneral->getElementDownload()) ||
+                empty($elementGeneral->getElementDownload()->getElementDownloadTorrentUrl())
+            ) {
+                return new SaveElementInFileUseCaseResponse(false);
+            }
+
             $content = $this
                 ->mtContentReaderRepository
                 ->getElementDownloadFile(
                     $elementGeneral
                         ->getElementDownload()
                         ->getElementDownloadTorrentUrl()
-                );
-
-            $imageContent = $this
-                ->mtContentReaderRepository
-                ->getElementImageFile(
-                    $elementGeneral
-                        ->getElementDetail()
-                        ->getElementCoverImg()
                 );
 
             if (!is_dir($elementGeneral->getElementDetail()->getElementYearDir())) {
@@ -69,17 +71,46 @@ final class SaveElementInFileUseCase
                 mkdir($elementGeneral->getElementDetail()->getElementDir());
             }
 
-            file_put_contents(
-                $elementGeneral->getElementDetail()->getElementDir() . DIRECTORY_SEPARATOR .
-                $elementGeneral->getElementDownload()->getElementDownloadName(),
-                $content
-            );
+            if (!empty($elementGeneral->getElementDetail()) &&
+                !empty($elementGeneral->getElementDetail()->getElementCoverImg()) &&
+                !empty($elementGeneral->getElementDetail()->getElementCoverImgName())
+            ) {
+                $imageContent = $this
+                    ->mtContentReaderRepository
+                    ->getElementImageFile(
+                        $elementGeneral
+                            ->getElementDetail()
+                            ->getElementCoverImg()
+                    );
 
-            file_put_contents(
-                $elementGeneral->getElementDetail()->getElementDir() . DIRECTORY_SEPARATOR .
-                $elementGeneral->getElementDetail()->getElementCoverImgName(),
-                $imageContent
-            );
+                $imageFilePath = $elementGeneral
+                        ->getElementDetail()
+                        ->getElementDir() . DIRECTORY_SEPARATOR .
+                    $elementGeneral
+                        ->getElementDetail()
+                        ->getElementCoverImgName();
+
+                if (!is_file($imageFilePath)) {
+                    file_put_contents(
+                        $imageFilePath,
+                        $imageContent
+                    );
+                }
+            }
+
+            $downloadFilePath = $elementGeneral
+                ->getElementDetail()
+                ->getElementDir() . DIRECTORY_SEPARATOR .
+                $elementGeneral
+                    ->getElementDownload()
+                    ->getElementDownloadName();
+
+            if (!is_file($downloadFilePath)) {
+                file_put_contents(
+                    $downloadFilePath,
+                    $content
+                );
+            }
 
             return new SaveElementInFileUseCaseResponse(true);
         } catch (\Exception $e) {
