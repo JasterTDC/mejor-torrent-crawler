@@ -1,0 +1,9 @@
+version: '3'
+services:
+  crawler:
+    build:
+      context: './docker-base'
+    volumes:
+      - ./scrap-json:/scrap/json:rw
+      - ./scrap-torrent:/scrap/torrent:rw
+      - ./code:/code

@@ -19,7 +19,7 @@ $containerBuilder = new ContainerBuilder();
 
 $containerBuilder->setParameter(
     'torrentDir',
-    __DIR__ . '/../scrap-torrent'
+    '/scrap/torrent'
 );
 
 $containerBuilder->setParameter(

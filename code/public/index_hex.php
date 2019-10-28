@@ -5,12 +5,14 @@ use BestThor\ScrappingMaster\Application\Service\RetrieveElementServiceArguments
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /** @var ContainerBuilder $containerBuilder */
-$containerBuilder = require_once __DIR__ . '/config/dependencies.php';
+$containerBuilder = require_once __DIR__ . '/../config/dependencies.php';
 
 try {
+    $page = (!empty($argv[1]) ? $argv[1] : 1);
+
     /** @var RetrieveElementService $retrieveElementService */
     $retrieveElementService = $containerBuilder
         ->get(RetrieveElementService::class);
@@ -18,7 +20,7 @@ try {
     $retrieveElementServiceResponse = $retrieveElementService
         ->handle(
             new RetrieveElementServiceArguments(
-                1
+                $page
             )
     );
 
@@ -38,8 +40,11 @@ try {
             $elementGeneralCollection
         );
 
+    $current = new \DateTimeImmutable();
+    $file = $current->format('Ymd') . "-{$page}";
+
     file_put_contents(
-        __DIR__ . '/scrap-json/' . md5(time()) . '.json',
+        "/scrap/json/{$file}.json",
         json_encode($elementGeneralCollectionTransformed,
             JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
         )
