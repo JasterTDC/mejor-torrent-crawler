@@ -9,6 +9,8 @@ use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\SaveElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\SaveElementGeneralUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\SaveElementInFileUseCaseArguments;
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
@@ -50,25 +52,33 @@ final class RetrieveElementService
     protected $mtContentReaderRepository;
 
     /**
+     * @var SaveElementGeneralUseCase
+     */
+    protected $saveElementGeneralUseCase;
+
+    /**
      * RetrieveElementService constructor.
      * @param RetrieveElementGeneralUseCase $retrieveElementGeneralUseCase
      * @param RetrieveElementDetailUseCase $retrieveElementDetailUseCase
      * @param RetrieveElementDownloadUseCase $retrieveElementDownloadUseCase
      * @param MTContentReaderRepositoryInterface $mtContentReaderRepository
      * @param SaveElementInFileUseCase $saveElementInFileUseCase
+     * @param SaveElementGeneralUseCase $saveElementGeneralUseCase
      */
     public function __construct(
         RetrieveElementGeneralUseCase $retrieveElementGeneralUseCase,
         RetrieveElementDetailUseCase $retrieveElementDetailUseCase,
         RetrieveElementDownloadUseCase $retrieveElementDownloadUseCase,
         MTContentReaderRepositoryInterface $mtContentReaderRepository,
-        SaveElementInFileUseCase $saveElementInFileUseCase
+        SaveElementInFileUseCase $saveElementInFileUseCase,
+        SaveElementGeneralUseCase $saveElementGeneralUseCase
     ) {
         $this->retrieveElementGeneralUseCase = $retrieveElementGeneralUseCase;
         $this->retrieveElementDetailUseCase = $retrieveElementDetailUseCase;
         $this->retrieveElementDownloadUseCase = $retrieveElementDownloadUseCase;
         $this->mtContentReaderRepository = $mtContentReaderRepository;
         $this->saveElementInFileUseCase = $saveElementInFileUseCase;
+        $this->saveElementGeneralUseCase = $saveElementGeneralUseCase;
     }
 
     /**
@@ -121,6 +131,14 @@ final class RetrieveElementService
                 if (!empty($elementGeneral)) {
                     $elementGeneralCollection->add($elementGeneral);
                 }
+
+                $this
+                    ->saveElementGeneralUseCase
+                    ->handle(
+                        new SaveElementGeneralUseCaseArguments(
+                            $elementGeneral
+                        )
+                    );
             }
 
             return new RetrieveElementServiceResponse(

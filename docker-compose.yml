@@ -1,8 +1,19 @@
 version: '3'
 services:
+  sql:
+    image: mariadb
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+      - ./.mysql-data:/var/lib/mysql/
   crawler:
     build:
       context: './docker-base'
+    depends_on:
+      - sql
     volumes:
       - ./scrap-json:/scrap/json:rw
       - ./scrap-torrent:/scrap/torrent:rw

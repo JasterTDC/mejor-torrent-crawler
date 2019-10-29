@@ -4,6 +4,7 @@ use BestThor\ScrappingMaster\Application\Service\RetrieveElementService;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\SaveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
@@ -12,6 +13,8 @@ use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDetailParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDownloadParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementGeneralParser;
 use BestThor\ScrappingMaster\Infrastructure\Repository\GuzzleMTContentReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\PdoWriter;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
@@ -40,6 +43,21 @@ $containerBuilder->setParameter(
 $containerBuilder->setParameter(
     'downloadElementUrl',
     '/secciones.php?sec=descargas&ap=contar&tabla=peliculas&id=%s&link_bajar=1'
+);
+
+$containerBuilder->setParameter(
+    'PdoWriterDsn',
+    'mysql:host=sql;charset=utf8;port=3306;database=elements'
+);
+
+$containerBuilder->setParameter(
+    'PdoWriterUsername',
+    'root'
+);
+
+$containerBuilder->setParameter(
+    'PdoWriterPassword',
+    'root'
 );
 
 $containerBuilder->register(
@@ -101,6 +119,24 @@ $containerBuilder->register(
 )->addArgument(new Reference(GuzzleMTContentReaderRepository::class));
 
 $containerBuilder->register(
+    PdoWriter::class,
+    PdoWriter::class
+)
+    ->addArgument('%PdoWriterDsn%')
+    ->addArgument('%PdoWriterUsername%')
+    ->addArgument('%PdoWriterPassword%');
+
+$containerBuilder->register(
+    MysqlPdoElementGeneralWriterRepository::class,
+    MysqlPdoElementGeneralWriterRepository::class
+)->addArgument(new Reference(PdoWriter::class));
+
+$containerBuilder->register(
+    SaveElementGeneralUseCase::class,
+    SaveElementGeneralUseCase::class
+)->addArgument(new Reference(MysqlPdoElementGeneralWriterRepository::class));
+
+$containerBuilder->register(
     RetrieveElementService::class,
     RetrieveElementService::class
 )
@@ -108,6 +144,7 @@ $containerBuilder->register(
     ->addArgument(new Reference(RetrieveElementDetailUseCase::class))
     ->addArgument(new Reference(RetrieveElementDownloadUseCase::class))
     ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
-    ->addArgument(new Reference(SaveElementInFileUseCase::class));
+    ->addArgument(new Reference(SaveElementInFileUseCase::class))
+    ->addArgument(new Reference(SaveElementGeneralUseCase::class));
 
 return $containerBuilder;
