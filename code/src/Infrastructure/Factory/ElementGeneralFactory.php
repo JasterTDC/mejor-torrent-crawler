@@ -17,6 +17,30 @@ final class ElementGeneralFactory implements ElementGeneralFactoryInterface
 {
 
     /**
+     * @var ElementDetailFactory
+     */
+    protected $elementDetailFactory;
+
+    /**
+     * @var ElementDownloadFactory
+     */
+    protected $elementDownloadFactory;
+
+    /**
+     * ElementGeneralFactory constructor.
+     *
+     * @param ElementDetailFactory $elementDetailFactory
+     * @param ElementDownloadFactory $elementDownloadFactory
+     */
+    public function __construct(
+        ElementDetailFactory $elementDetailFactory,
+        ElementDownloadFactory $elementDownloadFactory
+    ) {
+        $this->elementDetailFactory = $elementDetailFactory;
+        $this->elementDownloadFactory = $elementDownloadFactory;
+    }
+
+    /**
      * @param array $rawElementGeneral
      *
      * @return ElementGeneral

@@ -17,17 +17,17 @@ final class MysqlPdoElementGeneralWriterRepository
     implements ElementGeneralWriterRepositoryInterface
 {
     /**
-     * @var PdoWriter
+     * @var PdoAccess
      */
     protected $pdoWriter;
 
     /**
      * MysqlPdoElementGeneralWriterRepository constructor.
      *
-     * @param PdoWriter $pdoWriter
+     * @param PdoAccess $pdoWriter
      */
     public function __construct(
-        PdoWriter $pdoWriter
+        PdoAccess $pdoWriter
     ) {
         $this->pdoWriter = $pdoWriter;
     }
