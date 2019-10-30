@@ -4,12 +4,12 @@
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 /**
- * Class PdoWriter
+ * Class PdoAccess
  *
  * @package BestThor\ScrappingMaster\Infrastructure\Repository
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class PdoWriter
+final class PdoAccess
 {
     /**
      * @var string

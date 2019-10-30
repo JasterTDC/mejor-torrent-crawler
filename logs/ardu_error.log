@@ -1,0 +1,18 @@
+2019/10/30 20:30:34 [error] 16#16: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in /code/vendor/slim/slim/Slim/Middleware/RoutingMiddleware.php:91
+Stack trace:
+#0 /code/vendor/slim/slim/Slim/Routing/RouteRunner.php(71): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 /code/vendor/slim/slim/Slim/MiddlewareDispatcher.php(73): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 /code/vendor/slim/slim/Slim/App.php(208): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 /code/vendor/slim/slim/Slim/App.php(192): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 /code/public/index.php(18): Slim\App->run()
+#5 {main}
+  thrown in /code/vendor/slim/slim/Slim/Middleware/RoutingMiddleware.php on line 91" while reading response header from upstream, client: 172.21.0.1, server: crawler.local, request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "crawler.local"
+2019/10/30 20:30:35 [error] 16#16: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Slim\Exception\HttpNotFoundException: Not found. in /code/vendor/slim/slim/Slim/Middleware/RoutingMiddleware.php:91
+Stack trace:
+#0 /code/vendor/slim/slim/Slim/Routing/RouteRunner.php(71): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Psr7\Request))
+#1 /code/vendor/slim/slim/Slim/MiddlewareDispatcher.php(73): Slim\Routing\RouteRunner->handle(Object(Slim\Psr7\Request))
+#2 /code/vendor/slim/slim/Slim/App.php(208): Slim\MiddlewareDispatcher->handle(Object(Slim\Psr7\Request))
+#3 /code/vendor/slim/slim/Slim/App.php(192): Slim\App->handle(Object(Slim\Psr7\Request))
+#4 /code/public/index.php(18): Slim\App->run()
+#5 {main}
+  thrown in /code/vendor/slim/slim/Slim/Middleware/RoutingMiddleware.php on line 91" while reading response header from upstream, client: 172.21.0.1, server: crawler.local, request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "crawler.local"

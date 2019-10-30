@@ -14,7 +14,10 @@ services:
       context: './docker-base'
     depends_on:
       - sql
+    ports:
+      - "80:80"
     volumes:
       - ./scrap-json:/scrap/json:rw
       - ./scrap-torrent:/scrap/torrent:rw
       - ./code:/code
+      - ./logs:/LOGS
