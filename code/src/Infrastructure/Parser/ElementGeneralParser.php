@@ -97,10 +97,10 @@ final class ElementGeneralParser implements ElementGeneralParserInterface
                     $match
                 )) {
                     $rawElement = [
-                        'elementId'     => $match['elementId'],
-                        'elementSlug'   => $match['elementSlug'],
-                        'elementLink'   => $hrefLink->textContent,
-                        'elementName'   => preg_replace('/\-/', ' ', $match['elementSlug'])
+                        'id'     => $match['elementId'],
+                        'slug'   => $match['elementSlug'],
+                        'link'   => $hrefLink->textContent,
+                        'name'   => preg_replace('/\-/', ' ', $match['elementSlug'])
                     ];
 
                     $rawElementGeneralCollection[] = $rawElement;

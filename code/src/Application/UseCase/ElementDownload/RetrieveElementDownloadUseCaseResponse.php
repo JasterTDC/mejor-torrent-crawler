@@ -1,19 +1,18 @@
 <?php
 
 
-namespace BestThor\ScrappingMaster\Application\UseCase;
+namespace BestThor\ScrappingMaster\Application\UseCase\ElementDownload;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 
 /**
- * Class RetrieveElementDetailUseCaseResponse
+ * Class RetrieveElementDownloadUseCaseResponse
  *
  * @package BestThor\ScrappingMaster\Application\UseCase
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class RetrieveElementDetailUseCaseResponse
+final class RetrieveElementDownloadUseCaseResponse
 {
-
     /**
      * @var bool
      */
@@ -30,8 +29,7 @@ final class RetrieveElementDetailUseCaseResponse
     protected $elementGeneral;
 
     /**
-     * RetrieveElementDetailUseCaseResponse constructor.
-     *
+     * RetrieveElementDownloadUseCaseResponse constructor.
      * @param bool $success
      * @param string|null $error
      * @param ElementGeneral|null $elementGeneral
@@ -45,6 +43,7 @@ final class RetrieveElementDetailUseCaseResponse
         $this->error = $error;
         $this->elementGeneral = $elementGeneral;
     }
+
 
     /**
      * @return bool

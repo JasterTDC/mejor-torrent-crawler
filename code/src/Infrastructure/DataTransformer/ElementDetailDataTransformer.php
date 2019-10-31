@@ -29,45 +29,45 @@ final class ElementDetailDataTransformer
         }
 
         if (!empty($elementDetail->getElementPublishedDate())) {
-            $ret['elementPublishedDate'] = $elementDetail
+            $ret['publishedDate'] = $elementDetail
                 ->getElementPublishedDate()
                 ->format('Y-m-d');
         }
 
         if (!empty($elementDetail->getElementFormat())) {
-            $ret['elementFormat'] = utf8_encode($elementDetail->getElementFormat());
+            $ret['format'] = $elementDetail->getElementFormat();
         }
 
         if (!empty($elementDetail->getElementDescription())) {
-            $ret['elementDescription'] = utf8_encode($elementDetail->getElementDescription());
+            $ret['description'] = $elementDetail->getElementDescription();
         }
 
         if (!empty($elementDetail->getElementGenre())) {
-            $ret['elementGenre'] = utf8_encode($elementDetail->getElementGenre());
+            $ret['genre'] = $elementDetail->getElementGenre();
         }
 
         if (!empty($elementDetail->getElementCoverImg())) {
-            $ret['elementCoverImg'] = $elementDetail->getElementCoverImg();
+            $ret['coverImg'] = $elementDetail->getElementCoverImg();
         }
 
         if (!empty($elementDetail->getElementCoverImgName())) {
-            $ret['elementCoverImgName'] = $elementDetail->getElementCoverImgName();
+            $ret['coverImgName'] = $elementDetail->getElementCoverImgName();
         }
 
         if (!empty($elementDetail->getElementDir())) {
-            $ret['elementDir'] = $elementDetail->getElementDir();
+            $ret['dir'] = $elementDetail->getElementDir();
         }
 
         if (!empty($elementDetail->getElementYearDir())) {
-            $ret['elementYearDir'] = $elementDetail->getElementYearDir();
+            $ret['yearDir'] = $elementDetail->getElementYearDir();
         }
 
         if (!empty($elementDetail->getElementMonthDir())) {
-            $ret['elementMonthDir'] = $elementDetail->getElementMonthDir();
+            $ret['monthDir'] = $elementDetail->getElementMonthDir();
         }
 
         if (!empty($elementDetail->getElementDownloadLink())) {
-            $ret['elementDownloadLink'] = $elementDetail->getElementDownloadLink();
+            $ret['downloadLink'] = $elementDetail->getElementDownloadLink();
         }
 
         return $ret;

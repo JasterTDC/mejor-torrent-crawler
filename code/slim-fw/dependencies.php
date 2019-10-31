@@ -1,11 +1,12 @@
 <?php
 
 use BestThor\ScrappingMaster\Application\Service\RetrieveElementService;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\SaveElementGeneralUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\SaveElementInFileUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
@@ -13,7 +14,9 @@ use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDetailParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDownloadParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementGeneralParser;
+use BestThor\ScrappingMaster\Infrastructure\Renderer\TemplateRenderer;
 use BestThor\ScrappingMaster\Infrastructure\Repository\GuzzleMTContentReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralReaderRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\PdoAccess;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -24,6 +27,11 @@ $containerBuilder = new ContainerBuilder();
 $containerBuilder->setParameter(
     'torrentDir',
     '/scrap/torrent'
+);
+
+$containerBuilder->setParameter(
+    'staticImgDir',
+    '/static/img/'
 );
 
 $containerBuilder->setParameter(
@@ -74,6 +82,18 @@ $containerBuilder->setParameter(
 $containerBuilder->setParameter(
     'PdoReaderPassword',
     'root'
+);
+
+$containerBuilder->setParameter(
+    'TemplateDir',
+    __DIR__ . '/../views'
+);
+
+$containerBuilder->setParameter(
+    'TemplateOptions',
+    [
+        'cache' => false
+    ]
 );
 
 $containerBuilder->register(
@@ -134,7 +154,9 @@ $containerBuilder->register(
 $containerBuilder->register(
     SaveElementInFileUseCase::class,
     SaveElementInFileUseCase::class
-)->addArgument(new Reference(GuzzleMTContentReaderRepository::class));
+)
+    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
+    ->addArgument('%staticImgDir%');
 
 $containerBuilder->register(
     PdoAccess::class,
@@ -158,6 +180,26 @@ $containerBuilder->register(
 )->addArgument(new Reference(PdoAccess::class));
 
 $containerBuilder->register(
+    MysqlPdoElementGeneralReaderRepository::class,
+    MysqlPdoElementGeneralReaderRepository::class
+)
+    ->addArgument(new Reference('PdoReader'))
+    ->addArgument(new Reference(ElementGeneralFactory::class));
+
+$containerBuilder->register(
+    GetElementGeneralUseCase::class,
+    GetElementGeneralUseCase::class
+)
+    ->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class));
+
+$containerBuilder->register(
+    TemplateRenderer::class,
+    TemplateRenderer::class
+)
+    ->addArgument('%TemplateDir%')
+    ->addArgument('%TemplateOptions%');
+
+$containerBuilder->register(
     SaveElementGeneralUseCase::class,
     SaveElementGeneralUseCase::class
 )->addArgument(new Reference(MysqlPdoElementGeneralWriterRepository::class));
@@ -176,6 +218,8 @@ $containerBuilder->register(
 $containerBuilder->register(
     MainController::class,
     MainController::class
-);
+)
+    ->addArgument(new Reference(GetElementGeneralUseCase::class))
+    ->addArgument(new Reference(TemplateRenderer::class));
 
 return $containerBuilder;

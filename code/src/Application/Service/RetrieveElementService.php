@@ -3,16 +3,16 @@
 
 namespace BestThor\ScrappingMaster\Application\Service;
 
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDetailUseCaseArguments;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementDownloadUseCaseArguments;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\RetrieveElementGeneralUseCaseArguments;
-use BestThor\ScrappingMaster\Application\UseCase\SaveElementGeneralUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\SaveElementGeneralUseCaseArguments;
-use BestThor\ScrappingMaster\Application\UseCase\SaveElementInFileUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\SaveElementInFileUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCaseArguments;
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;

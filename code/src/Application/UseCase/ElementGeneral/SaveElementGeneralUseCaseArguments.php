@@ -1,17 +1,17 @@
 <?php
 
 
-namespace BestThor\ScrappingMaster\Application\UseCase;
+namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 
 /**
- * Class SaveElementInFileUseCaseArguments
+ * Class SaveElementGeneralUseCaseArguments
  *
  * @package BestThor\ScrappingMaster\Application\UseCase
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class SaveElementInFileUseCaseArguments
+final class SaveElementGeneralUseCaseArguments
 {
 
     /**
@@ -20,7 +20,8 @@ final class SaveElementInFileUseCaseArguments
     protected $elementGeneral;
 
     /**
-     * SaveElementInFileUseCaseArguments constructor.
+     * SaveElementGeneralUseCaseArguments constructor.
+     *
      * @param ElementGeneral $elementGeneral
      */
     public function __construct(ElementGeneral $elementGeneral)

@@ -18,6 +18,8 @@ CREATE TABLE IF NOT EXISTS `elements`.`general`(
     `downloadUrl`           VARCHAR(255) DEFAULT NULL,
     `downloadTorrentUrl`    VARCHAR(255) DEFAULT NULL,
     `downloadName`          VARCHAR(255) DEFAULT NULL,
+    `createdAt`             DATETIME NOT NULL,
+    `updatedAt`             DATETIME NOT NULL,
 
     PRIMARY KEY (`id`)
 )Engine=InnoDB DEFAULT CHARSET=utf8;

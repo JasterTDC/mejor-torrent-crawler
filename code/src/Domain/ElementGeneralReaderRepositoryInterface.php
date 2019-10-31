@@ -11,4 +11,16 @@ namespace BestThor\ScrappingMaster\Domain;
  */
 interface ElementGeneralReaderRepositoryInterface
 {
+
+    /**
+     * @param int $page
+     * @param int $limit
+     *
+     * @return ElementGeneralCollection
+     * @throws ElementGeneralCollectionEmptyException
+     */
+    public function getElementGeneralByPage(
+        int $page,
+        int $limit
+    ) : ElementGeneralCollection;
 }

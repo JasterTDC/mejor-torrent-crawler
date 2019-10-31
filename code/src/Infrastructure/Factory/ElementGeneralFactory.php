@@ -42,26 +42,55 @@ final class ElementGeneralFactory implements ElementGeneralFactoryInterface
 
     /**
      * @param array $rawElementGeneral
-     *
      * @return ElementGeneral
+     *
+     * @throws \Exception
      */
     public function createFromRawElementGeneral(
         array $rawElementGeneral
     ) : ElementGeneral {
-        return new ElementGeneral(
-            (int) $rawElementGeneral['elementId'],
-            (string) $rawElementGeneral['elementName'],
-            (string) $rawElementGeneral['elementSlug'],
-            (string) $rawElementGeneral['elementLink'],
-            null,
-            null
-        );
+        try {
+            $createdAt = new \DateTimeImmutable();
+            $updatedAt = new \DateTimeImmutable();
+
+            if (!empty($rawElementGeneral['createdAt'])) {
+                $createdAt = \DateTimeImmutable::createFromFormat(
+                    'Y-m-d H:i:s',
+                    $rawElementGeneral['createdAt']
+                );
+            }
+
+            if (!empty($rawElementGeneral['updatedAt'])) {
+                $updatedAt = \DateTimeImmutable::createFromFormat(
+                    'Y-m-d H:i:s',
+                    $rawElementGeneral['updatedAt']
+                );
+            }
+
+            return new ElementGeneral(
+                (int) $rawElementGeneral['id'],
+                (string) $rawElementGeneral['name'],
+                (string) $rawElementGeneral['slug'],
+                (string) $rawElementGeneral['link'],
+                $createdAt,
+                $updatedAt,
+                $this->elementDetailFactory->createElementDetailFromRaw(
+                    $rawElementGeneral
+                ),
+                $this->elementDownloadFactory->createFromRaw(
+                    $rawElementGeneral
+                )
+            );
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
      * @param array $rawElementGeneralCollection
      *
      * @return ElementGeneralCollection
+     * @throws \Exception
      */
     public function createFromRawElementGeneralCollection(
         array $rawElementGeneralCollection

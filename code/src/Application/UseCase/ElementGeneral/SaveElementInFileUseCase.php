@@ -1,9 +1,8 @@
 <?php
 
 
-namespace BestThor\ScrappingMaster\Application\UseCase;
+namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneral;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
 
 /**
@@ -20,14 +19,22 @@ final class SaveElementInFileUseCase
     protected $mtContentReaderRepository;
 
     /**
+     * @var string
+     */
+    protected $staticImgDir;
+
+    /**
      * SaveElementInFileUseCase constructor.
      *
      * @param MTContentReaderRepositoryInterface $mtContentReaderRepository
+     * @param string $staticImgDir
      */
     public function __construct(
-        MTContentReaderRepositoryInterface $mtContentReaderRepository
+        MTContentReaderRepositoryInterface $mtContentReaderRepository,
+        string $staticImgDir
     ) {
         $this->mtContentReaderRepository = $mtContentReaderRepository;
+        $this->staticImgDir = $staticImgDir;
     }
 
     /**
@@ -83,6 +90,12 @@ final class SaveElementInFileUseCase
                             ->getElementCoverImg()
                     );
 
+                preg_match(
+                    '/(?<imageExtension>\.[^$]+)/',
+                    $elementGeneral->getElementDetail()->getElementCoverImgName(),
+                    $imageExtension
+                );
+
                 $imageFilePath = $elementGeneral
                         ->getElementDetail()
                         ->getElementDir() . DIRECTORY_SEPARATOR .
@@ -90,9 +103,20 @@ final class SaveElementInFileUseCase
                         ->getElementDetail()
                         ->getElementCoverImgName();
 
+                $staticImgPath = $this->staticImgDir .
+                    $elementGeneral->getElementId() .
+                    $imageExtension['imageExtension'];
+
                 if (!is_file($imageFilePath)) {
                     file_put_contents(
                         $imageFilePath,
+                        $imageContent
+                    );
+                }
+
+                if (!is_file($staticImgPath)) {
+                    file_put_contents(
+                        $staticImgPath,
                         $imageContent
                     );
                 }

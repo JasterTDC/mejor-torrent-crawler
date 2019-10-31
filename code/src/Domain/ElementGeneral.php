@@ -33,6 +33,16 @@ final class ElementGeneral
     protected $elementLink;
 
     /**
+     * @var \DateTimeImmutable
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTimeImmutable
+     */
+    protected $updatedAt;
+
+    /**
      * @var ElementDetail|null
      */
     protected $elementDetail;
@@ -49,6 +59,8 @@ final class ElementGeneral
      * @param string $elementName
      * @param string $elementSlug
      * @param string $elementLink
+     * @param \DateTimeImmutable $createdAt
+     * @param \DateTimeImmutable $updatedAt
      * @param ElementDetail|null $elementDetail
      * @param ElementDownload|null $elementDownload
      */
@@ -57,6 +69,8 @@ final class ElementGeneral
         string $elementName,
         string $elementSlug,
         string $elementLink,
+        \DateTimeImmutable $createdAt,
+        \DateTimeImmutable $updatedAt,
         ?ElementDetail $elementDetail,
         ?ElementDownload $elementDownload
     ) {
@@ -66,6 +80,8 @@ final class ElementGeneral
         $this->elementLink = $elementLink;
         $this->elementDetail = $elementDetail;
         $this->elementDownload = $elementDownload;
+        $this->createdAt = $createdAt;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -130,6 +146,38 @@ final class ElementGeneral
     public function setElementLink(string $elementLink): void
     {
         $this->elementLink = $elementLink;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTimeImmutable $createdAt
+     */
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTimeImmutable $updatedAt
+     */
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     /**

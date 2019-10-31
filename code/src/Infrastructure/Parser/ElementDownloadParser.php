@@ -74,7 +74,7 @@ final class ElementDownloadParser implements ElementDownloadParserInterface
         if (!empty($downloadTorrentNameContainer) &&
             !empty($downloadTorrentNameContainer->item(0))
         ) {
-            $ret['elementDownloadName'] = $downloadTorrentNameContainer
+            $ret['downloadName'] = $downloadTorrentNameContainer
                 ->item(0)
                 ->nodeValue;
         }
