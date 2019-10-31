@@ -29,15 +29,15 @@ final class ElementDownloadDataTransformer
         }
 
         if (!empty($elementDownload->getElementDownloadUrl())) {
-            $ret['elementDownloadUrl'] = $elementDownload->getElementDownloadUrl();
+            $ret['downloadUrl'] = $elementDownload->getElementDownloadUrl();
         }
 
         if (!empty($elementDownload->getElementDownloadTorrentUrl())) {
-            $ret['elementDownloadTorrentUrl'] = $elementDownload->getElementDownloadTorrentUrl();
+            $ret['downloadThorUrl'] = $elementDownload->getElementDownloadTorrentUrl();
         }
 
         if (!empty($elementDownload->getElementDownloadName())) {
-            $ret['elementDownloadName'] = $elementDownload->getElementDownloadName();
+            $ret['downloadName'] = $elementDownload->getElementDownloadName();
         }
 
         return $ret;

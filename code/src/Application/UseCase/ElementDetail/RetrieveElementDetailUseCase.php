@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BestThor\ScrappingMaster\Application\UseCase;
+namespace BestThor\ScrappingMaster\Application\UseCase\ElementDetail;
 
 use BestThor\ScrappingMaster\Domain\ElementDetailParserInterface;
 

@@ -57,7 +57,9 @@ final class MysqlPdoElementGeneralWriterRepository
                                   `monthDir`,
                                   `downloadUrl`,
                                   `downloadTorrentUrl`,
-                                  `downloadName`
+                                  `downloadName`,
+                                  `createdAt`,
+                                  `updatedAt`
         ) VALUES (
             :id, 
                   :link, 
@@ -75,8 +77,10 @@ final class MysqlPdoElementGeneralWriterRepository
                   :monthDir,
                   :downloadUrl,
                   :downloadTorrentUrl,
-                  :downloadName
-        ) ON DUPLICATE KEY UPDATE `name` = VALUES(`name`)
+                  :downloadName,
+                  :createdAt,
+                  :updatedAt
+        ) ON DUPLICATE KEY UPDATE `updatedAt` = VALUES(`updatedAt`)
         ";
 
         $publishedDate      = null;
@@ -167,7 +171,9 @@ final class MysqlPdoElementGeneralWriterRepository
             'monthDir'              => $monthDir,
             'downloadUrl'           => $downloadUrl,
             'downloadTorrentUrl'    => $downloadTorrentUrl,
-            'downloadName'          => $downloadName
+            'downloadName'          => $downloadName,
+            'createdAt'             => $elementGeneral->getCreatedAt()->format('Y-m-d H:i:s'),
+            'updatedAt'             => $elementGeneral->getUpdatedAt()->format('Y-m-d H:i:s')
         ];
 
         try {

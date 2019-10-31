@@ -8,10 +8,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /** @var ContainerBuilder $containerBuilder */
-$containerBuilder = require_once __DIR__ . '/../symfony-fw/dependencies.php';
+$containerBuilder = require_once __DIR__ . '/../slim-fw/dependencies.php';
 
 try {
-    $page = (!empty($argv[1]) ? $argv[1] : 1);
+    $page =(int) (!empty($argv[1]) ? $argv[1] : 1);
 
     /** @var RetrieveElementService $retrieveElementService */
     $retrieveElementService = $containerBuilder

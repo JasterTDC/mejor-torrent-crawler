@@ -2,6 +2,10 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Controller;
 
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCaseArguments;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\Renderer\TemplateRenderer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -14,10 +18,27 @@ use Psr\Http\Message\ServerRequestInterface;
 final class MainController
 {
     /**
-     * MainController constructor.
+     * @var GetElementGeneralUseCase
      */
-    public function __construct()
-    {
+    protected $getElementGeneralUseCase;
+
+    /**
+     * @var TemplateRenderer
+     */
+    protected $templateRenderer;
+
+    /**
+     * MainController constructor.
+     *
+     * @param GetElementGeneralUseCase $getElementGeneralUseCase
+     * @param TemplateRenderer $templateRenderer
+     */
+    public function __construct(
+        GetElementGeneralUseCase $getElementGeneralUseCase,
+        TemplateRenderer $templateRenderer
+    ) {
+        $this->getElementGeneralUseCase = $getElementGeneralUseCase;
+        $this->templateRenderer = $templateRenderer;
     }
 
     /**
@@ -30,10 +51,41 @@ final class MainController
         ServerRequestInterface $request,
         ResponseInterface $response
     ) : ResponseInterface {
-        $response->getBody()->write(json_encode([
-            'success'   => true
-        ]));
-        $response = $response->withHeader('Content-type', 'application/json');
+        $useCaseResponse = $this
+            ->getElementGeneralUseCase
+            ->handle(
+                new GetElementGeneralUseCaseArguments(
+                    10,
+                    1
+                )
+            );
+
+        if ($useCaseResponse->isSuccess() &&
+            !empty($useCaseResponse->getElementGeneralCollection())
+        ) {
+            $dataTransformer = new ElementGeneralCollectionDataTransformer();
+
+            try {
+                $elementGeneralCollectionTransformed = $dataTransformer
+                    ->transform($useCaseResponse->getElementGeneralCollection());
+
+                $html = $this
+                    ->templateRenderer
+                    ->getTemplateRenderer()
+                    ->render(
+                        'main.html.twig',
+                        [
+                            'elementGeneralCollection' => $elementGeneralCollectionTransformed
+                        ]
+                    );
+
+                $response->getBody()->write($html);
+                $response = $response->withHeader('Content-type', 'text/html');
+
+                return $response->withStatus(200);
+            } catch (\Exception $e) {
+            }
+        }
 
         return $response->withStatus(200);
     }

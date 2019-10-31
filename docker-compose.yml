@@ -19,5 +19,6 @@ services:
     volumes:
       - ./scrap-json:/scrap/json:rw
       - ./scrap-torrent:/scrap/torrent:rw
+      - ./media/img:/static/img:rw
       - ./code:/code
       - ./logs:/LOGS
