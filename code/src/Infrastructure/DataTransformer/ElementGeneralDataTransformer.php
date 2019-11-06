@@ -43,19 +43,19 @@ final class ElementGeneralDataTransformer
         ElementGeneral $elementGeneral
     ) : array {
         $ret = [
-            'elementId'     => $elementGeneral->getElementId(),
-            'elementLink'   => $elementGeneral->getElementLink(),
-            'elementSlug'   => $elementGeneral->getElementSlug(),
-            'elementName'   => $elementGeneral->getElementName()
+            'id'     => $elementGeneral->getElementId(),
+            'link'   => $elementGeneral->getElementLink(),
+            'slug'   => $elementGeneral->getElementSlug(),
+            'name'   => $elementGeneral->getElementName()
         ];
 
         if (!empty($this->elementDetailDataTransformer->transform($elementGeneral->getElementDetail()))) {
-            $ret['elementDetail'] = $this->elementDetailDataTransformer
+            $ret['detail'] = $this->elementDetailDataTransformer
                 ->transform($elementGeneral->getElementDetail());
         }
 
         if (!empty($this->elementDownloadDataTransformer->transform($elementGeneral->getElementDownload()))) {
-            $ret['elementDownload'] = $this->elementDownloadDataTransformer
+            $ret['download'] = $this->elementDownloadDataTransformer
                 ->transform($elementGeneral->getElementDownload());
         }
 

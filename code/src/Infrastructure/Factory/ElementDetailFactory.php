@@ -39,7 +39,7 @@ final class ElementDetailFactory implements ElementDetailFactoryInterface
     ) : ElementDetail {
         $current = \DateTimeImmutable::createFromFormat(
             'Y-m-d',
-            $rawElementDetail['elementPublishedDate']
+            $rawElementDetail['publishedDate']
         );
         $elementGenre           = null;
         $elementFormat          = null;
@@ -51,32 +51,28 @@ final class ElementDetailFactory implements ElementDetailFactoryInterface
         $elementYearDir         = null;
         $elementMonthDir        = null;
 
-        if (!empty($rawElementDetail['elementGenre'])) {
-            $elementGenre = $rawElementDetail['elementGenre'];
+        if (!empty($rawElementDetail['genre'])) {
+            $elementGenre = $rawElementDetail['genre'];
         }
 
-        if (!empty($rawElementDetail['elementFormat'])) {
-            $elementFormat = $rawElementDetail['elementFormat'];
+        if (!empty($rawElementDetail['format'])) {
+            $elementFormat = $rawElementDetail['format'];
         }
 
-        if (!empty($rawElementDetail['elementDescription'])) {
-            $elementDescription = $rawElementDetail['elementDescription'];
+        if (!empty($rawElementDetail['description'])) {
+            $elementDescription = $rawElementDetail['description'];
         }
 
-        if (!empty($rawElementDetail['elementCoverImg'])) {
-            $elementCoverImg = $rawElementDetail['elementCoverImg'];
+        if (!empty($rawElementDetail['coverImg'])) {
+            $elementCoverImg = $rawElementDetail['coverImg'];
         }
 
-        if (!empty($rawElementDetail['elementCoverImgName'])) {
-            $elementCoverImgName = $rawElementDetail['elementCoverImgName'];
+        if (!empty($rawElementDetail['coverImgName'])) {
+            $elementCoverImgName = $rawElementDetail['coverImgName'];
         }
 
-        if (!empty($rawElementDetail['elementDownloadLink'])) {
-            $elementDownloadLink = $rawElementDetail['elementDownloadLink'];
-        }
-
-        if (!empty($rawElementDetail['elementDir'])) {
-            $elementDir = $rawElementDetail['elementDir'];
+        if (!empty($rawElementDetail['downloadLink'])) {
+            $elementDownloadLink = $rawElementDetail['downloadLink'];
         }
 
         if (!empty($current)) {

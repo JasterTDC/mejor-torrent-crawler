@@ -75,6 +75,10 @@ final class ElementDetailParser implements ElementDetailParserInterface
             ->domXPath
             ->query('//img[@width="120"]');
 
+        $descriptionContainer = $this
+            ->domXPath
+            ->query('//div[@align="justify"]');
+
         if (!empty($coverImg)) {
             $coverImgNode = $coverImg
                 ->item(0);
@@ -83,20 +87,28 @@ final class ElementDetailParser implements ElementDetailParserInterface
                 $imgMatch = [];
 
                 if (!empty($coverImgNode->attributes->getNamedItem('src'))) {
-                    $elementDetail['elementCoverImg'] = $coverImgNode
+                    $elementDetail['coverImg'] = $coverImgNode
                         ->attributes
                         ->getNamedItem('src')
                         ->nodeValue;
 
                     preg_match(
                         '/\/(?<elementCoverImgName>[^\/]+$)/',
-                        $elementDetail['elementCoverImg'],
+                        $elementDetail['coverImg'],
                         $imgMatch
                     );
 
-                    $elementDetail['elementCoverImgName'] = $imgMatch['elementCoverImgName'];
+                    $elementDetail['coverImgName'] = $imgMatch['elementCoverImgName'];
                 }
             }
+        }
+
+        if (!empty($descriptionContainer) &&
+            !empty($descriptionContainer->item(0))
+        ) {
+            $elementDetail['description'] = $descriptionContainer
+                ->item(0)
+                ->nodeValue;
         }
 
         if (!empty($centerContainer) &&
@@ -104,19 +116,15 @@ final class ElementDetailParser implements ElementDetailParserInterface
         ) {
             $elementGeneralInfo = $centerContainer->item(0)->nodeValue;
 
-            $elementDetail['elementGenre'] = $this->getElementGenre(
+            $elementDetail['genre'] = $this->getElementGenre(
                 $elementGeneralInfo
             );
 
-            $elementDetail['elementDescription'] = $this->getElementDescription(
+            $elementDetail['format'] = $this->getElementFormat(
                 $elementGeneralInfo
             );
 
-            $elementDetail['elementFormat'] = $this->getElementFormat(
-                $elementGeneralInfo
-            );
-
-            $elementDetail['elementPublishedDate'] = $this->getElementPublishedDate(
+            $elementDetail['publishedDate'] = $this->getElementPublishedDate(
                 $elementGeneralInfo
             );
         }
@@ -149,45 +157,20 @@ final class ElementDetailParser implements ElementDetailParserInterface
         $elementGenre = str_replace(
             chr(160),
             '',
-            $rawText
+            (string) $elementGenre['elementGenre']
         );
 
         $elementGenre = str_replace(
             chr(194),
             '',
-            $elementGenre
+            (string) $elementGenre
         );
 
-        $elementGenre = preg_replace(
+        return preg_replace(
             '/\s/',
             '',
-            $elementGenre
+            (string) $elementGenre
         );
-
-        return $elementGenre;
-    }
-
-    /**
-     * @param string $rawText
-     *
-     * @return string|null
-     */
-    protected function getElementDescription(
-        string $rawText
-    ) : ?string {
-        $elementDescription = [];
-
-        preg_match(
-            '/Descripción\:(?<elementDescription>[^.]+)/',
-            $rawText,
-            $elementDescription
-        );
-
-        if (empty($elementDescription['elementDescription'])) {
-            return null;
-        }
-
-        return trim($elementDescription['elementDescription']);
     }
 
     /**

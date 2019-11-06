@@ -1,17 +1,17 @@
 <?php
 
 
-namespace BestThor\ScrappingMaster\Application\UseCase;
+namespace BestThor\ScrappingMaster\Application\UseCase\ElementDownload;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 
 /**
- * Class RetrieveElementDetailUseCaseArguments
+ * Class RetrieveElementDownloadUseCaseArguments
  *
  * @package BestThor\ScrappingMaster\Application\UseCase
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class RetrieveElementDetailUseCaseArguments
+final class RetrieveElementDownloadUseCaseArguments
 {
 
     /**
@@ -25,7 +25,7 @@ final class RetrieveElementDetailUseCaseArguments
     protected $elementGeneral;
 
     /**
-     * RetrieveElementDetailUseCaseArguments constructor.
+     * RetrieveElementDownloadUseCaseArguments constructor.
      *
      * @param string|null $content
      * @param ElementGeneral|null $elementGeneral

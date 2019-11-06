@@ -5,6 +5,7 @@ namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
 use BestThor\ScrappingMaster\Domain\ElementGeneralFactoryInterface;
 
 /**
@@ -17,20 +18,75 @@ final class ElementGeneralFactory implements ElementGeneralFactoryInterface
 {
 
     /**
+     * @var ElementDetailFactory
+     */
+    protected $elementDetailFactory;
+
+    /**
+     * @var ElementDownloadFactory
+     */
+    protected $elementDownloadFactory;
+
+    /**
+     * ElementGeneralFactory constructor.
+     *
+     * @param ElementDetailFactory $elementDetailFactory
+     * @param ElementDownloadFactory $elementDownloadFactory
+     */
+    public function __construct(
+        ElementDetailFactory $elementDetailFactory,
+        ElementDownloadFactory $elementDownloadFactory
+    ) {
+        $this->elementDetailFactory = $elementDetailFactory;
+        $this->elementDownloadFactory = $elementDownloadFactory;
+    }
+
+    /**
      * @param array $rawElementGeneral
      *
      * @return ElementGeneral
+     * @throws ElementGeneralEmptyException
      */
     public function createFromRawElementGeneral(
         array $rawElementGeneral
     ) : ElementGeneral {
+        $createdAt = new \DateTimeImmutable();
+        $updatedAt = new \DateTimeImmutable();
+
+        if (!empty($rawElementGeneral['createdAt'])) {
+            $createdAt = \DateTimeImmutable::createFromFormat(
+                'Y-m-d H:i:s',
+                $rawElementGeneral['createdAt']
+            );
+        }
+
+        if (!empty($rawElementGeneral['updatedAt'])) {
+            $updatedAt = \DateTimeImmutable::createFromFormat(
+                'Y-m-d H:i:s',
+                $rawElementGeneral['updatedAt']
+            );
+        }
+
+        if (empty($createdAt) || empty($updatedAt)) {
+            throw new ElementGeneralEmptyException(
+                'An error has been occurred with dates',
+                3
+            );
+        }
+
         return new ElementGeneral(
-            (int) $rawElementGeneral['elementId'],
-            (string) $rawElementGeneral['elementName'],
-            (string) $rawElementGeneral['elementSlug'],
-            (string) $rawElementGeneral['elementLink'],
-            null,
-            null
+            (int) $rawElementGeneral['id'],
+            (string) $rawElementGeneral['name'],
+            (string) $rawElementGeneral['slug'],
+            (string) $rawElementGeneral['link'],
+            $createdAt,
+            $updatedAt,
+            $this->elementDetailFactory->createElementDetailFromRaw(
+                $rawElementGeneral
+            ),
+            $this->elementDownloadFactory->createFromRaw(
+                $rawElementGeneral
+            )
         );
     }
 
@@ -38,6 +94,7 @@ final class ElementGeneralFactory implements ElementGeneralFactoryInterface
      * @param array $rawElementGeneralCollection
      *
      * @return ElementGeneralCollection
+     * @throws \Exception
      */
     public function createFromRawElementGeneralCollection(
         array $rawElementGeneralCollection

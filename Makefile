@@ -24,4 +24,4 @@ command:
     --volume=${PWD}/scrap-json:/scrap/json:rw \
     --volume=${PWD}/scrap-torrent:/scrap/torrent:rw \
     mejor-torrent-crawler_crawler:latest \
-	time php /code/public/index_hex.php ${page}
+	time php /code/public/index_hex_crawler.php ${page}

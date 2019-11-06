@@ -1,19 +1,16 @@
 <?php
 
 
-namespace BestThor\ScrappingMaster\Application\UseCase;
-
-use BestThor\ScrappingMaster\Domain\ElementGeneral;
+namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
 /**
- * Class RetrieveElementDetailUseCaseResponse
+ * Class SaveElementGeneralUseCaseResponse
  *
  * @package BestThor\ScrappingMaster\Application\UseCase
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class RetrieveElementDetailUseCaseResponse
+final class SaveElementGeneralUseCaseResponse
 {
-
     /**
      * @var bool
      */
@@ -25,25 +22,16 @@ final class RetrieveElementDetailUseCaseResponse
     protected $error;
 
     /**
-     * @var ElementGeneral|null
-     */
-    protected $elementGeneral;
-
-    /**
-     * RetrieveElementDetailUseCaseResponse constructor.
-     *
+     * SaveElementGeneralUseCaseResponse constructor.
      * @param bool $success
      * @param string|null $error
-     * @param ElementGeneral|null $elementGeneral
      */
     public function __construct(
         bool $success,
-        ?string $error,
-        ?ElementGeneral $elementGeneral
+        ?string $error
     ) {
         $this->success = $success;
         $this->error = $error;
-        $this->elementGeneral = $elementGeneral;
     }
 
     /**
@@ -60,13 +48,5 @@ final class RetrieveElementDetailUseCaseResponse
     public function getError(): ?string
     {
         return $this->error;
-    }
-
-    /**
-     * @return ElementGeneral|null
-     */
-    public function getElementGeneral(): ?ElementGeneral
-    {
-        return $this->elementGeneral;
     }
 }

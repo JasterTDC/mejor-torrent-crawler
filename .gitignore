@@ -3,3 +3,6 @@ vendor/
 scrap-json/*
 scrap-torrent/*
 .phpunit.result.cache
+.mysql-data/
+logs/*.log
+media/*

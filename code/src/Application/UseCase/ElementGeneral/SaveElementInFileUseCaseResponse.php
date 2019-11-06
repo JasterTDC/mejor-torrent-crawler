@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BestThor\ScrappingMaster\Application\UseCase;
+namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
 /**
  * Class SaveElementInFileUseCaseResponse
