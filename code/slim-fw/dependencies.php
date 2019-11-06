@@ -1,10 +1,14 @@
 <?php
 
 use BestThor\ScrappingMaster\Application\Service\RetrieveElementService;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailContentUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadContentUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralContentUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralHtmlContentInFileUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
@@ -94,6 +98,21 @@ $containerBuilder->setParameter(
     [
         'cache' => false
     ]
+);
+
+$containerBuilder->setParameter(
+    'filmCachePath',
+    '/static/film/'
+);
+
+$containerBuilder->setParameter(
+    'filmDetailCachePath',
+    '/static/film/detail/'
+);
+
+$containerBuilder->setParameter(
+    'filmDownloadCachePath',
+    '/static/film/download/'
 );
 
 $containerBuilder->register(
@@ -205,6 +224,27 @@ $containerBuilder->register(
 )->addArgument(new Reference(MysqlPdoElementGeneralWriterRepository::class));
 
 $containerBuilder->register(
+    RetrieveElementGeneralContentUseCase::class,
+    RetrieveElementGeneralContentUseCase::class
+)
+    ->addArgument('%filmCachePath%')
+    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class));
+
+$containerBuilder->register(
+    RetrieveElementDetailContentUseCase::class,
+    RetrieveElementDetailContentUseCase::class
+)
+    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
+    ->addArgument('%filmDetailCachePath%');
+
+$containerBuilder->register(
+    RetrieveElementDownloadContentUseCase::class,
+    RetrieveElementDownloadContentUseCase::class
+)
+    ->addArgument('%filmDownloadCachePath%')
+    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class));
+
+$containerBuilder->register(
     RetrieveElementService::class,
     RetrieveElementService::class
 )
@@ -213,7 +253,10 @@ $containerBuilder->register(
     ->addArgument(new Reference(RetrieveElementDownloadUseCase::class))
     ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
     ->addArgument(new Reference(SaveElementInFileUseCase::class))
-    ->addArgument(new Reference(SaveElementGeneralUseCase::class));
+    ->addArgument(new Reference(SaveElementGeneralUseCase::class))
+    ->addArgument(new Reference(RetrieveElementGeneralContentUseCase::class))
+    ->addArgument(new Reference(RetrieveElementDetailContentUseCase::class))
+    ->addArgument(new Reference(RetrieveElementDownloadContentUseCase::class));
 
 $containerBuilder->register(
     MainController::class,

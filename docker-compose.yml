@@ -20,5 +20,8 @@ services:
       - ./scrap-json:/scrap/json:rw
       - ./scrap-torrent:/scrap/torrent:rw
       - ./media/img:/static/img:rw
+      - ./media/film:/static/film:rw
+      - ./media/film/detail:/static/film/detail:rw
+      - ./media/film/download:/static/film/download:rw
       - ./code:/code
       - ./logs:/LOGS

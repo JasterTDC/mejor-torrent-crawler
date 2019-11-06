@@ -3,18 +3,27 @@
 
 namespace BestThor\ScrappingMaster\Application\Service;
 
+use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailContentUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailContentUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadContentUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadContentUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralContentUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralContentUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCaseArguments;
+use BestThor\ScrappingMaster\Domain\ElementDetailContentEmptyException;
+use BestThor\ScrappingMaster\Domain\ElementDownloadContentEmptyException;
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Domain\ElementGeneralContentEmptyException;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
 
 /**
@@ -57,6 +66,21 @@ final class RetrieveElementService
     protected $saveElementGeneralUseCase;
 
     /**
+     * @var RetrieveElementGeneralContentUseCase
+     */
+    protected $retrieveElementGeneralContentUseCase;
+
+    /**
+     * @var RetrieveElementDetailContentUseCase
+     */
+    protected $retrieveElementDetailContentUseCase;
+
+    /**
+     * @var RetrieveElementDownloadContentUseCase
+     */
+    protected $retrieveElementDownloadContentUseCase;
+
+    /**
      * RetrieveElementService constructor.
      * @param RetrieveElementGeneralUseCase $retrieveElementGeneralUseCase
      * @param RetrieveElementDetailUseCase $retrieveElementDetailUseCase
@@ -64,6 +88,9 @@ final class RetrieveElementService
      * @param MTContentReaderRepositoryInterface $mtContentReaderRepository
      * @param SaveElementInFileUseCase $saveElementInFileUseCase
      * @param SaveElementGeneralUseCase $saveElementGeneralUseCase
+     * @param RetrieveElementGeneralContentUseCase $retrieveElementGeneralContentUseCase
+     * @param RetrieveElementDetailContentUseCase $retrieveElementDetailContentUseCase
+     * @param RetrieveElementDownloadContentUseCase $retrieveElementDownloadContentUseCase
      */
     public function __construct(
         RetrieveElementGeneralUseCase $retrieveElementGeneralUseCase,
@@ -71,7 +98,10 @@ final class RetrieveElementService
         RetrieveElementDownloadUseCase $retrieveElementDownloadUseCase,
         MTContentReaderRepositoryInterface $mtContentReaderRepository,
         SaveElementInFileUseCase $saveElementInFileUseCase,
-        SaveElementGeneralUseCase $saveElementGeneralUseCase
+        SaveElementGeneralUseCase $saveElementGeneralUseCase,
+        RetrieveElementGeneralContentUseCase $retrieveElementGeneralContentUseCase,
+        RetrieveElementDetailContentUseCase $retrieveElementDetailContentUseCase,
+        RetrieveElementDownloadContentUseCase $retrieveElementDownloadContentUseCase
     ) {
         $this->retrieveElementGeneralUseCase = $retrieveElementGeneralUseCase;
         $this->retrieveElementDetailUseCase = $retrieveElementDetailUseCase;
@@ -79,6 +109,9 @@ final class RetrieveElementService
         $this->mtContentReaderRepository = $mtContentReaderRepository;
         $this->saveElementInFileUseCase = $saveElementInFileUseCase;
         $this->saveElementGeneralUseCase = $saveElementGeneralUseCase;
+        $this->retrieveElementGeneralContentUseCase = $retrieveElementGeneralContentUseCase;
+        $this->retrieveElementDetailContentUseCase = $retrieveElementDetailContentUseCase;
+        $this->retrieveElementDownloadContentUseCase = $retrieveElementDownloadContentUseCase;
     }
 
     /**
@@ -91,9 +124,25 @@ final class RetrieveElementService
     ) : RetrieveElementServiceResponse {
 
         try {
-            $elementGeneralHtmlContent = $this
-                ->mtContentReaderRepository
-                ->getElementGeneralContent($argument->getPage());
+            $retrieveElementGeneralUseCaseResponse = $this
+                ->retrieveElementGeneralContentUseCase
+                ->handle(
+                    new RetrieveElementGeneralContentUseCaseArguments(
+                        $argument->getPage()
+                    )
+                );
+
+            if (!$retrieveElementGeneralUseCaseResponse->isSuccess() ||
+                empty($retrieveElementGeneralUseCaseResponse->getContent())
+            ) {
+                throw new ElementGeneralContentEmptyException(
+                    'We cannot retrieve element general content from source',
+                    3
+                );
+            }
+
+            $elementGeneralHtmlContent = $retrieveElementGeneralUseCaseResponse
+                ->getContent();
 
             $retrieveElementGeneralUseCaseArgument = new RetrieveElementGeneralUseCaseArguments(
                 empty($elementGeneralHtmlContent) ? null : $elementGeneralHtmlContent
@@ -163,14 +212,29 @@ final class RetrieveElementService
     protected function retrieveElement(
         ElementGeneral $elementGeneral
     ) : ?ElementGeneral {
-
         try {
-            $elementDetailHtmlContent = $this
-                ->mtContentReaderRepository
-                ->getElementDetailContent($elementGeneral->getElementLink());
+            $retrieveElementDetailContentUseCaseResponse = $this
+                ->retrieveElementDetailContentUseCase
+                ->handle(
+                    new RetrieveElementDetailContentUseCaseArguments(
+                        $elementGeneral
+                    )
+                );
+
+            if (!$retrieveElementDetailContentUseCaseResponse->isSuccess() ||
+                empty($retrieveElementDetailContentUseCaseResponse->getContent())
+            ) {
+                throw new ElementDetailContentEmptyException(
+                    'We cannot extract element detail from the source',
+                    3
+                );
+            }
+
+            $elementDetailHtmlContent = $retrieveElementDetailContentUseCaseResponse
+                ->getContent();
 
             $retrieveElementDetailUseCaseArguments = new RetrieveElementDetailUseCaseArguments(
-                empty($elementDetailHtmlContent) ? null : $elementDetailHtmlContent,
+                $elementDetailHtmlContent,
                 $elementGeneral
             );
             $retrieveElementDetailUseCaseResponse = $this
@@ -181,12 +245,28 @@ final class RetrieveElementService
                 ->getElementGeneral();
 
             if (!empty($elementGeneral)) {
-                $elementDownloadHtmlContent = $this
-                    ->mtContentReaderRepository
-                    ->getElementDownloadContent($elementGeneral->getElementId());
+                $retrieveElementDownloadContentUseCaseResponse = $this
+                    ->retrieveElementDownloadContentUseCase
+                    ->handle(
+                        new RetrieveElementDownloadContentUseCaseArguments(
+                            $elementGeneral->getElementId()
+                        )
+                    );
+
+                if (!$retrieveElementDownloadContentUseCaseResponse->isSuccess() ||
+                    empty($retrieveElementDownloadContentUseCaseResponse->getContent())
+                ) {
+                    throw new ElementDownloadContentEmptyException(
+                        'We cannot extract element download from the source',
+                        3
+                    );
+                }
+
+                $elementDownloadHtmlContent = $retrieveElementDownloadContentUseCaseResponse
+                    ->getContent();
 
                 $retrieveElementDownloadUseCaseArguments = new RetrieveElementDownloadUseCaseArguments(
-                    empty($elementDownloadHtmlContent) ? null : $elementDownloadHtmlContent,
+                    $elementDownloadHtmlContent,
                     $elementGeneral
                 );
                 $retrieveElementDownloadUseCaseResponse = $this
