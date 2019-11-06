@@ -55,10 +55,14 @@ final class RetrieveElementDownloadContentUseCase
 
         try {
             if (is_file($filename)) {
-                $current    = new \DateTimeImmutable();
-                $updated    = new \DateTimeImmutable();
-                $updated    = $updated->setTimestamp(filemtime($filename));
+                $updated = new \DateTimeImmutable();
 
+                if (!empty(filemtime($filename))) {
+                    $updated    = new \DateTimeImmutable();
+                    $updated    = $updated->setTimestamp(filemtime($filename));
+                }
+
+                $current  = new \DateTimeImmutable();
                 $interval = $current->diff($updated);
 
                 $daysDiff = (int) $interval->format('%d');

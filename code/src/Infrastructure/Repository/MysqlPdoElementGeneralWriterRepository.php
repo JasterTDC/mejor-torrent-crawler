@@ -13,9 +13,13 @@ use BestThor\ScrappingMaster\Domain\ElementGeneralWriterRepositoryInterface;
  * @package BestThor\ScrappingMaster\Infrastructure\Repository
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class MysqlPdoElementGeneralWriterRepository
-    implements ElementGeneralWriterRepositoryInterface
+final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWriterRepositoryInterface
 {
+    /**
+     * Date format
+     */
+    const DATETIME_FORMAT = 'Y-m-d H:i:s';
+
     /**
      * @var PdoAccess
      */
@@ -97,11 +101,13 @@ final class MysqlPdoElementGeneralWriterRepository
         $downloadTorrentUrl = null;
         $downloadName       = null;
 
-        if (!empty($elementGeneral->getElementDetail())) {
+        if (!empty($elementGeneral->getElementDetail()) &&
+            !empty($elementGeneral->getElementDetail()->getElementPublishedDate())
+        ) {
             $publishedDate = $elementGeneral
                 ->getElementDetail()
                 ->getElementPublishedDate()
-                ->format('Y-m-d H:i:s');
+                ->format(self::DATETIME_FORMAT);
 
             $genre = $elementGeneral
                 ->getElementDetail()
@@ -172,8 +178,8 @@ final class MysqlPdoElementGeneralWriterRepository
             'downloadUrl'           => $downloadUrl,
             'downloadTorrentUrl'    => $downloadTorrentUrl,
             'downloadName'          => $downloadName,
-            'createdAt'             => $elementGeneral->getCreatedAt()->format('Y-m-d H:i:s'),
-            'updatedAt'             => $elementGeneral->getUpdatedAt()->format('Y-m-d H:i:s')
+            'createdAt'             => $elementGeneral->getCreatedAt()->format(self::DATETIME_FORMAT),
+            'updatedAt'             => $elementGeneral->getUpdatedAt()->format(self::DATETIME_FORMAT)
         ];
 
         try {

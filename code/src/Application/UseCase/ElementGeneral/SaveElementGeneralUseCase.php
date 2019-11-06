@@ -53,7 +53,7 @@ final class SaveElementGeneralUseCase
 
             return new SaveElementGeneralUseCaseResponse(
                 true,
-                false
+                null
             );
         } catch (ElementGeneralPersistException $e) {
             return new SaveElementGeneralUseCaseResponse(

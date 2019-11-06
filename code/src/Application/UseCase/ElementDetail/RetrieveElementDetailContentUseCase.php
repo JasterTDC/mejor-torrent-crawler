@@ -54,10 +54,14 @@ final class RetrieveElementDetailContentUseCase
 
         try {
             if (is_file($filename)) {
-                $current = new \DateTimeImmutable();
                 $updated = new \DateTimeImmutable();
-                $updated = $updated->setTimestamp(filemtime($filename));
 
+                if (!empty(filemtime($filename))) {
+                    $updated = new \DateTimeImmutable();
+                    $updated = $updated->setTimestamp(filemtime($filename));
+                }
+
+                $current = new \DateTimeImmutable();
                 $interval = $current->diff($updated);
 
                 $daysDiff = (int) $interval->format('%d');

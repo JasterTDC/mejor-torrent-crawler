@@ -51,11 +51,15 @@ final class RetrieveElementGeneralContentUseCase
 
         try {
             if (is_file($filename)) {
-                $current        = new \DateTimeImmutable();
-                $updatedDate    = new \DateTimeImmutable();
-                $updatedDate    = $updatedDate->setTimestamp(filemtime($filename));
+                $updatedDate = new \DateTimeImmutable();
 
-                $interval = $current->diff($updatedDate);
+                if (!empty(filemtime($filename))) {
+                    $updatedDate    = new \DateTimeImmutable();
+                    $updatedDate    = $updatedDate->setTimestamp(filemtime($filename));
+                }
+
+                $current    = new \DateTimeImmutable();
+                $interval   = $current->diff($updatedDate);
 
                 $daysDiff = (int) $interval->format('%d');
                 $hoursDiff = (int) $interval->format('%H') +

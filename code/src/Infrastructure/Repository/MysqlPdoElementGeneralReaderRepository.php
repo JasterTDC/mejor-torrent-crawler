@@ -14,8 +14,7 @@ use BestThor\ScrappingMaster\Domain\ElementGeneralReaderRepositoryInterface;
  * @package BestThor\ScrappingMaster\Infrastructure\Repository
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class MysqlPdoElementGeneralReaderRepository
-    implements ElementGeneralReaderRepositoryInterface
+final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralReaderRepositoryInterface
 {
     /**
      * @var PdoAccess

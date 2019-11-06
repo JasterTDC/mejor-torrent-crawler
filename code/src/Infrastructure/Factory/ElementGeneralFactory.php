@@ -5,6 +5,7 @@ namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
 use BestThor\ScrappingMaster\Domain\ElementGeneralFactoryInterface;
 
 /**
@@ -42,48 +43,51 @@ final class ElementGeneralFactory implements ElementGeneralFactoryInterface
 
     /**
      * @param array $rawElementGeneral
-     * @return ElementGeneral
      *
-     * @throws \Exception
+     * @return ElementGeneral
+     * @throws ElementGeneralEmptyException
      */
     public function createFromRawElementGeneral(
         array $rawElementGeneral
     ) : ElementGeneral {
-        try {
-            $createdAt = new \DateTimeImmutable();
-            $updatedAt = new \DateTimeImmutable();
+        $createdAt = new \DateTimeImmutable();
+        $updatedAt = new \DateTimeImmutable();
 
-            if (!empty($rawElementGeneral['createdAt'])) {
-                $createdAt = \DateTimeImmutable::createFromFormat(
-                    'Y-m-d H:i:s',
-                    $rawElementGeneral['createdAt']
-                );
-            }
-
-            if (!empty($rawElementGeneral['updatedAt'])) {
-                $updatedAt = \DateTimeImmutable::createFromFormat(
-                    'Y-m-d H:i:s',
-                    $rawElementGeneral['updatedAt']
-                );
-            }
-
-            return new ElementGeneral(
-                (int) $rawElementGeneral['id'],
-                (string) $rawElementGeneral['name'],
-                (string) $rawElementGeneral['slug'],
-                (string) $rawElementGeneral['link'],
-                $createdAt,
-                $updatedAt,
-                $this->elementDetailFactory->createElementDetailFromRaw(
-                    $rawElementGeneral
-                ),
-                $this->elementDownloadFactory->createFromRaw(
-                    $rawElementGeneral
-                )
+        if (!empty($rawElementGeneral['createdAt'])) {
+            $createdAt = \DateTimeImmutable::createFromFormat(
+                'Y-m-d H:i:s',
+                $rawElementGeneral['createdAt']
             );
-        } catch (\Exception $e) {
-            throw $e;
         }
+
+        if (!empty($rawElementGeneral['updatedAt'])) {
+            $updatedAt = \DateTimeImmutable::createFromFormat(
+                'Y-m-d H:i:s',
+                $rawElementGeneral['updatedAt']
+            );
+        }
+
+        if (empty($createdAt) || empty($updatedAt)) {
+            throw new ElementGeneralEmptyException(
+                'An error has been occurred with dates',
+                3
+            );
+        }
+
+        return new ElementGeneral(
+            (int) $rawElementGeneral['id'],
+            (string) $rawElementGeneral['name'],
+            (string) $rawElementGeneral['slug'],
+            (string) $rawElementGeneral['link'],
+            $createdAt,
+            $updatedAt,
+            $this->elementDetailFactory->createElementDetailFromRaw(
+                $rawElementGeneral
+            ),
+            $this->elementDownloadFactory->createFromRaw(
+                $rawElementGeneral
+            )
+        );
     }
 
     /**

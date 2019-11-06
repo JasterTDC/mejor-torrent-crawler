@@ -179,15 +179,15 @@ final class RetrieveElementService
 
                 if (!empty($elementGeneral)) {
                     $elementGeneralCollection->add($elementGeneral);
-                }
 
-                $this
-                    ->saveElementGeneralUseCase
-                    ->handle(
-                        new SaveElementGeneralUseCaseArguments(
-                            $elementGeneral
-                        )
-                    );
+                    $this
+                        ->saveElementGeneralUseCase
+                        ->handle(
+                            new SaveElementGeneralUseCaseArguments(
+                                $elementGeneral
+                            )
+                        );
+                }
             }
 
             return new RetrieveElementServiceResponse(

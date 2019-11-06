@@ -157,22 +157,20 @@ final class ElementDetailParser implements ElementDetailParserInterface
         $elementGenre = str_replace(
             chr(160),
             '',
-            $elementGenre['elementGenre']
+            (string) $elementGenre['elementGenre']
         );
 
         $elementGenre = str_replace(
             chr(194),
             '',
-            $elementGenre
+            (string) $elementGenre
         );
 
-        $elementGenre = preg_replace(
+        return preg_replace(
             '/\s/',
             '',
-            $elementGenre
+            (string) $elementGenre
         );
-
-        return $elementGenre;
     }
 
     /**
