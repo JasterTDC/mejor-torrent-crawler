@@ -8,7 +8,6 @@ use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElement
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralContentUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralHtmlContentInFileUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
@@ -18,6 +17,9 @@ use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDetailParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDownloadParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementGeneralParser;
+use BestThor\ScrappingMaster\Infrastructure\Parser\ElementSeriesDetailParser;
+use BestThor\ScrappingMaster\Infrastructure\Parser\ElementSeriesDownloadParser;
+use BestThor\ScrappingMaster\Infrastructure\Parser\ElementSeriesParser;
 use BestThor\ScrappingMaster\Infrastructure\Renderer\TemplateRenderer;
 use BestThor\ScrappingMaster\Infrastructure\Repository\GuzzleMTContentReaderRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralReaderRepository;
@@ -51,6 +53,21 @@ $containerBuilder->setParameter(
 $containerBuilder->setParameter(
     'filmUrl',
     '/secciones.php?sec=descargas&ap=peliculas&p=%s'
+);
+
+$containerBuilder->setParameter(
+    'seriesUrl',
+    '/secciones.php?sec=descargas&ap=series&p=%s'
+);
+
+$containerBuilder->setParameter(
+    'seriesDownloadUrl',
+    '/secciones.php?sec=descargas&ap=contar&tabla=series&id=%s'
+);
+
+$containerBuilder->setParameter(
+    'seriesDownloadTorrentUrl',
+    '/uploads/torrents/series/'
 );
 
 $containerBuilder->setParameter(
@@ -148,6 +165,21 @@ $containerBuilder->register(
 )->addArgument(new Reference(ElementDetailFactory::class));
 
 $containerBuilder->register(
+    ElementSeriesParser::class,
+    ElementSeriesParser::class
+);
+
+$containerBuilder->register(
+    ElementSeriesDetailParser::class,
+    ElementSeriesDetailParser::class
+);
+
+$containerBuilder->register(
+    ElementSeriesDownloadParser::class,
+    ElementSeriesDownloadParser::class
+);
+
+$containerBuilder->register(
     RetrieveElementDetailUseCase::class,
     RetrieveElementDetailUseCase::class
 )->addArgument(new Reference(ElementDetailParser::class));
@@ -168,7 +200,9 @@ $containerBuilder->register(
 )
     ->addArgument('%homeUrl%')
     ->addArgument('%filmUrl%')
-    ->addArgument('%downloadElementUrl%');
+    ->addArgument('%seriesUrl%')
+    ->addArgument('%downloadElementUrl%')
+    ->addArgument('%seriesDownloadUrl%');
 
 $containerBuilder->register(
     SaveElementInFileUseCase::class,
