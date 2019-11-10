@@ -3,6 +3,9 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload;
+use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesDownloadFactory;
+
 /**
  * Class ElementSeriesDetailDownloadParser
  *
@@ -27,10 +30,17 @@ final class ElementSeriesDownloadParser
     protected $content;
 
     /**
+     * @var ElementSeriesDownloadFactory
+     */
+    protected $elementSeriesDownloadFactory;
+
+    /**
      * ElementSeriesDetailDownloadParser constructor.
      */
-    public function __construct()
-    {
+    public function __construct(
+        ElementSeriesDownloadFactory $elementSeriesDownloadFactory
+    ) {
+        $this->elementSeriesDownloadFactory = $elementSeriesDownloadFactory;
     }
 
     /**
@@ -47,19 +57,24 @@ final class ElementSeriesDownloadParser
     }
 
     /**
-     * @return array|null
+     * @return ElementSeriesDownload|null
      */
-    public function getElementSeriesDownload() : ?array
+    public function getElementSeriesDownload() : ?ElementSeriesDownload
     {
         $iNodeList = $this->domXPath->query('//i');
 
-        if (empty($iNodeList)) {
+        if (empty($iNodeList) ||
+            empty($iNodeList->length) ||
+            empty($iNodeList->item(0)->nodeValue)
+        ) {
             return null;
         }
 
-        return [
-            'torrentName' => $iNodeList->item(0)->nodeValue
-        ];
+        return $this
+            ->elementSeriesDownloadFactory
+            ->createFromRaw([
+                'name' => $iNodeList->item(0)->nodeValue
+            ]);
     }
 
     /**

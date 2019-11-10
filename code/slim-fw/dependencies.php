@@ -10,10 +10,20 @@ use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementG
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDescriptionDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDetailDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDownloadDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesImageDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesDetailFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesDownloadFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesImageFactory;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDetailParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDownloadParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementGeneralParser;
@@ -132,6 +142,11 @@ $containerBuilder->setParameter(
     '/static/film/download/'
 );
 
+$containerBuilder->setParameter(
+    '',
+    ''
+);
+
 $containerBuilder->register(
     ElementDetailFactory::class,
     ElementDetailFactory::class
@@ -165,19 +180,44 @@ $containerBuilder->register(
 )->addArgument(new Reference(ElementDetailFactory::class));
 
 $containerBuilder->register(
+    ElementSeriesFactory::class,
+    ElementSeriesFactory::class
+);
+
+$containerBuilder->register(
     ElementSeriesParser::class,
     ElementSeriesParser::class
+)
+    ->addArgument(new Reference(ElementSeriesFactory::class));
+
+$containerBuilder->register(
+    ElementSeriesImageFactory::class,
+    ElementSeriesImageFactory::class
+);
+
+$containerBuilder->register(
+    ElementSeriesDetailFactory::class,
+    ElementSeriesDetailFactory::class
 );
 
 $containerBuilder->register(
     ElementSeriesDetailParser::class,
     ElementSeriesDetailParser::class
-);
+)
+    ->addArgument(new Reference(ElementSeriesImageFactory::class))
+    ->addArgument(new Reference(ElementSeriesDetailFactory::class));
+
+$containerBuilder->register(
+    ElementSeriesDownloadFactory::class,
+    ElementSeriesDownloadFactory::class
+)
+    ->addArgument('%seriesDownloadTorrentUrl%');
 
 $containerBuilder->register(
     ElementSeriesDownloadParser::class,
     ElementSeriesDownloadParser::class
-);
+)
+    ->addArgument(new Reference(ElementSeriesDownloadFactory::class));
 
 $containerBuilder->register(
     RetrieveElementDetailUseCase::class,
@@ -277,6 +317,35 @@ $containerBuilder->register(
 )
     ->addArgument('%filmDownloadCachePath%')
     ->addArgument(new Reference(GuzzleMTContentReaderRepository::class));
+
+$containerBuilder->register(
+    ElementSeriesImageDataTransformer::class,
+    ElementSeriesImageDataTransformer::class
+);
+
+$containerBuilder->register(
+    ElementSeriesDescriptionDataTransformer::class,
+    ElementSeriesDescriptionDataTransformer::class
+);
+
+$containerBuilder->register(
+    ElementSeriesDownloadDataTransformer::class,
+    ElementSeriesDownloadDataTransformer::class
+);
+
+$containerBuilder->register(
+    ElementSeriesDetailDataTransformer::class,
+    ElementSeriesDetailDataTransformer::class
+)
+    ->addArgument(new Reference(ElementSeriesDownloadDataTransformer::class));
+
+$containerBuilder->register(
+    ElementSeriesDataTransformer::class,
+    ElementSeriesDataTransformer::class
+)
+    ->addArgument(new Reference(ElementSeriesImageDataTransformer::class))
+    ->addArgument(new Reference(ElementSeriesDescriptionDataTransformer::class))
+    ->addArgument(new Reference(ElementSeriesDetailDataTransformer::class));
 
 $containerBuilder->register(
     RetrieveElementService::class,

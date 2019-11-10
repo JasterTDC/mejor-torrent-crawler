@@ -1,5 +1,9 @@
 <?php
 
+use BestThor\ScrappingMaster\Domain\Series\ElementSeries;
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail;
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailCollection;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementSeriesDetailParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementSeriesDownloadParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementSeriesParser;
@@ -43,92 +47,99 @@ if ('crawl' === $method) {
 
     $elementSeriesCollection = $elementSeriesParser->getElementSeries();
 
-    $elementSeriesFinalCollection = [];
-
     /** @var ElementSeriesDetailParser $elementSeriesDetailParser */
     $elementSeriesDetailParser = $containerBuilder->get(ElementSeriesDetailParser::class);
 
     /** @var ElementSeriesDownloadParser $elementSeriesDownloadParser */
     $elementSeriesDownloadParser = $containerBuilder->get(ElementSeriesDownloadParser::class);
 
+    /** @var ElementSeries $elementSeries */
     foreach ($elementSeriesCollection as $elementSeries) {
         try {
             $content = $guzzleMT
                 ->getElementSeriesDetailContent(
-                    $elementSeries['link']
+                    $elementSeries->getLink()
                 );
 
             $elementSeriesDetailParser->setContent($content);
 
-            $detail = $elementSeriesDetailParser->getElementDetail();
+            $detailCollection = $elementSeriesDetailParser
+                ->getElementDetail();
+            $description = $elementSeriesDetailParser
+                ->getElementSeriesDescription();
+            $image = $elementSeriesDetailParser
+                ->getElementSeriesImage();
 
-            if (!empty($detail)) {
-                $elementSeries['imageUrl']  = $detail['imageUrl'];
-                $elementSeries['imageName'] = $detail['imageName'];
-                $elementSeries['description'] = $detail['description'];
+            $elementDir = "/scrap/torrent/" . $elementSeries->getName();
 
-                foreach ($detail['episodes'] as $singleDetail) {
-                    $downloadContent = $guzzleMT
-                        ->getElementSeriesDownloadContent($singleDetail['episodeId']);
-
-                    $elementSeriesDownloadParser->setContent($downloadContent);
-
-                    $download = $elementSeriesDownloadParser
-                        ->getElementSeriesDownload();
-
-                    if (!empty($download)) {
-                        $singleDetail['download'] = [
-                            'downloadLink' => $containerBuilder->getParameter('seriesDownloadTorrentUrl') .
-                                $download['torrentName'],
-                            'downloadName' => $download['torrentName']
-                        ];
-                    }
-
-                    $elementSeries['detail'][] = $singleDetail;
-                }
+            if (!is_dir($elementDir)) {
+                mkdir($elementDir);
             }
 
-            $elementSeriesFinalCollection[] = $elementSeries;
+            $elementSeriesDetailCollection = new ElementSeriesDetailCollection();
+
+            /** @var ElementSeriesDetail $elementSeriesDetail */
+            foreach ($detailCollection as $elementSeriesDetail) {
+                $downloadContent = $guzzleMT
+                    ->getElementSeriesDownloadContent(
+                        $elementSeriesDetail->getId()
+                    );
+
+                $elementSeriesDownloadParser
+                    ->setContent($downloadContent);
+
+                $elementSeriesDetail = $elementSeriesDetail
+                    ->setElementSeriesDownload(
+                        $elementSeriesDownloadParser->getElementSeriesDownload()
+                    );
+
+                $downloadTorrentContent = $guzzleMT
+                    ->getElementDownloadFile(
+                        $elementSeriesDetail
+                            ->getElementSeriesDownload()
+                            ->getDownloadLink()
+                    );
+
+                file_put_contents(
+                    $elementDir . DIRECTORY_SEPARATOR .
+                    $elementSeriesDetail->getElementSeriesDownload()->getDownloadName(),
+                    $downloadTorrentContent
+                );
+
+                $elementSeriesDetailCollection
+                    ->add($elementSeriesDetail);
+            }
+
+            $elementSeries
+                ->setElementSeriesImage($image);
+            $elementSeries
+                ->setElementSeriesDescription($description);
+            $elementSeries
+                ->setElementSeriesDetailCollection($elementSeriesDetailCollection);
+
+            $imageContent = $guzzleMT
+                ->getElementImageFile(
+                    $elementSeries
+                        ->getElementSeriesImage()
+                        ->getImageUrl()
+                );
+
+            file_put_contents(
+                "/static/img/{$elementSeries->getId()}.jpg",
+                $imageContent
+            );
         } catch (\Exception $e) {
         }
     }
 
+    /** @var ElementSeriesDataTransformer $transformer */
+    $transformer = $containerBuilder->get(ElementSeriesDataTransformer::class);
+
     file_put_contents(
         "/scrap/json/{$page}.json",
-        json_encode($elementSeriesFinalCollection, true)
+        json_encode(
+            $transformer->transformCollection($elementSeriesCollection),
+            true
+        )
     );
-}
-
-if ('parse' === $method) {
-    $elementSeriesCollection = json_decode(file_get_contents(
-        "/scrap/json/{$page}.json"
-    ), true);
-
-    foreach ($elementSeriesCollection as $elementSeries) {
-        $imageContent = $guzzleMT->getElementImageFile($elementSeries['imageUrl']);
-
-        file_put_contents(
-            "/static/img/{$elementSeries['firstId']}.jpg",
-            $imageContent
-        );
-
-        $elementDir = "/scrap/torrent/" . $elementSeries['name'];
-
-        if (!is_dir($elementDir)) {
-            mkdir($elementDir);
-        }
-
-        if (!empty($elementSeries['detail'])) {
-            foreach ($elementSeries['detail'] as $detail) {
-                $torrent = $guzzleMT->getElementDownloadFile(
-                    $detail['download']['downloadLink']
-                );
-
-                file_put_contents(
-                    $elementDir . DIRECTORY_SEPARATOR . $detail['download']['downloadName'],
-                    $torrent
-                );
-            }
-        }
-    }
 }

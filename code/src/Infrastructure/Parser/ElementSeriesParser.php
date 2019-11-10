@@ -3,6 +3,10 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesCollection;
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailCollection;
+use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesFactory;
+
 /**
  * Class ElementSeriesParser
  *
@@ -27,10 +31,19 @@ final class ElementSeriesParser
     protected $content;
 
     /**
-     * ElementSeriesParser constructor.
+     * @var ElementSeriesFactory
      */
-    public function __construct()
-    {
+    protected $elementSeriesFactory;
+
+    /**
+     * ElementSeriesParser constructor.
+     *
+     * @param ElementSeriesFactory $elementSeriesFactory
+     */
+    public function __construct(
+        ElementSeriesFactory $elementSeriesFactory
+    ) {
+        $this->elementSeriesFactory = $elementSeriesFactory;
     }
 
     /**
@@ -47,25 +60,22 @@ final class ElementSeriesParser
         $this->domXPath = new \DOMXPath($this->domDocument);
     }
 
-    public function getElementSeries() : ?array
+    /**
+     * @return ElementSeriesCollection|null
+     */
+    public function getElementSeries() : ?ElementSeriesCollection
     {
         $linkNodeList = $this
             ->domXPath
             ->query('//a');
 
-        if (empty($linkNodeList)) {
+        if (empty($linkNodeList) ||
+            empty($linkNodeList->length)
+        ) {
             return null;
         }
 
         $seriesArr = [];
-
-        if (!empty($imageNode)) {
-            $seriesArr['imageUrl'] = $imageNode
-                ->item(0)
-                ->attributes
-                ->getNamedItem('src')
-                ->nodeValue;
-        }
 
         for($i = 0; $i < $linkNodeList->length; $i++) {
             $href = $linkNodeList
@@ -81,8 +91,8 @@ final class ElementSeriesParser
             )) {
                 $seriesArr[] = [
                     'link'      => $href,
-                    'firstId'   => (int) $match['elementFirstId'],
-                    'secondId'  => (int) $match['elementSecondId'],
+                    'id'        => (int) $match['elementFirstId'],
+                    'firstEpId' => (int) $match['elementSecondId'],
                     'slug'      => $match['elementName'],
                     'name'      => preg_replace(
                         '/\-/',
@@ -93,7 +103,9 @@ final class ElementSeriesParser
             }
         }
 
-        return $seriesArr;
+        return $this
+            ->elementSeriesFactory
+            ->createFromRawCollection($seriesArr);
     }
 
     /**
