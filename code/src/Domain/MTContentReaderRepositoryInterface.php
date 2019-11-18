@@ -4,6 +4,7 @@
 namespace BestThor\ScrappingMaster\Domain;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailEmptyException;
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesEmptyException;
 
 /**
  * Interface MTContentReaderRepositoryInterface
@@ -38,6 +39,7 @@ interface MTContentReaderRepositoryInterface
      * @param int $page
      *
      * @return string
+     * @throws ElementSeriesEmptyException
      */
     public function getElementSeriesContent(
         int $page
@@ -47,6 +49,7 @@ interface MTContentReaderRepositoryInterface
      * @param string $detailUrl
      *
      * @return string
+     * @throws ElementSeriesDetailEmptyException
      */
     public function getElementSeriesDetailContent(
         string $detailUrl

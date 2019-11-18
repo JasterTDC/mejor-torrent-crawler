@@ -73,7 +73,7 @@ final class ElementSeriesDetailParser
     /**
      * @return ElementSeriesDetailCollection|null
      */
-    public function getElementDetail() : ?ElementSeriesDetailCollection
+    public function getElementDetailCollection() : ?ElementSeriesDetailCollection
     {
         $linkNodeList = $this->domXPath->query('//a');
 

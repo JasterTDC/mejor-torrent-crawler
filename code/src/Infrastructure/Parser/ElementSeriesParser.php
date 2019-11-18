@@ -63,7 +63,7 @@ final class ElementSeriesParser
     /**
      * @return ElementSeriesCollection|null
      */
-    public function getElementSeries() : ?ElementSeriesCollection
+    public function getElementSeriesCollection() : ?ElementSeriesCollection
     {
         $linkNodeList = $this
             ->domXPath

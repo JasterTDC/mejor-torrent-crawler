@@ -158,6 +158,7 @@ final class GuzzleMTContentReaderRepository implements
      * @param int $page
      *
      * @return string
+     * @throws ElementSeriesEmptyException
      */
     public function getElementSeriesContent(
         int $page
@@ -183,6 +184,7 @@ final class GuzzleMTContentReaderRepository implements
      * @param string $detailUrl
      *
      * @return string
+     * @throws ElementSeriesDetailEmptyException
      */
     public function getElementSeriesDetailContent(
         string $detailUrl

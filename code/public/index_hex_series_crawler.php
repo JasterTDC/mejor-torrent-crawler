@@ -45,7 +45,7 @@ if ('crawl' === $method) {
     $elementSeriesParser = $containerBuilder->get(ElementSeriesParser::class);
     $elementSeriesParser->setContent($content);
 
-    $elementSeriesCollection = $elementSeriesParser->getElementSeries();
+    $elementSeriesCollection = $elementSeriesParser->getElementSeriesCollection();
 
     /** @var ElementSeriesDetailParser $elementSeriesDetailParser */
     $elementSeriesDetailParser = $containerBuilder->get(ElementSeriesDetailParser::class);
@@ -64,7 +64,7 @@ if ('crawl' === $method) {
             $elementSeriesDetailParser->setContent($content);
 
             $detailCollection = $elementSeriesDetailParser
-                ->getElementDetail();
+                ->getElementDetailCollection();
             $description = $elementSeriesDetailParser
                 ->getElementSeriesDescription();
             $image = $elementSeriesDetailParser

@@ -10,7 +10,8 @@ use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementG
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
-use BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage;
+use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\GetElementSeriesCollectionUseCase;
+use BestThor\ScrappingMaster\Infrastructure\Command\SeriesCrawlerCommand;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDescriptionDataTransformer;
@@ -35,6 +36,7 @@ use BestThor\ScrappingMaster\Infrastructure\Repository\GuzzleMTContentReaderRepo
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralReaderRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\PdoAccess;
+use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
@@ -42,7 +44,7 @@ $containerBuilder = new ContainerBuilder();
 
 $containerBuilder->setParameter(
     'torrentDir',
-    '/scrap/torrent'
+    '/scrap/torrent/'
 );
 
 $containerBuilder->setParameter(
@@ -140,11 +142,6 @@ $containerBuilder->setParameter(
 $containerBuilder->setParameter(
     'filmDownloadCachePath',
     '/static/film/download/'
-);
-
-$containerBuilder->setParameter(
-    '',
-    ''
 );
 
 $containerBuilder->register(
@@ -367,5 +364,29 @@ $containerBuilder->register(
 )
     ->addArgument(new Reference(GetElementGeneralUseCase::class))
     ->addArgument(new Reference(TemplateRenderer::class));
+
+$containerBuilder->register(
+    SeriesService::class,
+    SeriesService::class
+)
+    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
+    ->addArgument(new Reference(ElementSeriesParser::class))
+    ->addArgument(new Reference(ElementSeriesDetailParser::class))
+    ->addArgument(new Reference(ElementSeriesDownloadParser::class));
+
+$containerBuilder->register(
+    GetElementSeriesCollectionUseCase::class,
+    GetElementSeriesCollectionUseCase::class
+)
+    ->addArgument(new Reference(SeriesService::class))
+    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
+    ->addArgument('%torrentDir%')
+    ->addArgument('%staticImgDir%');
+
+$containerBuilder->register(
+    SeriesCrawlerCommand::class,
+    SeriesCrawlerCommand::class
+)
+    ->addArgument(new Reference(GetElementSeriesCollectionUseCase::class));
 
 return $containerBuilder;
