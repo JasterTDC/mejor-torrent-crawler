@@ -39,6 +39,18 @@ class BaseCollection implements \IteratorAggregate
     }
 
     /**
+     * Get element in position
+     *
+     * @param   int $position
+     *
+     * @return  mixed
+     */
+    public function getItemInPosition(int $position)
+    {
+        return $this->collection[$position];
+    }
+
+    /**
      * @return \ArrayIterator
      */
     public function getIterator() : \ArrayIterator
