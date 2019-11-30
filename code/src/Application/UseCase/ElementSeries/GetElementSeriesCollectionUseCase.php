@@ -8,6 +8,8 @@ use BestThor\ScrappingMaster\Domain\ElementImageEmptyException;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeries;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail;
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailSaveException;
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailWriterInterface;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesSaveException;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesServiceInterface;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesWriterInterface;
@@ -37,6 +39,11 @@ final class GetElementSeriesCollectionUseCase
     protected $elementSeriesWriter;
 
     /**
+     * @var ElementSeriesDetailWriterInterface
+     */
+    protected $elementSeriesDetailWriter;
+
+    /**
      * @var string
      */
     protected $filesDir;
@@ -59,12 +66,14 @@ final class GetElementSeriesCollectionUseCase
         ElementSeriesServiceInterface $elementSeriesService,
         MTContentReaderRepositoryInterface $contentReaderRepository,
         ElementSeriesWriterInterface $elementSeriesWriter,
+        ElementSeriesDetailWriterInterface $elementSeriesDetailWriter,
         string $filesDir,
         string $imgDir
     ) {
         $this->elementSeriesService = $elementSeriesService;
         $this->elementSeriesWriter  = $elementSeriesWriter;
         $this->mtContentReaderRepository = $contentReaderRepository;
+        $this->elementSeriesDetailWriter = $elementSeriesDetailWriter;
         $this->filesDir = $filesDir;
         $this->imgDir = $imgDir;
     }
@@ -95,55 +104,86 @@ final class GetElementSeriesCollectionUseCase
             }
 
             try {
+                $staticImgDir = $this->imgDir . $elementSeries->getId() . '.jpg';
+
+                if (!empty($elementSeries->getElementSeriesImage())) {
+                    $imageContent = $this
+                        ->mtContentReaderRepository
+                        ->getElementImageFile(
+                            $elementSeries
+                                ->getElementSeriesImage()
+                                ->getImageUrl()
+                        );
+
+                    $elementSeries
+                        ->setElementSeriesImage(
+                            $elementSeries
+                                ->getElementSeriesImage()
+                                ->setImageUrl(
+                                    $staticImgDir
+                                )
+                        );
+
+                    file_put_contents(
+                        $staticImgDir,
+                        $imageContent
+                    );
+                }
+            } catch (ElementImageEmptyException $e) {
+                $errorImageArr[] = $elementSeries->getId();
+            }
+
+            try {
                 $this
                     ->elementSeriesWriter
                     ->persist($elementSeries);
             } catch (ElementSeriesSaveException $e) {
             }
 
-            try {
-                $imageContent = $this
-                    ->mtContentReaderRepository
-                    ->getElementImageFile(
-                        $elementSeries
-                            ->getElementSeriesImage()
-                            ->getImageUrl()
-                    );
+            if (!empty($elementSeries->getElementSeriesDetailCollection())) {
+                /** @var ElementSeriesDetail $elementSeriesDetail */
+                foreach ($elementSeries->getElementSeriesDetailCollection() as $elementSeriesDetail) {
 
-                file_put_contents(
-                    $this->imgDir . $elementSeries->getId() . '.jpg',
-                    $imageContent
-                );
-            } catch (ElementImageEmptyException $e) {
-                $errorImageArr[] = $elementSeries->getId();
-            }
+                    try {
+                        $downloadContent = $this
+                            ->mtContentReaderRepository
+                            ->getElementDownloadFile(
+                                $elementSeriesDetail
+                                    ->getElementSeriesDownload()
+                                    ->getDownloadLink()
+                            );
 
-            /** @var ElementSeriesDetail $elementSeriesDetail */
-            foreach ($elementSeries->getElementSeriesDetailCollection() as $elementSeriesDetail) {
+                        $elementSeriesDetail
+                            ->setSeriesId($elementSeries->getId());
 
-                try {
-                    $downloadContent = $this
-                        ->mtContentReaderRepository
-                        ->getElementDownloadFile(
+                        $staticDir = $elementDir . DIRECTORY_SEPARATOR .
                             $elementSeriesDetail
                                 ->getElementSeriesDownload()
-                                ->getDownloadLink()
-                        );
+                                ->getDownloadName();
 
-                    $elementSeriesDetail
-                        ->setSeriesId($elementSeries->getId());
-
-                    file_put_contents(
-                        $elementDir . DIRECTORY_SEPARATOR .
                         $elementSeriesDetail
+                            ->setElementSeriesDownload(
+                                $elementSeriesDetail
+                                    ->getElementSeriesDownload()
+                                    ->setDownloadLink($staticDir)
+                            );
+
+                        file_put_contents(
+                            $staticDir,
+                            $downloadContent
+                        );
+                    } catch (ElementDownloadContentEmptyException $e) {
+                        $errorFileArr[] = $elementSeriesDetail
                             ->getElementSeriesDownload()
-                            ->getDownloadName(),
-                        $downloadContent
-                    );
-                } catch (ElementDownloadContentEmptyException $e) {
-                    $errorFileArr[] = $elementSeriesDetail
-                        ->getElementSeriesDownload()
-                        ->getDownloadName();
+                            ->getDownloadName();
+                    }
+
+                    try {
+                        $this
+                            ->elementSeriesDetailWriter
+                            ->persist($elementSeriesDetail);
+                    } catch (ElementSeriesDetailSaveException $e) {
+                    }
                 }
             }
         }

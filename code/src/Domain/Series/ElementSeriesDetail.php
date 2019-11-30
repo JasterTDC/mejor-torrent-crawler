@@ -32,6 +32,16 @@ final class ElementSeriesDetail
     protected $link;
 
     /**
+     * @var \DateTimeImmutable
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTimeImmutable
+     */
+    protected $updatedAt;
+
+    /**
      * @var ElementSeriesDownload|null
      */
     protected $elementSeriesDownload;
@@ -43,6 +53,8 @@ final class ElementSeriesDetail
      * @param int|null $seriesId
      * @param string $name
      * @param string $link
+     * @param \DateTimeImmutable $createdAt
+     * @param \DateTimeImmutable $updatedAt
      * @param ElementSeriesDownload|null $elementSeriesDownload
      */
     public function __construct(
@@ -50,12 +62,16 @@ final class ElementSeriesDetail
         ?int $seriesId,
         string $name,
         string $link,
+        \DateTimeImmutable $createdAt,
+        \DateTimeImmutable $updatedAt,
         ?ElementSeriesDownload $elementSeriesDownload
     ) {
         $this->id = $id;
         $this->seriesId = $seriesId;
         $this->name = $name;
         $this->link = $link;
+        $this->createdAt = $createdAt;
+        $this->updatedAt = $updatedAt;
         $this->elementSeriesDownload = $elementSeriesDownload;
     }
 
@@ -137,5 +153,37 @@ final class ElementSeriesDetail
     public function setElementSeriesDownload(?ElementSeriesDownload $elementSeriesDownload): void
     {
         $this->elementSeriesDownload = $elementSeriesDownload;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTimeImmutable $createdAt
+     */
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTimeImmutable $updatedAt
+     */
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

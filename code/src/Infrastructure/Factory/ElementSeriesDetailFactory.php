@@ -28,6 +28,8 @@ final class ElementSeriesDetailFactory
             null,
             $rawElementSeriesDetail['name'],
             $rawElementSeriesDetail['link'],
+            new \DateTimeImmutable(),
+            new \DateTimeImmutable(),
             null
         );
     }

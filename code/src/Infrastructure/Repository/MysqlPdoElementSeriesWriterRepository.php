@@ -82,15 +82,37 @@ final class MysqlPdoElementSeriesWriterRepository implements ElementSeriesWriter
                 );
             }
 
+            $imageUrl       = null;
+            $imageName      = null;
+            $description    = null;
+
+            if (!empty($elementSeries->getElementSeriesImage())) {
+                $imageUrl = $elementSeries
+                    ->getElementSeriesImage()
+                    ->getImageUrl();
+            }
+
+            if (!empty($elementSeries->getElementSeriesImage())) {
+                $imageName = $elementSeries
+                    ->getElementSeriesImage()
+                    ->getImageName();
+            }
+
+            if (!empty($elementSeries->getElementSeriesDescription())) {
+                $description = $elementSeries
+                    ->getElementSeriesDescription()
+                    ->getDescription();
+            }
+
             return $statement->execute([
                 'id'                => $elementSeries->getId(),
                 'firstEpisodeId'    => $elementSeries->getFirstEpId(),
                 'name'              => $elementSeries->getName(),
                 'slug'              => $elementSeries->getSlug(),
                 'link'              => $elementSeries->getLink(),
-                'imageUrl'          => $elementSeries->getElementSeriesImage()->getImageUrl(),
-                'imageName'         => $elementSeries->getElementSeriesImage()->getImageName(),
-                'description'       => $elementSeries->getElementSeriesDescription()->getDescription(),
+                'imageUrl'          => $imageUrl,
+                'imageName'         => $imageName,
+                'description'       => $description,
                 'createdAt'         => $elementSeries->getCreatedAt()->format(self::DATE_FORMAT),
                 'updatedAt'         => $elementSeries->getUpdatedAt()->format(self::DATE_FORMAT)
             ]);
