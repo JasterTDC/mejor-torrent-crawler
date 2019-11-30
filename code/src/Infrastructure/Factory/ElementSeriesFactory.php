@@ -6,7 +6,6 @@ namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeries;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesCollection;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail;
-use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailCollection;
 
 /**
  * Class ElementSeriesFactory
@@ -30,6 +29,8 @@ final class ElementSeriesFactory
             $rawElementSeries['name'],
             $rawElementSeries['slug'],
             $rawElementSeries['link'],
+            new \DateTimeImmutable(),
+            new \DateTimeImmutable(),
             null,
             null,
             null

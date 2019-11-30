@@ -17,6 +17,11 @@ final class ElementSeriesDetail
     protected $id;
 
     /**
+     * @var int|null
+     */
+    protected $seriesId;
+
+    /**
      * @var string
      */
     protected $name;
@@ -35,17 +40,20 @@ final class ElementSeriesDetail
      * ElementSeriesDetail constructor.
      *
      * @param int $id
+     * @param int|null $seriesId
      * @param string $name
      * @param string $link
      * @param ElementSeriesDownload|null $elementSeriesDownload
      */
     public function __construct(
         int $id,
+        ?int $seriesId,
         string $name,
         string $link,
         ?ElementSeriesDownload $elementSeriesDownload
     ) {
         $this->id = $id;
+        $this->seriesId = $seriesId;
         $this->name = $name;
         $this->link = $link;
         $this->elementSeriesDownload = $elementSeriesDownload;
@@ -60,6 +68,30 @@ final class ElementSeriesDetail
     }
 
     /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSeriesId(): ?int
+    {
+        return $this->seriesId;
+    }
+
+    /**
+     * @param int|null $seriesId
+     */
+    public function setSeriesId(?int $seriesId): void
+    {
+        $this->seriesId = $seriesId;
+    }
+
+    /**
      * @return string
      */
     public function getName(): string
@@ -68,11 +100,27 @@ final class ElementSeriesDetail
     }
 
     /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @return string
      */
     public function getLink(): string
     {
         return $this->link;
+    }
+
+    /**
+     * @param string $link
+     */
+    public function setLink(string $link): void
+    {
+        $this->link = $link;
     }
 
     /**
@@ -85,17 +133,9 @@ final class ElementSeriesDetail
 
     /**
      * @param ElementSeriesDownload|null $elementSeriesDownload
-     *
-     * @return ElementSeriesDetail
      */
-    public function setElementSeriesDownload(
-        ?ElementSeriesDownload $elementSeriesDownload
-    ) : self {
-        return new static(
-            $this->id,
-            $this->name,
-            $this->link,
-            $elementSeriesDownload
-        );
+    public function setElementSeriesDownload(?ElementSeriesDownload $elementSeriesDownload): void
+    {
+        $this->elementSeriesDownload = $elementSeriesDownload;
     }
 }

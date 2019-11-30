@@ -25,6 +25,7 @@ final class ElementSeriesDetailFactory
     ) : ElementSeriesDetail {
         return new ElementSeriesDetail(
             $rawElementSeriesDetail['id'],
+            null,
             $rawElementSeriesDetail['name'],
             $rawElementSeriesDetail['link'],
             null

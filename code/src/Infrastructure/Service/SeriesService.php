@@ -120,7 +120,7 @@ final class SeriesService implements ElementSeriesServiceInterface
                         ->elementSeriesDownloadParser
                         ->setContent($elementSeriesDownloadContent);
 
-                    $elementSeriesDetail = $elementSeriesDetail
+                    $elementSeriesDetail
                         ->setElementSeriesDownload(
                             $this
                                 ->elementSeriesDownloadParser

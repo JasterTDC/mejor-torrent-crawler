@@ -8,7 +8,9 @@ use BestThor\ScrappingMaster\Domain\ElementImageEmptyException;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeries;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail;
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesSaveException;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesServiceInterface;
+use BestThor\ScrappingMaster\Domain\Series\ElementSeriesWriterInterface;
 
 /**
  * Class GetElementSeriesCollectionUseCase
@@ -30,6 +32,11 @@ final class GetElementSeriesCollectionUseCase
     protected $mtContentReaderRepository;
 
     /**
+     * @var ElementSeriesWriterInterface
+     */
+    protected $elementSeriesWriter;
+
+    /**
      * @var string
      */
     protected $filesDir;
@@ -44,16 +51,19 @@ final class GetElementSeriesCollectionUseCase
      *
      * @param ElementSeriesServiceInterface $elementSeriesService
      * @param MTContentReaderRepositoryInterface $contentReaderRepository
+     * @param ElementSeriesWriterInterface $elementSeriesWriter
      * @param string $filesDir
      * @param string $imgDir
      */
     public function __construct(
         ElementSeriesServiceInterface $elementSeriesService,
         MTContentReaderRepositoryInterface $contentReaderRepository,
+        ElementSeriesWriterInterface $elementSeriesWriter,
         string $filesDir,
         string $imgDir
     ) {
         $this->elementSeriesService = $elementSeriesService;
+        $this->elementSeriesWriter  = $elementSeriesWriter;
         $this->mtContentReaderRepository = $contentReaderRepository;
         $this->filesDir = $filesDir;
         $this->imgDir = $imgDir;
@@ -85,6 +95,13 @@ final class GetElementSeriesCollectionUseCase
             }
 
             try {
+                $this
+                    ->elementSeriesWriter
+                    ->persist($elementSeries);
+            } catch (ElementSeriesSaveException $e) {
+            }
+
+            try {
                 $imageContent = $this
                     ->mtContentReaderRepository
                     ->getElementImageFile(
@@ -112,6 +129,9 @@ final class GetElementSeriesCollectionUseCase
                                 ->getElementSeriesDownload()
                                 ->getDownloadLink()
                         );
+
+                    $elementSeriesDetail
+                        ->setSeriesId($elementSeries->getId());
 
                     file_put_contents(
                         $elementDir . DIRECTORY_SEPARATOR .

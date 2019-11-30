@@ -35,6 +35,7 @@ use BestThor\ScrappingMaster\Infrastructure\Renderer\TemplateRenderer;
 use BestThor\ScrappingMaster\Infrastructure\Repository\GuzzleMTContentReaderRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralReaderRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\PdoAccess;
 use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -270,6 +271,11 @@ $containerBuilder->register(
 )->addArgument(new Reference(PdoAccess::class));
 
 $containerBuilder->register(
+    MysqlPdoElementSeriesWriterRepository::class,
+    MysqlPdoElementSeriesWriterRepository::class
+)->addArgument(new Reference(PdoAccess::class));
+
+$containerBuilder->register(
     MysqlPdoElementGeneralReaderRepository::class,
     MysqlPdoElementGeneralReaderRepository::class
 )
@@ -380,6 +386,7 @@ $containerBuilder->register(
 )
     ->addArgument(new Reference(SeriesService::class))
     ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
+    ->addArgument(new Reference(MysqlPdoElementSeriesWriterRepository::class))
     ->addArgument('%torrentDir%')
     ->addArgument('%staticImgDir%');
 
