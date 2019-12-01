@@ -6,5 +6,19 @@
 
 {% block content %}
     <div class="container">
+        {% if elementGeneralCollection is not empty %}
+            <div class="col-sm-6">
+                <ul>
+                    {% for elementGeneral in elementGeneralCollection%}
+                        <li data-id="{{ elementGeneral.id }}"
+                            data-name="{{ elementGeneral.name }}"
+                            data-slug="{{ elementGeneral.slug }}"
+                        >
+                            {{ elementGeneral.name }}({{ elementGeneral.detail.format }})
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

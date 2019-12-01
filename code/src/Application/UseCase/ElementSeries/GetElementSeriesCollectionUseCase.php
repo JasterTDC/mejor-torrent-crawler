@@ -99,6 +99,10 @@ final class GetElementSeriesCollectionUseCase
         foreach ($elementSeriesCollection as $elementSeries) {
             $elementDir = $this->filesDir . $elementSeries->getName();
 
+            if (!is_dir($this->filesDir)) {
+                mkdir($this->filesDir);
+            }
+
             if (!is_dir($elementDir)) {
                 mkdir($elementDir);
             }

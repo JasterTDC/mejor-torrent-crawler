@@ -55,7 +55,7 @@ final class MainController
             ->getElementGeneralUseCase
             ->handle(
                 new GetElementGeneralUseCaseArguments(
-                    10,
+                    20,
                     1
                 )
             );

@@ -5,12 +5,14 @@ use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDe
 use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadContentUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralContentUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\GetElementSeriesCollectionUseCase;
+use BestThor\ScrappingMaster\Infrastructure\Command\GeneralCrawlerCommand;
 use BestThor\ScrappingMaster\Infrastructure\Command\SeriesCrawlerCommand;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
@@ -38,6 +40,7 @@ use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWri
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesDetailWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\PdoAccess;
+use BestThor\ScrappingMaster\Infrastructure\Service\GeneralService;
 use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -47,6 +50,16 @@ $containerBuilder = new ContainerBuilder();
 $containerBuilder->setParameter(
     'torrentDir',
     '/scrap/torrent/'
+);
+
+$containerBuilder->setParameter(
+    'torrentFilmDir',
+    '/scrap/torrent/film/'
+);
+
+$containerBuilder->setParameter(
+    'torrentSeriesDir',
+    '/scrap/torrent/series/'
 );
 
 $containerBuilder->setParameter(
@@ -387,6 +400,16 @@ $containerBuilder->register(
     ->addArgument(new Reference(ElementSeriesDownloadParser::class));
 
 $containerBuilder->register(
+    GeneralService::class,
+    GeneralService::class
+)
+    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
+    ->addArgument(new Reference(ElementGeneralParser::class))
+    ->addArgument(new Reference(ElementDetailParser::class))
+    ->addArgument(new Reference(ElementDownloadParser::class))
+;
+
+$containerBuilder->register(
     GetElementSeriesCollectionUseCase::class,
     GetElementSeriesCollectionUseCase::class
 )
@@ -394,13 +417,27 @@ $containerBuilder->register(
     ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
     ->addArgument(new Reference(MysqlPdoElementSeriesWriterRepository::class))
     ->addArgument(new Reference(MysqlPdoElementSeriesDetailWriterRepository::class))
-    ->addArgument('%torrentDir%')
+    ->addArgument('%torrentSeriesDir%')
     ->addArgument('%staticImgDir%');
+
+$containerBuilder->register(
+    GetElementGeneralCollectionUseCase::class,
+    GetElementGeneralCollectionUseCase::class
+)
+    ->addArgument(new Reference(GeneralService::class))
+    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
+    ->addArgument(new Reference(MysqlPdoElementGeneralWriterRepository::class))
+    ->addArgument('%staticImgDir%')
+    ->addArgument('%torrentFilmDir%');
 
 $containerBuilder->register(
     SeriesCrawlerCommand::class,
     SeriesCrawlerCommand::class
-)
-    ->addArgument(new Reference(GetElementSeriesCollectionUseCase::class));
+)->addArgument(new Reference(GetElementSeriesCollectionUseCase::class));
+
+$containerBuilder->register(
+    GeneralCrawlerCommand::class,
+    GeneralCrawlerCommand::class
+)->addArgument(new Reference(GetElementGeneralCollectionUseCase::class));
 
 return $containerBuilder;
