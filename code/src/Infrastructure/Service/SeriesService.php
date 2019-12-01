@@ -84,6 +84,10 @@ final class SeriesService implements ElementSeriesServiceInterface
                 ->elementSeriesParser
                 ->getElementSeriesCollection();
 
+            if (empty($elementSeriesCollection)) {
+                return new ElementSeriesCollection();
+            }
+
             /** @var ElementSeries $elementSeries */
             foreach ($elementSeriesCollection as $elementSeries) {
                 $seriesDetailContent = $this
@@ -108,28 +112,30 @@ final class SeriesService implements ElementSeriesServiceInterface
 
                 $finalElementSeriesDetailCollection = new ElementSeriesDetailCollection();
 
-                /** @var ElementSeriesDetail $elementSeriesDetail */
-                foreach ($elementDetailCollection as $elementSeriesDetail) {
-                    $elementSeriesDownloadContent = $this
-                        ->mtContentReadRepository
-                        ->getElementSeriesDownloadContent(
-                            $elementSeriesDetail->getId()
-                        );
+                if (!empty($elementDetailCollection)) {
+                    /** @var ElementSeriesDetail $elementSeriesDetail */
+                    foreach ($elementDetailCollection as $elementSeriesDetail) {
+                        $elementSeriesDownloadContent = $this
+                            ->mtContentReadRepository
+                            ->getElementSeriesDownloadContent(
+                                $elementSeriesDetail->getId()
+                            );
 
-                    $this
-                        ->elementSeriesDownloadParser
-                        ->setContent($elementSeriesDownloadContent);
+                        $this
+                            ->elementSeriesDownloadParser
+                            ->setContent($elementSeriesDownloadContent);
 
-                    $elementSeriesDetail
-                        ->setElementSeriesDownload(
-                            $this
-                                ->elementSeriesDownloadParser
-                                ->getElementSeriesDownload()
-                        );
-
-                    $finalElementSeriesDetailCollection->add(
                         $elementSeriesDetail
-                    );
+                            ->setElementSeriesDownload(
+                                $this
+                                    ->elementSeriesDownloadParser
+                                    ->getElementSeriesDownload()
+                            );
+
+                        $finalElementSeriesDetailCollection->add(
+                            $elementSeriesDetail
+                        );
+                    }
                 }
 
                 $elementSeries

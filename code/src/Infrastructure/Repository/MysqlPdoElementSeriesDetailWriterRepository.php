@@ -4,7 +4,6 @@
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail;
-use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailEmptyException;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailSaveException;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailWriterInterface;
 
@@ -80,14 +79,27 @@ final class MysqlPdoElementSeriesDetailWriterRepository implements ElementSeries
                 );
             }
 
+            $downloadName   = null;
+            $downloadLink   = null;
+
+            if (!empty($elementSeriesDetail->getElementSeriesDownload())) {
+                $downloadName = $elementSeriesDetail
+                    ->getElementSeriesDownload()
+                    ->getDownloadName();
+
+                $downloadLink = $elementSeriesDetail
+                    ->getElementSeriesDownload()
+                    ->getDownloadLink();
+            }
+
             return $statement
                 ->execute([
                     'id'            => $elementSeriesDetail->getId(),
                     'seriesId'      => $elementSeriesDetail->getSeriesId(),
                     'name'          => $elementSeriesDetail->getName(),
                     'link'          => $elementSeriesDetail->getLink(),
-                    'downloadName'  => $elementSeriesDetail->getElementSeriesDownload()->getDownloadName(),
-                    'downloadLink'  => $elementSeriesDetail->getElementSeriesDownload()->getDownloadLink(),
+                    'downloadName'  => $downloadName,
+                    'downloadLink'  => $downloadLink,
                     'createdAt'     => $elementSeriesDetail->getCreatedAt()->format(self::DATE_FORMAT),
                     'updatedAt'     => $elementSeriesDetail->getUpdatedAt()->format(self::DATE_FORMAT)
                 ]);

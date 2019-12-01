@@ -76,14 +76,14 @@ final class ElementDetailFactory implements ElementDetailFactoryInterface
         }
 
         if (!empty($current)) {
-            $elementDir = $this->baseDir . DIRECTORY_SEPARATOR .
+            $elementDir = $this->baseDir .
                 $current->format('Y') . DIRECTORY_SEPARATOR .
                 $current->format('m') . DIRECTORY_SEPARATOR;
 
-            $elementYearDir = $this->baseDir . DIRECTORY_SEPARATOR .
+            $elementYearDir = $this->baseDir .
                 $current->format('Y') . DIRECTORY_SEPARATOR;
 
-            $elementMonthDir = $this->baseDir . DIRECTORY_SEPARATOR .
+            $elementMonthDir = $this->baseDir .
                 $current->format('Y') . DIRECTORY_SEPARATOR .
                 $current->format('m') . DIRECTORY_SEPARATOR;
         }

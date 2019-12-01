@@ -86,22 +86,26 @@ final class ElementSeriesDetailParser
         $detailArr = [];
 
         for ($i = 0; $i < $linkNodeList->length; $i++) {
-            $href = $linkNodeList
-                ->item($i)
-                ->attributes
-                ->getNamedItem('href')
-                ->nodeValue;
+            if (!empty($linkNodeList->item($i)->attributes) &&
+                !empty($linkNodeList->item($i)->attributes->getNamedItem('href'))
+            ) {
+                $href = $linkNodeList
+                    ->item($i)
+                    ->attributes
+                    ->getNamedItem('href')
+                    ->nodeValue;
 
-            if (preg_match(
-                '/serie\-episodio\-descargar\-torrent\-(?<episodeId>\d+)\-(?<episodeName>.+)\.html/',
-                $href,
-                $match
-            )) {
-                $detailArr[] = [
-                    'link'      => $href,
-                    'id'        => (int) $match['episodeId'],
-                    'name'      => $match['episodeName']
-                ];
+                if (preg_match(
+                    '/serie\-episodio\-descargar\-torrent\-(?<episodeId>\d+)\-(?<episodeName>.+)\.html/',
+                    $href,
+                    $match
+                )) {
+                    $detailArr[] = [
+                        'link'      => $href,
+                        'id'        => (int) $match['episodeId'],
+                        'name'      => $match['episodeName']
+                    ];
+                }
             }
         }
 
@@ -140,7 +144,9 @@ final class ElementSeriesDetailParser
             ->query('//img[@width="120"]');
 
         if (!empty($imageNode) &&
-            !empty($imageNode->item(0))
+            !empty($imageNode->item(0)) &&
+            !empty($imageNode->item(0)->attributes) &&
+            !empty($imageNode->item(0)->attributes->getNamedItem('src'))
         ) {
             $imageUrl = $imageNode
                 ->item(0)
@@ -163,15 +169,5 @@ final class ElementSeriesDetailParser
         }
 
         return null;
-    }
-
-    /**
-     * Destruct
-     */
-    public function __destruct()
-    {
-        $this->content      = null;
-        $this->domXPath     = null;
-        $this->domDocument  = null;
     }
 }
