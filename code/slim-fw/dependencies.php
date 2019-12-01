@@ -12,6 +12,7 @@ use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementG
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\GetElementSeriesCollectionUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Command\GeneralCrawlerCommand;
 use BestThor\ScrappingMaster\Infrastructure\Command\SeriesCrawlerCommand;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
@@ -27,6 +28,9 @@ use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesDownloadFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesImageFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\FromMysqlElementSeriesDescriptionFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\FromMysqlElementSeriesFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\FromMysqlElementSeriesImageFactory;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDetailParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDownloadParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementGeneralParser;
@@ -38,6 +42,7 @@ use BestThor\ScrappingMaster\Infrastructure\Repository\GuzzleMTContentReaderRepo
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralReaderRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesDetailWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesReaderRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\PdoAccess;
 use BestThor\ScrappingMaster\Infrastructure\Service\GeneralService;
@@ -387,7 +392,8 @@ $containerBuilder->register(
     MainController::class,
     MainController::class
 )
-    ->addArgument(new Reference(GetElementGeneralUseCase::class))
+    ->addArgument(new Reference(GetElementUseCase::class))
+    ->addArgument(new Reference(ElementSeriesDataTransformer::class))
     ->addArgument(new Reference(TemplateRenderer::class));
 
 $containerBuilder->register(
@@ -439,5 +445,36 @@ $containerBuilder->register(
     GeneralCrawlerCommand::class,
     GeneralCrawlerCommand::class
 )->addArgument(new Reference(GetElementGeneralCollectionUseCase::class));
+
+$containerBuilder->register(
+    FromMysqlElementSeriesDescriptionFactory::class,
+    FromMysqlElementSeriesDescriptionFactory::class
+);
+
+$containerBuilder->register(
+    FromMysqlElementSeriesImageFactory::class,
+    FromMysqlElementSeriesImageFactory::class
+);
+
+$containerBuilder->register(
+    FromMysqlElementSeriesFactory::class,
+    FromMysqlElementSeriesFactory::class
+)
+    ->addArgument(new Reference(FromMysqlElementSeriesImageFactory::class))
+    ->addArgument(new Reference(FromMysqlElementSeriesDescriptionFactory::class));
+
+$containerBuilder->register(
+    MysqlPdoElementSeriesReaderRepository::class,
+    MysqlPdoElementSeriesReaderRepository::class
+)
+    ->addArgument(new Reference(FromMysqlElementSeriesFactory::class))
+    ->addArgument(new Reference('PdoReader'));
+
+$containerBuilder->register(
+    GetElementUseCase::class,
+    GetElementUseCase::class
+)
+    ->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class))
+    ->addArgument(new Reference(MysqlPdoElementSeriesReaderRepository::class));
 
 return $containerBuilder;
