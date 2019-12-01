@@ -76,14 +76,4 @@ final class ElementSeriesDownloadParser
                 'name' => $iNodeList->item(0)->nodeValue
             ]);
     }
-
-    /**
-     * Destructor
-     */
-    public function __destruct()
-    {
-        $this->content      = null;
-        $this->domXPath     = null;
-        $this->domDocument  = null;
-    }
 }

@@ -75,9 +75,18 @@ final class MysqlPdoElementSeriesReaderRepository implements ElementSeriesReader
                 'offset'    => $offset
             ]);
 
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            if (empty($result)) {
+                throw new ElementSeriesEmptyException(
+                    'ElementSeries. We could not retrieve series list',
+                    3
+                );
+            }
+
             return $this
                 ->elementSeriesFactory
-                ->createCollectionFromRaw($statement->fetchAll(\PDO::FETCH_ASSOC));
+                ->createCollectionFromRaw($result);
         } catch (\PDOException $e) {
             throw new ElementSeriesEmptyException(
                 "ElementSeries. {$e->getMessage()}",

@@ -59,10 +59,20 @@ final class SeriesCrawlerCommand extends Command
     {
         $useCase = $this->useCase;
 
+        $page = $input->getArgument('page');
+
+        if (is_null($page) || is_array($page)) {
+            $page = 1;
+        }
+
+        if (is_string($page)) {
+            $page = (int) $page;
+        }
+
         /** @var GetElementSeriesCollectionUseCaseResponse $response */
         $response = $useCase(
             new GetElementSeriesCollectionUseCaseArguments(
-                (int) $input->getArgument('page')
+                $page
             )
         );
 

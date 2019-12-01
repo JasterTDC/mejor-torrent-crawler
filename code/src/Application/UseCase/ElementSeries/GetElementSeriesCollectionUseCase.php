@@ -148,37 +148,45 @@ final class GetElementSeriesCollectionUseCase
                 /** @var ElementSeriesDetail $elementSeriesDetail */
                 foreach ($elementSeries->getElementSeriesDetailCollection() as $elementSeriesDetail) {
                     try {
-                        $downloadContent = $this
-                            ->mtContentReaderRepository
-                            ->getElementDownloadFile(
+                        if (!empty($elementSeriesDetail->getElementSeriesDownload()) &&
+                            !empty($elementSeriesDetail->getElementSeriesDownload()->getDownloadLink())
+                        ) {
+                            $downloadContent = $this
+                                ->mtContentReaderRepository
+                                ->getElementDownloadFile(
+                                    $elementSeriesDetail
+                                        ->getElementSeriesDownload()
+                                        ->getDownloadLink()
+                                );
+
+                            $elementSeriesDetail
+                                ->setSeriesId($elementSeries->getId());
+
+                            $staticDir = $elementDir . DIRECTORY_SEPARATOR .
                                 $elementSeriesDetail
                                     ->getElementSeriesDownload()
-                                    ->getDownloadLink()
-                            );
+                                    ->getDownloadName();
 
-                        $elementSeriesDetail
-                            ->setSeriesId($elementSeries->getId());
-
-                        $staticDir = $elementDir . DIRECTORY_SEPARATOR .
                             $elementSeriesDetail
+                                ->setElementSeriesDownload(
+                                    $elementSeriesDetail
+                                        ->getElementSeriesDownload()
+                                        ->setDownloadLink($staticDir)
+                                );
+
+                            file_put_contents(
+                                $staticDir,
+                                $downloadContent
+                            );
+                        }
+                    } catch (ElementDownloadContentEmptyException $e) {
+                        if (!empty($elementSeriesDetail->getElementSeriesDownload()) &&
+                            !empty($elementSeriesDetail->getElementSeriesDownload()->getDownloadName())
+                        ) {
+                            $errorFileArr[] = $elementSeriesDetail
                                 ->getElementSeriesDownload()
                                 ->getDownloadName();
-
-                        $elementSeriesDetail
-                            ->setElementSeriesDownload(
-                                $elementSeriesDetail
-                                    ->getElementSeriesDownload()
-                                    ->setDownloadLink($staticDir)
-                            );
-
-                        file_put_contents(
-                            $staticDir,
-                            $downloadContent
-                        );
-                    } catch (ElementDownloadContentEmptyException $e) {
-                        $errorFileArr[] = $elementSeriesDetail
-                            ->getElementSeriesDownload()
-                            ->getDownloadName();
+                        }
                     }
 
                     try {
