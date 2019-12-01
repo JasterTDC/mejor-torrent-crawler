@@ -1,5 +1,6 @@
 <?php
 
+use BestThor\ScrappingMaster\Infrastructure\Command\GeneralCrawlerCommand;
 use BestThor\ScrappingMaster\Infrastructure\Command\SeriesCrawlerCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\Container;
@@ -13,6 +14,9 @@ $application = new Application();
 
 $application->add(
     $container->get(SeriesCrawlerCommand::class)
+);
+$application->add(
+    $container->get(GeneralCrawlerCommand::class)
 );
 
 $application->run();

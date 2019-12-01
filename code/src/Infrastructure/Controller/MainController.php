@@ -4,7 +4,10 @@ namespace BestThor\ScrappingMaster\Infrastructure\Controller;
 
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCaseArguments;
+use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCaseArguments;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Renderer\TemplateRenderer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -18,9 +21,14 @@ use Psr\Http\Message\ServerRequestInterface;
 final class MainController
 {
     /**
-     * @var GetElementGeneralUseCase
+     * @var GetElementUseCase
      */
-    protected $getElementGeneralUseCase;
+    protected $getElementUseCase;
+
+    /**
+     * @var ElementSeriesDataTransformer
+     */
+    protected $elementSeriesDataTransformer;
 
     /**
      * @var TemplateRenderer
@@ -30,14 +38,16 @@ final class MainController
     /**
      * MainController constructor.
      *
-     * @param GetElementGeneralUseCase $getElementGeneralUseCase
+     * @param GetElementUseCase $getElementUseCase
      * @param TemplateRenderer $templateRenderer
      */
     public function __construct(
-        GetElementGeneralUseCase $getElementGeneralUseCase,
+        GetElementUseCase $getElementUseCase,
+        ElementSeriesDataTransformer $elementSeriesDataTransformer,
         TemplateRenderer $templateRenderer
     ) {
-        $this->getElementGeneralUseCase = $getElementGeneralUseCase;
+        $this->getElementUseCase = $getElementUseCase;
+        $this->elementSeriesDataTransformer = $elementSeriesDataTransformer;
         $this->templateRenderer = $templateRenderer;
     }
 
@@ -52,39 +62,47 @@ final class MainController
         ResponseInterface $response
     ) : ResponseInterface {
         $useCaseResponse = $this
-            ->getElementGeneralUseCase
+            ->getElementUseCase
             ->handle(
-                new GetElementGeneralUseCaseArguments(
-                    10,
-                    1
+                new GetElementUseCaseArguments(
+                    1,
+                    20
                 )
             );
 
-        if ($useCaseResponse->isSuccess() &&
-            !empty($useCaseResponse->getElementGeneralCollection())
+        if (empty($useCaseResponse->isSuccess()) ||
+            empty($useCaseResponse->getElementGeneralCollection()) ||
+            empty($useCaseResponse->getElementSeriesCollection())
         ) {
-            $dataTransformer = new ElementGeneralCollectionDataTransformer();
+            return $response->withStatus(404);
+        }
 
-            try {
-                $elementGeneralCollectionTransformed = $dataTransformer
-                    ->transform($useCaseResponse->getElementGeneralCollection());
+        $dataTransformer = new ElementGeneralCollectionDataTransformer();
 
-                $html = $this
-                    ->templateRenderer
-                    ->getTemplateRenderer()
-                    ->render(
-                        'main.html.twig',
-                        [
-                            'elementGeneralCollection' => $elementGeneralCollectionTransformed
-                        ]
-                    );
+        try {
+            $elementGeneralCollectionTransformed = $dataTransformer
+                ->transform($useCaseResponse->getElementGeneralCollection());
 
-                $response->getBody()->write($html);
-                $response = $response->withHeader('Content-type', 'text/html');
+            $elementSeriesCollectionTransformed = $this
+                ->elementSeriesDataTransformer
+                ->transformCollection($useCaseResponse->getElementSeriesCollection());
 
-                return $response->withStatus(200);
-            } catch (\Exception $e) {
-            }
+            $html = $this
+                ->templateRenderer
+                ->getTemplateRenderer()
+                ->render(
+                    'main.html.twig',
+                    [
+                        'elementGeneralCollection'  => $elementGeneralCollectionTransformed,
+                        'elementSeriesCollection'   => $elementSeriesCollectionTransformed
+                    ]
+                );
+
+            $response->getBody()->write($html);
+            $response = $response->withHeader('Content-type', 'text/html');
+
+            return $response->withStatus(200);
+        } catch (\Exception $e) {
         }
 
         return $response->withStatus(200);
