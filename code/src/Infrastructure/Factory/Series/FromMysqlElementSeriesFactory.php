@@ -68,6 +68,14 @@ final class FromMysqlElementSeriesFactory implements ElementSeriesFactoryInterfa
             $updatedAt = new \DateTimeImmutable();
         }
 
+        if (empty($createdAt)) {
+            $createdAt = new \DateTimeImmutable();
+        }
+
+        if (empty($updatedAt)) {
+            $updatedAt = new \DateTimeImmutable();
+        }
+
         return new ElementSeries(
             (int) $rawElementSeries['id'],
             (int) $rawElementSeries['firstEpisodeId'],

@@ -18,7 +18,8 @@ final class ElementSeriesFactory
     /**
      * @param array $rawElementSeries
      *
-     * @return ElementSeriesDetail
+     * @return ElementSeries
+     * @throws \Exception
      */
     public function createFromRaw(
         array $rawElementSeries

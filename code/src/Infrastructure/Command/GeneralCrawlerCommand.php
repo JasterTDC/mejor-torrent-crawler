@@ -57,9 +57,19 @@ final class GeneralCrawlerCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $totalPages = $input->getArgument('totalPages');
+
+        if (is_array($totalPages) || is_null($totalPages)) {
+            $totalPages = 1;
+        }
+
+        if (is_string($totalPages)) {
+            $totalPages = (int) $totalPages;
+        }
+
         $response = $this->useCase->handle(
             new GetElementGeneralCollectionArguments(
-                (int) $input->getArgument('totalPages')
+                $totalPages
             )
         );
 

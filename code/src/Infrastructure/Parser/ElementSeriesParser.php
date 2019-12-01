@@ -77,44 +77,39 @@ final class ElementSeriesParser
 
         $seriesArr = [];
 
-        for($i = 0; $i < $linkNodeList->length; $i++) {
-            $href = $linkNodeList
-                ->item($i)
-                ->attributes
-                ->getNamedItem('href')
-                ->nodeValue;
+        for ($i = 0; $i < $linkNodeList->length; $i++) {
+            if (!empty($linkNodeList->item($i)->attributes) &&
+                !empty($linkNodeList->item($i)->attributes->getNamedItem('href'))
+            ) {
+                $href = $linkNodeList
+                    ->item($i)
+                    ->attributes
+                    ->getNamedItem('href')
+                    ->nodeValue;
 
-            if (preg_match(
-                '/\/serie\-descargar\-torrents\-(?<elementFirstId>\d+)\-(?<elementSecondId>\d+)\-(?<elementName>.+)\.html$/',
-                $href,
-                $match
-            )) {
-                $seriesArr[] = [
-                    'link'      => $href,
-                    'id'        => (int) $match['elementFirstId'],
-                    'firstEpId' => (int) $match['elementSecondId'],
-                    'slug'      => $match['elementName'],
-                    'name'      => preg_replace(
-                        '/\-/',
-                        ' ',
-                        (string) $match['elementName']
-                    )
-                ];
+                if (preg_match(
+                    '/\/serie\-descargar\-torrents\-'.
+                    '(?<elementFirstId>\d+)\-(?<elementSecondId>\d+)\-(?<elementName>.+)\.html$/',
+                    $href,
+                    $match
+                )) {
+                    $seriesArr[] = [
+                        'link'      => $href,
+                        'id'        => (int) $match['elementFirstId'],
+                        'firstEpId' => (int) $match['elementSecondId'],
+                        'slug'      => $match['elementName'],
+                        'name'      => preg_replace(
+                            '/\-/',
+                            ' ',
+                            (string) $match['elementName']
+                        )
+                    ];
+                }
             }
         }
 
         return $this
             ->elementSeriesFactory
             ->createFromRawCollection($seriesArr);
-    }
-
-    /**
-     * Destruct the entire class
-     */
-    public function __destruct()
-    {
-        $this->content      = null;
-        $this->domXPath     = null;
-        $this->domDocument  = null;
     }
 }

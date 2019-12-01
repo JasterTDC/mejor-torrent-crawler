@@ -83,7 +83,8 @@ final class GetElementGeneralCollectionUseCase
                 /** @var ElementGeneral $elementGeneral */
                 foreach ($elementGeneralCollection as $elementGeneral) {
                     if (!empty($elementGeneral->getElementDetail()) &&
-                        !empty($elementGeneral->getElementDetail()->getElementCoverImg())
+                        !empty($elementGeneral->getElementDetail()->getElementCoverImg()) &&
+                        !empty($elementGeneral->getElementDetail()->getElementCoverImgName())
                     ) {
                         try {
                             $imageContent = $this

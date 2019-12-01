@@ -132,7 +132,7 @@ final class GuzzleMTContentReaderRepository implements
      * @param int $page
      *
      * @return string
-     * @throws ElementGen$meralContentEmptyException
+     * @throws ElementGeneralContentEmptyException
      */
     public function getElementGeneralContent(
         int $page
