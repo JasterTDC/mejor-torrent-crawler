@@ -77,7 +77,7 @@ final class ElementSeriesParser
 
         $seriesArr = [];
 
-        for($i = 0; $i < $linkNodeList->length; $i++) {
+        for ($i = 0; $i < $linkNodeList->length; $i++) {
             $href = $linkNodeList
                 ->item($i)
                 ->attributes
@@ -85,7 +85,8 @@ final class ElementSeriesParser
                 ->nodeValue;
 
             if (preg_match(
-                '/\/serie\-descargar\-torrents\-(?<elementFirstId>\d+)\-(?<elementSecondId>\d+)\-(?<elementName>.+)\.html$/',
+                '/\/serie\-descargar\-torrents\-'.
+                '(?<elementFirstId>\d+)\-(?<elementSecondId>\d+)\-(?<elementName>.+)\.html$/',
                 $href,
                 $match
             )) {

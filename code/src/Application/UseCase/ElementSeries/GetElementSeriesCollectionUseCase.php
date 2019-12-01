@@ -147,7 +147,6 @@ final class GetElementSeriesCollectionUseCase
             if (!empty($elementSeries->getElementSeriesDetailCollection())) {
                 /** @var ElementSeriesDetail $elementSeriesDetail */
                 foreach ($elementSeries->getElementSeriesDetailCollection() as $elementSeriesDetail) {
-
                     try {
                         $downloadContent = $this
                             ->mtContentReaderRepository

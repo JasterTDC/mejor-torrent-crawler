@@ -223,8 +223,9 @@ final class ElementSeries
     /**
      * @param ElementSeriesDetailCollection|null $elementSeriesDetailCollection
      */
-    public function setElementSeriesDetailCollection(?ElementSeriesDetailCollection $elementSeriesDetailCollection): void
-    {
+    public function setElementSeriesDetailCollection(
+        ?ElementSeriesDetailCollection $elementSeriesDetailCollection
+    ): void {
         $this->elementSeriesDetailCollection = $elementSeriesDetailCollection;
     }
 
