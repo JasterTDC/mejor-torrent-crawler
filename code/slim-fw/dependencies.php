@@ -1,20 +1,13 @@
 <?php
 
-use BestThor\ScrappingMaster\Application\Service\RetrieveElementService;
-use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailContentUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementDetail\RetrieveElementDetailUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadContentUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementDownload\RetrieveElementDownloadUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralContentUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGeneralUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\GetElementSeriesCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\Torrent\AddGeneralTorrentUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Command\GeneralCrawlerCommand;
 use BestThor\ScrappingMaster\Infrastructure\Command\SeriesCrawlerCommand;
+use BestThor\ScrappingMaster\Infrastructure\Controller\AddGeneralTorrentController;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDescriptionDataTransformer;
@@ -47,30 +40,22 @@ use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesWrit
 use BestThor\ScrappingMaster\Infrastructure\Repository\PdoAccess;
 use BestThor\ScrappingMaster\Infrastructure\Service\GeneralService;
 use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
+use BestThor\ScrappingMaster\Infrastructure\Transmission\TransmissionClient;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 $containerBuilder = new ContainerBuilder();
 
-$containerBuilder->setParameter(
-    'torrentDir',
-    '/scrap/torrent/'
-);
+$writerHost = getenv('DB_ELEMENT_WRITER_HOSTNAME');
+$writerPort = getenv('DB_ELEMENT_WRITER_PORT');
+$writerDatabase = getenv('DB_ELEMENT_WRITER_DATABASE');
 
-$containerBuilder->setParameter(
-    'torrentFilmDir',
-    '/scrap/torrent/film/'
-);
+$readerHost = getenv('DB_ELEMENT_READER_HOSTNAME');
+$readerPort = getenv('DB_ELEMENT_READER_PORT');
+$readerDatabase = getenv('DB_ELEMENT_READER_DATABASE');
 
-$containerBuilder->setParameter(
-    'torrentSeriesDir',
-    '/scrap/torrent/series/'
-);
-
-$containerBuilder->setParameter(
-    'staticImgDir',
-    '/static/img/'
-);
+$pdoWriterDsn = "mysql:host={$writerHost};charset=utf8;port={$writerPort};database={$writerDatabase}";
+$pdoReaderDsn = "mysql:host={$readerHost};charset=utf8;port={$readerPort};database={$writerDatabase}";
 
 $containerBuilder->setParameter(
     'downloadElementTorrentUrl',
@@ -108,36 +93,6 @@ $containerBuilder->setParameter(
 );
 
 $containerBuilder->setParameter(
-    'PdoWriterDsn',
-    'mysql:host=sql;charset=utf8;port=3306;database=elements'
-);
-
-$containerBuilder->setParameter(
-    'PdoWriterUsername',
-    'root'
-);
-
-$containerBuilder->setParameter(
-    'PdoWriterPassword',
-    'root'
-);
-
-$containerBuilder->setParameter(
-    'PdoReaderDsn',
-    'mysql:host=sql;charset=utf8;port=3306;database=elements'
-);
-
-$containerBuilder->setParameter(
-    'PdoReaderUsername',
-    'root'
-);
-
-$containerBuilder->setParameter(
-    'PdoReaderPassword',
-    'root'
-);
-
-$containerBuilder->setParameter(
     'TemplateDir',
     __DIR__ . '/../views'
 );
@@ -149,25 +104,10 @@ $containerBuilder->setParameter(
     ]
 );
 
-$containerBuilder->setParameter(
-    'filmCachePath',
-    '/static/film/'
-);
-
-$containerBuilder->setParameter(
-    'filmDetailCachePath',
-    '/static/film/detail/'
-);
-
-$containerBuilder->setParameter(
-    'filmDownloadCachePath',
-    '/static/film/download/'
-);
-
 $containerBuilder->register(
     ElementDetailFactory::class,
     ElementDetailFactory::class
-)->addArgument('%torrentDir%');
+)->addArgument(getenv('TORRENT_DIR'));
 
 $containerBuilder->register(
     ElementDownloadFactory::class,
@@ -185,11 +125,6 @@ $containerBuilder->register(
     ElementGeneralParser::class,
     ElementGeneralParser::class
 )->addArgument(new Reference(ElementGeneralFactory::class));
-
-$containerBuilder->register(
-    RetrieveElementGeneralUseCase::class,
-    RetrieveElementGeneralUseCase::class
-)->addArgument(new Reference(ElementGeneralParser::class));
 
 $containerBuilder->register(
     ElementDetailParser::class,
@@ -237,19 +172,9 @@ $containerBuilder->register(
     ->addArgument(new Reference(ElementSeriesDownloadFactory::class));
 
 $containerBuilder->register(
-    RetrieveElementDetailUseCase::class,
-    RetrieveElementDetailUseCase::class
-)->addArgument(new Reference(ElementDetailParser::class));
-
-$containerBuilder->register(
     ElementDownloadParser::class,
     ElementDownloadParser::class
 )->addArgument(new Reference(ElementDownloadFactory::class));
-
-$containerBuilder->register(
-    RetrieveElementDownloadUseCase::class,
-    RetrieveElementDownloadUseCase::class
-)->addArgument(new Reference(ElementDownloadParser::class));
 
 $containerBuilder->register(
     GuzzleMTContentReaderRepository::class,
@@ -262,27 +187,20 @@ $containerBuilder->register(
     ->addArgument('%seriesDownloadUrl%');
 
 $containerBuilder->register(
-    SaveElementInFileUseCase::class,
-    SaveElementInFileUseCase::class
-)
-    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
-    ->addArgument('%staticImgDir%');
-
-$containerBuilder->register(
     PdoAccess::class,
     PdoAccess::class
 )
-    ->addArgument('%PdoWriterDsn%')
-    ->addArgument('%PdoWriterUsername%')
-    ->addArgument('%PdoWriterPassword%');
+    ->addArgument($pdoWriterDsn)
+    ->addArgument(getenv('DB_ELEMENT_WRITER_USERNAME'))
+    ->addArgument(getenv('DB_ELEMENT_WRITER_PASSWORD'));
 
 $containerBuilder->register(
     'PdoReader',
     PdoAccess::class
 )
-    ->addArgument('%PdoReaderDsn%')
-    ->addArgument('%PdoReaderUsername%')
-    ->addArgument('%PdoReaderPassword%');
+    ->addArgument($pdoReaderDsn)
+    ->addArgument(getenv('DB_ELEMENT_READER_USERNAME'))
+    ->addArgument(getenv('DB_ELEMENT_READER_PASSWORD'));
 
 $containerBuilder->register(
     MysqlPdoElementGeneralWriterRepository::class,
@@ -320,32 +238,6 @@ $containerBuilder->register(
     ->addArgument('%TemplateOptions%');
 
 $containerBuilder->register(
-    SaveElementGeneralUseCase::class,
-    SaveElementGeneralUseCase::class
-)->addArgument(new Reference(MysqlPdoElementGeneralWriterRepository::class));
-
-$containerBuilder->register(
-    RetrieveElementGeneralContentUseCase::class,
-    RetrieveElementGeneralContentUseCase::class
-)
-    ->addArgument('%filmCachePath%')
-    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class));
-
-$containerBuilder->register(
-    RetrieveElementDetailContentUseCase::class,
-    RetrieveElementDetailContentUseCase::class
-)
-    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
-    ->addArgument('%filmDetailCachePath%');
-
-$containerBuilder->register(
-    RetrieveElementDownloadContentUseCase::class,
-    RetrieveElementDownloadContentUseCase::class
-)
-    ->addArgument('%filmDownloadCachePath%')
-    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class));
-
-$containerBuilder->register(
     ElementSeriesImageDataTransformer::class,
     ElementSeriesImageDataTransformer::class
 );
@@ -375,26 +267,18 @@ $containerBuilder->register(
     ->addArgument(new Reference(ElementSeriesDetailDataTransformer::class));
 
 $containerBuilder->register(
-    RetrieveElementService::class,
-    RetrieveElementService::class
-)
-    ->addArgument(new Reference(RetrieveElementGeneralUseCase::class))
-    ->addArgument(new Reference(RetrieveElementDetailUseCase::class))
-    ->addArgument(new Reference(RetrieveElementDownloadUseCase::class))
-    ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
-    ->addArgument(new Reference(SaveElementInFileUseCase::class))
-    ->addArgument(new Reference(SaveElementGeneralUseCase::class))
-    ->addArgument(new Reference(RetrieveElementGeneralContentUseCase::class))
-    ->addArgument(new Reference(RetrieveElementDetailContentUseCase::class))
-    ->addArgument(new Reference(RetrieveElementDownloadContentUseCase::class));
-
-$containerBuilder->register(
     MainController::class,
     MainController::class
 )
     ->addArgument(new Reference(GetElementUseCase::class))
     ->addArgument(new Reference(ElementSeriesDataTransformer::class))
     ->addArgument(new Reference(TemplateRenderer::class));
+
+$containerBuilder->register(
+    AddGeneralTorrentController::class,
+    AddGeneralTorrentController::class
+)
+    ->addArgument(new Reference(AddGeneralTorrentUseCase::class));
 
 $containerBuilder->register(
     SeriesService::class,
@@ -423,8 +307,8 @@ $containerBuilder->register(
     ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
     ->addArgument(new Reference(MysqlPdoElementSeriesWriterRepository::class))
     ->addArgument(new Reference(MysqlPdoElementSeriesDetailWriterRepository::class))
-    ->addArgument('%torrentSeriesDir%')
-    ->addArgument('%staticImgDir%');
+    ->addArgument(getenv('TORRENT_SERIES_DIR'))
+    ->addArgument(getenv('STATIC_IMG_DIR'));
 
 $containerBuilder->register(
     GetElementGeneralCollectionUseCase::class,
@@ -433,8 +317,8 @@ $containerBuilder->register(
     ->addArgument(new Reference(GeneralService::class))
     ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
     ->addArgument(new Reference(MysqlPdoElementGeneralWriterRepository::class))
-    ->addArgument('%staticImgDir%')
-    ->addArgument('%torrentFilmDir%');
+    ->addArgument(getenv('STATIC_IMG_DIR'))
+    ->addArgument(getenv('TORRENT_FILM_DIR'));
 
 $containerBuilder->register(
     SeriesCrawlerCommand::class,
@@ -476,5 +360,21 @@ $containerBuilder->register(
 )
     ->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class))
     ->addArgument(new Reference(MysqlPdoElementSeriesReaderRepository::class));
+
+$containerBuilder->register(
+    AddGeneralTorrentUseCase::class,
+    AddGeneralTorrentUseCase::class
+)
+    ->addArgument(new Reference(TransmissionClient::class))
+    ->addArgument(getenv('TORRENT_FILM_DIR'));
+
+$containerBuilder->register(
+    TransmissionClient::class,
+    TransmissionClient::class
+)
+    ->addArgument(getenv('TRANSMISSION_HOSTNAME'))
+    ->addArgument(getenv('TRANSMISSION_PORT'))
+    ->addArgument(getenv('TRANSMISSION_USERNAME'))
+    ->addArgument(getenv('TRANSMISSION_PASSWORD'));
 
 return $containerBuilder;

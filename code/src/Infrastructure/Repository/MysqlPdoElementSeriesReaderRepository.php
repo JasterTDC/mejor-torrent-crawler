@@ -52,6 +52,7 @@ final class MysqlPdoElementSeriesReaderRepository implements ElementSeriesReader
     ) : ElementSeriesCollection {
         $sql = "SELECT *
         FROM `elements`.`series`
+        ORDER BY `updatedAt` DESC
         LIMIT :offset, :limit
         ";
 

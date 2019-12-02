@@ -8,21 +8,24 @@
     <div class="container">
         <div class="row">
             {% if elementGeneralCollection is not empty %}
-                <div class="col-lg-6">
+                <div id="element-general-collection" class="col-lg-6">
                     <ul>
                         {% for elementGeneral in elementGeneralCollection%}
-                            <li data-id="{{ elementGeneral.id }}"
-                                data-name="{{ elementGeneral.name }}"
-                                data-slug="{{ elementGeneral.slug }}"
-                            >
-                                {{ elementGeneral.name }}({{ elementGeneral.detail.format }})
+                            <li>
+                                <a  data-id="{{ elementGeneral.id }}"
+                                    data-name="{{ elementGeneral.name }}"
+                                    data-slug="{{ elementGeneral.slug }}"
+                                    href="#"
+                                >
+                                    {{ elementGeneral.name }}({{ elementGeneral.detail.format }})
+                                </a>
                             </li>
                         {% endfor %}
                     </ul>
                 </div>
             {% endif %}
             {% if elementSeriesCollection is not empty %}
-                <div class="col-lg-6">
+                <div id="element-series-collection" class="col-lg-6">
                     <ul>
                         {% for elementSeries in elementSeriesCollection %}
                             <li data-id="{{ elementSeries.id }}"
@@ -35,4 +38,34 @@
             {% endif %}
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+        let elementGeneralCollection = undefined;
+
+        $(document).ready(function(){
+            elementGeneralCollection = $('#element-general-collection');
+
+            elementGeneralCollection.click(function(evt){
+                if (undefined !== evt.target &&
+                    undefined !== evt.target.dataset &&
+                    undefined !== evt.target.dataset.id
+                ) {
+                    $.ajax({
+                        url: '/general/add',
+                        method: 'POST',
+                        data: JSON.stringify({
+                            'elementGeneralId' : evt.target.dataset.id
+                        }),
+                        dataType : 'json',
+                        contentType: 'application/json',
+                        success: function(data) {
+                            swal("Torrent added!", "The selected elment has been added successfully!", "success");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 {% endblock %}

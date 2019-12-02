@@ -6,3 +6,4 @@ scrap-torrent/*
 .mysql-data/
 logs/*.log
 media/*
+code/env/.env

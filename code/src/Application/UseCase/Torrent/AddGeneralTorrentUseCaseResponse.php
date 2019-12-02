@@ -1,23 +1,24 @@
 <?php
 
 
-namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
+namespace BestThor\ScrappingMaster\Application\UseCase\Torrent;
 
 /**
- * Class SaveElementInFileUseCaseResponse
+ * Class AddGeneralTorrentUseCaseResponse
  *
- * @package BestThor\ScrappingMaster\Application\UseCase
+ * @package BestThor\ScrappingMaster\Application\UseCase\Torrent
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class SaveElementInFileUseCaseResponse
+final class AddGeneralTorrentUseCaseResponse
 {
+
     /**
      * @var bool
      */
     protected $success;
 
     /**
-     * SaveElementInFileUseCaseResponse constructor.
+     * AddGeneralTorrentUseCaseResponse constructor.
      * @param bool $success
      */
     public function __construct(bool $success)
