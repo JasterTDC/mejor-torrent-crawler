@@ -13,8 +13,10 @@ use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementGener
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\SaveElementInFileUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\GetElementSeriesCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\Torrent\AddGeneralTorrentUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Command\GeneralCrawlerCommand;
 use BestThor\ScrappingMaster\Infrastructure\Command\SeriesCrawlerCommand;
+use BestThor\ScrappingMaster\Infrastructure\Controller\AddGeneralTorrentController;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDescriptionDataTransformer;
@@ -47,6 +49,7 @@ use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesWrit
 use BestThor\ScrappingMaster\Infrastructure\Repository\PdoAccess;
 use BestThor\ScrappingMaster\Infrastructure\Service\GeneralService;
 use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
+use BestThor\ScrappingMaster\Infrastructure\Transmission\TransmissionClient;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
@@ -397,6 +400,12 @@ $containerBuilder->register(
     ->addArgument(new Reference(TemplateRenderer::class));
 
 $containerBuilder->register(
+    AddGeneralTorrentController::class,
+    AddGeneralTorrentController::class
+)
+    ->addArgument(new Reference(AddGeneralTorrentUseCase::class));
+
+$containerBuilder->register(
     SeriesService::class,
     SeriesService::class
 )
@@ -476,5 +485,21 @@ $containerBuilder->register(
 )
     ->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class))
     ->addArgument(new Reference(MysqlPdoElementSeriesReaderRepository::class));
+
+$containerBuilder->register(
+    AddGeneralTorrentUseCase::class,
+    AddGeneralTorrentUseCase::class
+)
+    ->addArgument(new Reference(TransmissionClient::class))
+    ->addArgument('%torrentFilmDir%');
+
+$containerBuilder->register(
+    TransmissionClient::class,
+    TransmissionClient::class
+)
+    ->addArgument(getenv('TRANSMISSION_HOSTNAME'))
+    ->addArgument(getenv('TRANSMISSION_PORT'))
+    ->addArgument(getenv('TRANSMISSION_USERNAME'))
+    ->addArgument(getenv('TRANSMISSION_PASSWORD'));
 
 return $containerBuilder;
