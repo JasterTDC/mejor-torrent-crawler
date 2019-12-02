@@ -59,7 +59,10 @@
                             'elementGeneralId' : evt.target.dataset.id
                         }),
                         dataType : 'json',
-                        contentType: 'application/json'
+                        contentType: 'application/json',
+                        success: function(data) {
+                            swal("Torrent added!", "The selected elment has been added successfully!", "success");
+                        }
                     });
                 }
             });

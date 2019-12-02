@@ -34,6 +34,12 @@ final class AddGeneralTorrentUseCase
         $this->staticDir = $staticDir;
     }
 
+    /**
+     * Add torrent to the system
+     *
+     * @param AddGeneralTorrentUseCaseArguments $arguments
+     * @return AddGeneralTorrentUseCaseResponse
+     */
     public function handle(
         AddGeneralTorrentUseCaseArguments $arguments
     ) : AddGeneralTorrentUseCaseResponse {
@@ -44,8 +50,6 @@ final class AddGeneralTorrentUseCase
         }
 
         $response = $this->torrentClient->add($filename);
-
-        var_dump($response);die();
 
         return new AddGeneralTorrentUseCaseResponse(true);
     }
