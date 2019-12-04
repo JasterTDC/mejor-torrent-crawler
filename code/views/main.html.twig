@@ -28,9 +28,13 @@
                 <div id="element-series-collection" class="col-lg-6">
                     <ul>
                         {% for elementSeries in elementSeriesCollection %}
-                            <li data-id="{{ elementSeries.id }}"
-                            >
-                                {{ elementSeries.name }}
+                            <li>
+                                <a  data-id="{{ elementSeries.id }}"
+                                    data-name="{{ elementSeries.name }}"
+                                    href="#"
+                                >
+                                    {{ elementSeries.name }}
+                                </a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -43,9 +47,11 @@
 {% block js %}
     <script type="application/javascript">
         let elementGeneralCollection = undefined;
+        let elementSeriesCollection = undefined;
 
         $(document).ready(function(){
             elementGeneralCollection = $('#element-general-collection');
+            elementSeriesCollection = $('#element-series-collection');
 
             elementGeneralCollection.click(function(evt){
                 if (undefined !== evt.target &&
@@ -62,6 +68,28 @@
                         contentType: 'application/json',
                         success: function(data) {
                             swal("Torrent added!", "The selected elment has been added successfully!", "success");
+                        }
+                    });
+                }
+            });
+
+            elementSeriesCollection.click(function(evt){
+                if (undefined !== evt.target &&
+                    undefined !== evt.target.dataset &&
+                    undefined !== evt.target.dataset.id &&
+                    undefined !== evt.target.dataset.name
+                ) {
+                    $.ajax({
+                        url: '/series/add',
+                        method: 'POST',
+                        data: JSON.stringify({
+                            'elementSeriesId' : evt.target.dataset.id,
+                            'elementSeriesName' : evt.target.dataset.name
+                        }),
+                        dataType : 'json',
+                        contentType: 'application/json',
+                        success: function(data) {
+                            swal("Torrent added!", "The selected elment series has been added successfully!", "success");
                         }
                     });
                 }
