@@ -39,6 +39,9 @@ final class RetrieveElementGeneralCollectionUseCase
     public function handle(
         RetrieveElementGeneralCollectionUseCaseArguments $arguments
     ) : RetrieveElementGeneralCollectionUseCaseResponse {
+        $previousPage = null;
+        $nextPage = null;
+
         try {
             $elementGeneralCollection = $this
                 ->elementGeneralReader
@@ -47,15 +50,35 @@ final class RetrieveElementGeneralCollectionUseCase
                     $arguments->getLimit()
                 );
 
+            $total = $this
+                ->elementGeneralReader
+                ->getTotal();
+
+            $totalPages = ceil($total/$arguments->getLimit());
+
+            if ($arguments->getPage() > 1) {
+                $previousPage = $arguments->getPage() - 1;
+            }
+
+            if ($arguments->getPage() < $totalPages) {
+                $nextPage = $arguments->getPage() + 1;
+            }
+
             return new RetrieveElementGeneralCollectionUseCaseResponse(
                 true,
                 null,
+                $total,
+                $previousPage,
+                $nextPage,
                 $elementGeneralCollection
             );
         } catch (ElementGeneralCollectionEmptyException $e) {
             return new RetrieveElementGeneralCollectionUseCaseResponse(
                 false,
                 $e->getMessage(),
+                $total,
+                $previousPage,
+                $nextPage,
                 null
             );
         }

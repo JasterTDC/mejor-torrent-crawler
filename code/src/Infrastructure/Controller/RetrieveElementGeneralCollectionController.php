@@ -17,6 +17,11 @@ use Psr\Http\Message\ServerRequestInterface;
 final class RetrieveElementGeneralCollectionController
 {
 
+    /**
+     * General route
+     */
+    const RETRIEVE_ELEMENT_ROUTE = '/general/get/';
+
     /** @var RetrieveElementGeneralCollectionUseCase */
     protected $useCase;
 
@@ -76,6 +81,20 @@ final class RetrieveElementGeneralCollectionController
                 ->transform(
                     $useCaseResponse->getElementGeneralCollection()
                 );
+        }
+
+        if (!empty($useCaseResponse->getTotal())) {
+            $res['total'] = $useCaseResponse->getTotal();
+        }
+
+        if (!empty($useCaseResponse->getNextPage())) {
+            $res['nextPage'] = self::RETRIEVE_ELEMENT_ROUTE . $useCaseResponse
+                ->getNextPage();
+        }
+
+        if (!empty($useCaseResponse->getPreviousPage())) {
+            $res['previousPage'] = self::RETRIEVE_ELEMENT_ROUTE . $useCaseResponse
+                ->getPreviousPage();
         }
 
         $html = $this

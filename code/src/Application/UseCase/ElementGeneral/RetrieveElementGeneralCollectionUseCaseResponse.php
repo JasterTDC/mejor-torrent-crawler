@@ -34,19 +34,49 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
     protected $elementGeneralCollection;
 
     /**
+     * Total
+     *
+     * @var int|null
+     */
+    protected $total;
+
+    /**
+     * Previous page
+     *
+     * @var int|null
+     */
+    protected $previousPage;
+
+    /**
+     * Next page
+     *
+     * @var int|null
+     */
+    protected $nextPage;
+
+    /**
      * RetrieveElementGeneralCollectionUseCaseResponse constructor
      *
      * @param boolean $success
      * @param string|null $error
+     * @param int|null $total
+     * @param int|null $previousPage
+     * @param int|null $nextPage
      * @param ElementGeneralCollection|null $elementGeneralCollection
      */
     public function __construct(
         bool $success,
         ?string $error,
+        ?int $total,
+        ?int $previousPage,
+        ?int $nextPage,
         ?ElementGeneralCollection $elementGeneralCollection
     ) {
         $this->success = $success;
         $this->error = $error;
+        $this->total = $total;
+        $this->previousPage = $previousPage;
+        $this->nextPage = $nextPage;
         $this->elementGeneralCollection = $elementGeneralCollection;
     }
 
@@ -73,10 +103,40 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
     /**
      * Get elementGeneralCollection
      *
-     * @return  ElementGeneralCollection|null
+     * @return  ElementGeneralCollection|null[type]
      */ 
     public function getElementGeneralCollection()
     {
         return $this->elementGeneralCollection;
+    }
+
+    /**
+     * Get total
+     *
+     * @return  int|null
+     */ 
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
+     * Get previous page
+     *
+     * @return  int|null
+     */ 
+    public function getPreviousPage()
+    {
+        return $this->previousPage;
+    }
+
+    /**
+     * Get next page
+     *
+     * @return  int|null
+     */ 
+    public function getNextPage()
+    {
+        return $this->nextPage;
     }
 }
