@@ -1,5 +1,6 @@
 <?php
 
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesImageDataTransformer;
@@ -35,3 +36,8 @@ $container->register(
     ->addArgument(new Reference(ElementSeriesImageDataTransformer::class))
     ->addArgument(new Reference(ElementSeriesDescriptionDataTransformer::class))
     ->addArgument(new Reference(ElementSeriesDetailDataTransformer::class));
+
+$container->register(
+    ElementGeneralCollectionDataTransformer::class,
+    ElementGeneralCollectionDataTransformer::class
+);

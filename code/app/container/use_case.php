@@ -15,6 +15,7 @@ use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralRea
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWriterRepository;
 use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\GetElementSeriesCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralCollectionUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesDetailWriterRepository;
 
 $container->register(
@@ -64,3 +65,8 @@ $container->register(
 )
     ->addArgument(getenv('TORRENT_SERIES_DIR'))
     ->addArgument(new Reference(TransmissionClient::class));
+
+$container->register(
+    RetrieveElementGeneralCollectionUseCase::class,
+    RetrieveElementGeneralCollectionUseCase::class
+)->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class));

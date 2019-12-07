@@ -21,15 +21,20 @@
     <body>
         {% block nav %}
             <nav class="navbar navbar-expand navbar-dark bg-dark">
-                <a class="navbar-brand" href="">Element project</a>
+                <a class="navbar-brand" href="/">Element project</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="top-menu" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="top-menu">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+                        <li class="nav-item {% if homeActive is not empty %} active {% endif %}">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/general/get/1" >
+                                General
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -37,6 +42,9 @@
         {% endblock %}
 
         {% block content %}
+        {% endblock %}
+
+        {% block pagination %}
         {% endblock %}
 
         {% block footerJs %}
