@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container" >
+        <div class="row">
+            {% if elementSeriesCollection is not empty %}
+                <div id="element-series-collection" class="col-lg-6">
+                    <ul>
+                        {% for elementSeries in elementSeriesCollection %}
+                            <li>
+                                <a  data-id="{{ elementSeries.id }}"
+                                    data-name="{{ elementSeries.name }}"
+                                    href="#"
+                                >
+                                    {{ elementSeries.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+
+        {% include 'pagination.html.twig' %}
+    </div>
+{% endblock %}

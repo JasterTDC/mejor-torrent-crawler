@@ -22,4 +22,11 @@ interface ElementSeriesReaderInterface
         int $page,
         int $limit
     ) : ElementSeriesCollection;
+
+    /**
+     * Get total
+     *
+     * @return int
+     */
+    public function getTotal() : int;
 }

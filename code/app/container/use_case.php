@@ -16,6 +16,7 @@ use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWri
 use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\GetElementSeriesCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\RetrieveElementSeriesCollectionUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesDetailWriterRepository;
 
 $container->register(
@@ -70,3 +71,8 @@ $container->register(
     RetrieveElementGeneralCollectionUseCase::class,
     RetrieveElementGeneralCollectionUseCase::class
 )->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class));
+
+$container->register(
+    RetrieveElementSeriesCollectionUseCase::class,
+    RetrieveElementSeriesCollectionUseCase::class
+)->addArgument(new Reference(MysqlPdoElementSeriesReaderRepository::class));

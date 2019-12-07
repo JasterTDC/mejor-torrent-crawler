@@ -7,6 +7,7 @@ use BestThor\ScrappingMaster\Domain\Series\ElementSeriesCollection;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesEmptyException;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesFactoryInterface;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesReaderInterface;
+use BestThor\ScrappingMaster\Domain\Series\TotalElementSeriesException;
 
 /**
  * Class MysqlPdoElementSeriesReaderRepository
@@ -91,6 +92,49 @@ final class MysqlPdoElementSeriesReaderRepository implements ElementSeriesReader
         } catch (\PDOException $e) {
             throw new ElementSeriesEmptyException(
                 "ElementSeries. {$e->getMessage()}",
+                2
+            );
+        }
+    }
+
+    /**
+     * Get total
+     *
+     * @return int
+     */
+    public function getTotal() : int
+    {
+        $sql = "SELECT COUNT(*) AS total
+        FROM `elements`.`series`";
+
+        try {
+            $statement = $this
+                ->pdoReader
+                ->getPdo()
+                ->prepare($sql);
+
+            $result = $statement->execute();
+
+            if (empty($result)) {
+                throw new TotalElementSeriesException(
+                    __FUNCTION__ . ' We could not retrieve element series total',
+                    1
+                );
+            }
+
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            if (empty($result)) {
+                throw new TotalElementSeriesException(
+                    __FUNCTION__ . ' We could not retrieve element series total',
+                    3
+                );
+            }
+
+            return (int) $result[0]['total'];
+        } catch (\PDOException $e) {
+            throw new TotalElementSeriesException(
+                __FUNCTION__ . ' We could not retrieve element series total',
                 2
             );
         }

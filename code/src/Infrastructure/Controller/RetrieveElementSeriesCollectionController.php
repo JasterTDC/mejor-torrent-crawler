@@ -2,54 +2,54 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Controller;
 
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCaseArguments;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
+use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\RetrieveElementSeriesCollectionUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\RetrieveElementSeriesCollectionUseCaseArguments;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Renderer\TemplateRenderer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * RetrieveElementGeneralCollectionController
+ * RetrieveElementSeriesCollectionController class
  * 
  * @author Ismael Moral <jastertdc@gmail.com>
  */
-final class RetrieveElementGeneralCollectionController
+final class RetrieveElementSeriesCollectionController
 {
 
     /**
-     * General route
+     * Series route
      */
-    const RETRIEVE_ELEMENT_ROUTE = '/general/get/';
+    const RETRIEVE_ELEMENT_ROUTE = '/series/get/';
 
-    /** @var RetrieveElementGeneralCollectionUseCase */
+    /** @var RetrieveElementSeriesCollectionUseCaseectionUseCase $useCase */
     protected $useCase;
 
-    /** @var ElementGeneralCollectionDataTransformer */
-    protected $elementGeneralDataTransformer;
+    /** @var ElementSeriesDataTransformer $transformer */
+    protected $transformer;
 
-    /** @var TemplateRenderer */
+    /** @var TemplateRenderer $templateRenderer */
     protected $templateRenderer;
 
     /**
-     * RetrieveElementGeneralCollectionController
+     * RetrieveElementSeriesCollectionController controller
      *
-     * @param RetrieveElementGeneralCollectionUseCase $useCase
-     * @param ElementGeneralCollectionDataTransformer $dataTransformer
+     * @param RetrieveElementSeriesCollectionUseCase $useCase
+     * @param ElementSeriesDataTransformer $transformer
      * @param TemplateRenderer $templateRenderer
      */
     public function __construct(
-        RetrieveElementGeneralCollectionUseCase $useCase,
-        ElementGeneralCollectionDataTransformer $dataTransformer,
-        TemplateRenderer $templateRenderer
+        RetrieveElementSeriesCollectionUseCase $useCase,
+        ElementSeriesDataTransformer $transformer,
+        TemplateRenderer $templateRenderer 
     ) {
         $this->useCase = $useCase;
-        $this->elementGeneralDataTransformer = $dataTransformer;
+        $this->transformer = $transformer;
         $this->templateRenderer = $templateRenderer;
     }
 
     /**
-     * RetrieveElementGeneralCollectionController
+     * RetrieveElementSeriesCollectionController callable
      *
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
@@ -62,31 +62,27 @@ final class RetrieveElementGeneralCollectionController
         ResponseInterface $response,
         array $args
     ) : ResponseInterface {
+        $res['success'] = true;
+
         $page = (int) $args['page'];
 
         $useCaseResponse = $this
             ->useCase
             ->handle(
-                new RetrieveElementGeneralCollectionUseCaseArguments(
+                new RetrieveElementSeriesCollectionUseCaseArguments(
                     $page,
                     50
                 )
             );
 
-        $res['success'] = $useCaseResponse->getSuccess();
+        $res['seriesActive'] = true;
 
-        $res['generalActive'] = true;
-
-        if (!empty($useCaseResponse->getElementGeneralCollection())) {
-            $res['elementGeneralCollection'] = $this
-                ->elementGeneralDataTransformer
-                ->transform(
-                    $useCaseResponse->getElementGeneralCollection()
+        if (!empty($useCaseResponse->getElementSeriesCollection())) {
+            $res['elementSeriesCollection'] = $this
+                ->transformer
+                ->transformCollection(
+                    $useCaseResponse->getElementSeriesCollection()
                 );
-        }
-
-        if (!empty($useCaseResponse->getTotal())) {
-            $res['total'] = $useCaseResponse->getTotal();
         }
 
         if (!empty($useCaseResponse->getNextPage())) {
@@ -102,7 +98,7 @@ final class RetrieveElementGeneralCollectionController
         $html = $this
             ->templateRenderer
             ->getTemplateRenderer()
-            ->render('element_general.html.twig', $res);
+            ->render('element_series.html.twig', $res);
 
         $response
             ->getBody()
