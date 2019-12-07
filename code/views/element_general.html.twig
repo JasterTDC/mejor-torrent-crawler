@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% if elementGeneralCollection is not empty %}
+            <div class="col-lg-6">
+                <ul>
+                    {% for elementGeneral in elementGeneralCollection %}
+                        <li>
+                            <a  data-id="{{ elementGeneral.id }}"
+                                data-name="{{ elementGeneral.name }}"
+                                data-slug="{{ elementGeneral.slug }}"
+                                href="#"
+                            >
+                                {{ elementGeneral.name }}({{ elementGeneral.detail.format }})
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        {% include 'pagination.html.twig' %}
+    </div>
+{% endblock %}

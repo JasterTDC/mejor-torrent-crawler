@@ -23,4 +23,11 @@ interface ElementGeneralReaderRepositoryInterface
         int $page,
         int $limit
     ) : ElementGeneralCollection;
+
+    /**
+     * Get total pages
+     *
+     * @return int
+     */
+    public function getTotal() : int;
 }

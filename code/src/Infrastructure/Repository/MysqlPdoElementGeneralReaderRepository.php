@@ -3,9 +3,11 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
+use PDOException;
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollectionEmptyException;
+use BestThor\ScrappingMaster\Domain\ElementGeneralTotalException;
 use BestThor\ScrappingMaster\Domain\ElementGeneralFactoryInterface;
+use BestThor\ScrappingMaster\Domain\ElementGeneralCollectionEmptyException;
 use BestThor\ScrappingMaster\Domain\ElementGeneralReaderRepositoryInterface;
 
 /**
@@ -101,6 +103,41 @@ final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralRead
             throw new ElementGeneralCollectionEmptyException(
                 'An error has been occurred with database',
                 1
+            );
+        }
+    }
+
+    /**
+     * Get total pages
+     *
+     * @return int
+     */
+    public function getTotal() : int {
+        $sql = "SELECT COUNT(*) as total
+        FROM `elements`.`general`";
+
+        try {
+            $statement = $this
+                ->pdoAccess
+                ->getPdo()
+                ->prepare($sql);
+
+            $result = $statement->execute();
+
+            if (empty($result)) {
+                throw new ElementGeneralTotalException(
+                    __FUNCTION__ . ' We could not get total',
+                    1
+                );
+            }
+
+            $total = $statement->fetchAll();
+
+            return (int) $total[0]['total'];
+        } catch (PDOException $e) {
+            throw new ElementGeneralTotalException(
+                __FUNCTION__ . ' We could not get total',
+                2
             );
         }
     }

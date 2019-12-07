@@ -94,7 +94,8 @@ final class MainController
                     'main.html.twig',
                     [
                         'elementGeneralCollection'  => $elementGeneralCollectionTransformed,
-                        'elementSeriesCollection'   => $elementSeriesCollectionTransformed
+                        'elementSeriesCollection'   => $elementSeriesCollectionTransformed,
+                        'homeActive' => true
                     ]
                 );
 
