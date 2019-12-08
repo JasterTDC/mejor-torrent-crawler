@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `elements`.`series` (
     `link`              VARCHAR(255) NOT NULL,
     `imageUrl`          VARCHAR(255) NOT NULL,
     `imageName`         VARCHAR(255) NOT NULL,
-    `description`       VARCHAR(255) NOT NULL,
+    `description`       TEXT NOT NULL,
     `createdAt`         DATETIME NOT NULL,
     `updatedAt`         DATETIME NOT NULL,
 

@@ -24,3 +24,35 @@
         {% include 'pagination.html.twig' %}
     </div>
 {% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+        let elementSeriesCollection = undefined;
+
+        $(document).ready(function(){
+            elementSeriesCollection = $('#element-series-collection');
+
+            elementSeriesCollection.click(function(evt){
+                if (undefined !== evt.target &&
+                    undefined !== evt.target.dataset &&
+                    undefined !== evt.target.dataset.id &&
+                    undefined !== evt.target.dataset.name
+                ) {
+                    $.ajax({
+                        url: '/series/add',
+                        method: 'POST',
+                        data: JSON.stringify({
+                            'elementSeriesId' : evt.target.dataset.id,
+                            'elementSeriesName' : evt.target.dataset.name
+                        }),
+                        dataType : 'json',
+                        contentType: 'application/json',
+                        success: function(data) {
+                            swal("Torrent added!", "The selected elment series has been added successfully!", "success");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}
