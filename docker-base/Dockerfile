@@ -1,11 +1,16 @@
 FROM "richarvey/nginx-php-fpm"
 
+WORKDIR /code
+
 ADD script/commandExecute.sh /crawler/command/execute.sh
+
+RUN docker-php-ext-enable xdebug
 
 RUN chmod +x /crawler/command/execute.sh
 
 ADD ./conf/crawler.conf /etc/nginx/sites-available/crawler.conf
 ADD ./conf/crawler-static.conf /etc/nginx/sites-available/crawler-static.conf
+ADD ./passwd/.htpasswd /etc/general/.htpasswd
 
 RUN mkdir /srv/www/
 RUN mkdir /LOGS/
