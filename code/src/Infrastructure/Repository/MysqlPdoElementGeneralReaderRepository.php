@@ -58,7 +58,7 @@ final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralRead
         $sql = "SELECT *
         FROM
             `elements`.`general`
-        ORDER BY `updatedAt` DESC
+        ORDER BY `name` ASC
         LIMIT :offset, :limit
         ";
 
