@@ -1,6 +1,7 @@
 <?php
 
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralDataTransformer;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesImageDataTransformer;
@@ -40,4 +41,9 @@ $container->register(
 $container->register(
     ElementGeneralCollectionDataTransformer::class,
     ElementGeneralCollectionDataTransformer::class
+);
+
+$container->register(
+    ElementGeneralDataTransformer::class,
+    ElementGeneralDataTransformer::class
 );

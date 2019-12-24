@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        {% if elementGeneral is not empty %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card flex-wrap flex-row border-0">
+                        <div class="card-header border-0">
+                            <img src="{{ elementGeneral.staticImg }}" width="120" height="165">
+                        </div>
+                        <div class="card-body flex-row flex-wrap">
+                            <h5 class="card-title">{{ elementGeneral.name }}</h5>
+                            <p class="card-text">{{ elementGeneral.detail.description }}</p>
+                            <p class="card-text">
+                                <span class="font-weight-bold">Genre: </span>{{ elementGeneral.detail.genre }}
+                            </p>
+                            <p class="card-text">
+                                <span class="font-weight-bold">Format: </span>{{ elementGeneral.detail.format }}
+                            </p>
+                            <p class="card-text">
+                                <span class="font-weight-bold">Download name: </span>{{ elementGeneral.download.downloadName }}
+                            </p>
+                            <a href="#"
+                               id="add-element-general-torrent"
+                               class="btn btn-primary"
+                               data-id="{{ elementGeneral.id }}">
+                                Add torrent
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+        let elementGeneralButton = undefined;
+
+        $(document).ready(function(){
+            elementGeneralButton = $('#add-element-general-torrent');
+
+            elementGeneralButton.click(function(evt){
+                if (undefined !== evt.target &&
+                    undefined !== evt.target.dataset &&
+                    undefined !== evt.target.dataset.id
+                ) {
+                    $.ajax({
+                        url: '/general/add',
+                        method: 'POST',
+                        data: JSON.stringify({
+                            'elementGeneralId' : evt.target.dataset.id
+                        }),
+                        dataType : 'json',
+                        contentType: 'application/json',
+                        success: function(data) {
+                            swal("Torrent added!", "The selected elment has been added successfully!", "success");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

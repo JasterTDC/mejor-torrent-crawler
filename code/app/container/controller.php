@@ -1,7 +1,10 @@
 <?php
 
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralDetailUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\RetrieveElementSeriesCollectionUseCase;
+use BestThor\ScrappingMaster\Infrastructure\Controller\GetElementGeneralDetailController;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralDataTransformer;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
@@ -49,3 +52,11 @@ $container->register(
     ->addArgument(new Reference(RetrieveElementSeriesCollectionUseCase::class))
     ->addArgument(new Reference(ElementSeriesDataTransformer::class))
     ->addArgument(new Reference(TemplateRenderer::class));
+
+$container->register(
+    GetElementGeneralDetailController::class,
+    GetElementGeneralDetailController::class
+)
+    ->addArgument(new Reference(GetElementGeneralDetailUseCase::class))
+    ->addArgument(new Reference(TemplateRenderer::class))
+    ->addArgument(new Reference(ElementGeneralDataTransformer::class));

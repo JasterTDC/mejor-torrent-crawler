@@ -30,4 +30,14 @@ interface ElementGeneralReaderRepositoryInterface
      * @return int
      */
     public function getTotal() : int;
+
+    /**
+     * Get ElementGeneral by the main identifier
+     *
+     * @param int $elementGeneralId
+     *
+     * @return ElementGeneral|null
+     * @throws ElementGeneralEmptyException
+     */
+    public function getById(int $elementGeneralId) : ?ElementGeneral;
 }

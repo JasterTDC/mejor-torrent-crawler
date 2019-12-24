@@ -9,11 +9,16 @@ services:
     volumes:
       - ./init-db:/docker-entrypoint-initdb.d
       - ./.mysql-data:/var/lib/mysql/
+  memcached:
+    image: memcached:latest
+    ports:
+      - "11211:11211"
   crawler:
     build:
       context: './docker-base'
     depends_on:
       - sql
+      - memcached
     ports:
       - "80:80"
     volumes:
