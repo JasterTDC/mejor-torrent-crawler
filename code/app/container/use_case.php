@@ -1,5 +1,6 @@
 <?php
 
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralDetailUseCase;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
@@ -76,3 +77,8 @@ $container->register(
     RetrieveElementSeriesCollectionUseCase::class,
     RetrieveElementSeriesCollectionUseCase::class
 )->addArgument(new Reference(MysqlPdoElementSeriesReaderRepository::class));
+
+$container->register(
+    GetElementGeneralDetailUseCase::class,
+    GetElementGeneralDetailUseCase::class
+)->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class));

@@ -11,7 +11,7 @@
                             <a  data-id="{{ elementGeneral.id }}"
                                 data-name="{{ elementGeneral.name }}"
                                 data-slug="{{ elementGeneral.slug }}"
-                                href="#"
+                                href="/general/detail/{{ elementGeneral.id }}"
                             >
                                 {{ elementGeneral.name }}({{ elementGeneral.detail.format }})
                             </a>
@@ -24,34 +24,4 @@
 
         {% include 'pagination.html.twig' %}
     </div>
-{% endblock %}
-
-{% block js %}
-    <script type="application/javascript">
-        let elementGeneralCollection = undefined;
-
-        $(document).ready(function(){
-            elementGeneralCollection = $('#element-general-collection');
-
-            elementGeneralCollection.click(function(evt){
-                if (undefined !== evt.target &&
-                    undefined !== evt.target.dataset &&
-                    undefined !== evt.target.dataset.id
-                ) {
-                    $.ajax({
-                        url: '/general/add',
-                        method: 'POST',
-                        data: JSON.stringify({
-                            'elementGeneralId' : evt.target.dataset.id
-                        }),
-                        dataType : 'json',
-                        contentType: 'application/json',
-                        success: function(data) {
-                            swal("Torrent added!", "The selected elment has been added successfully!", "success");
-                        }
-                    });
-                }
-            });
-        });
-    </script>
 {% endblock %}

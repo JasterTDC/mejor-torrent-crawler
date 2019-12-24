@@ -59,6 +59,8 @@ final class ElementGeneralDataTransformer
                 ->transform($elementGeneral->getElementDownload());
         }
 
+        $ret['staticImg'] = '//crawler-static.local/img/' . $elementGeneral->getElementId() . '.jpg';
+
         return $ret;
     }
 }

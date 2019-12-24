@@ -3,6 +3,8 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
+use BestThor\ScrappingMaster\Domain\ElementGeneral;
+use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
 use PDOException;
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
 use BestThor\ScrappingMaster\Domain\ElementGeneralTotalException;
@@ -137,6 +139,48 @@ final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralRead
         } catch (PDOException $e) {
             throw new ElementGeneralTotalException(
                 __FUNCTION__ . ' We could not get total',
+                2
+            );
+        }
+    }
+
+    /**
+     * Get ElementGeneral by the main identifier
+     *
+     * @param int $elementGeneralId
+     *
+     * @return ElementGeneral|null
+     * @throws ElementGeneralEmptyException
+     */
+    public function getById(int $elementGeneralId) : ?ElementGeneral
+    {
+        $sql = "SELECT *
+        FROM `elements`.`general`
+        WHERE `id` = :elementGeneralId
+        ";
+
+        try {
+            $statement = $this
+                ->pdoAccess
+                ->getPdo()
+                ->prepare($sql);
+
+            $result = $statement->execute([
+                'elementGeneralId' => $elementGeneralId
+            ]);
+
+            if (empty($result)) {
+                return null;
+            }
+
+            $assocResult = $statement->fetch(\PDO::FETCH_ASSOC);
+
+            return $this
+                ->elementGeneralFactory
+                ->createFromRawElementGeneral($assocResult);
+        } catch (PDOException $e) {
+            throw new ElementGeneralEmptyException(
+                __FUNCTION__ . ' We could not get the element general',
                 2
             );
         }
