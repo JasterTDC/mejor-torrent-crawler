@@ -1,5 +1,6 @@
 <?php
 
+use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesFactory;
@@ -65,3 +66,8 @@ $container->register(
 )
     ->addArgument(new Reference(FromMysqlElementSeriesImageFactory::class))
     ->addArgument(new Reference(FromMysqlElementSeriesDescriptionFactory::class));
+
+$container->register(
+    TagFactory::class,
+    TagFactory::class
+);

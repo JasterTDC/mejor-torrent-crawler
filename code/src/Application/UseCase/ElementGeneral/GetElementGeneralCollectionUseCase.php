@@ -11,6 +11,10 @@ use BestThor\ScrappingMaster\Domain\ElementGeneralWriterRepositoryInterface;
 use BestThor\ScrappingMaster\Domain\ElementImageEmptyException;
 use BestThor\ScrappingMaster\Domain\General\GeneralServiceInterface;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
+use BestThor\ScrappingMaster\Domain\Tag\TagFactoryInterface;
+use BestThor\ScrappingMaster\Domain\Tag\TagReaderRepositoryInterface;
+use BestThor\ScrappingMaster\Domain\Tag\TagSaveException;
+use BestThor\ScrappingMaster\Domain\Tag\TagWriterRepositoryInterface;
 
 /**
  * Class GetElementGeneralCollectionUseCase
@@ -36,6 +40,21 @@ final class GetElementGeneralCollectionUseCase
     protected $elementGeneralWriter;
 
     /**
+     * @var TagReaderRepositoryInterface
+     */
+    protected $tagReaderRepository;
+
+    /**
+     * @var TagWriterRepositoryInterface
+     */
+    protected $tagWriterRepository;
+
+    /**
+     * @var TagFactoryInterface
+     */
+    protected $tagFactory;
+
+    /**
      * @var string
      */
     protected $staticImageDir;
@@ -51,6 +70,9 @@ final class GetElementGeneralCollectionUseCase
      * @param GeneralServiceInterface $generalService
      * @param MTContentReaderRepositoryInterface $mtContentReaderRepository
      * @param ElementGeneralWriterRepositoryInterface $elementGeneralWriter
+     * @param TagReaderRepositoryInterface $tagReaderRepository
+     * @param TagWriterRepositoryInterface $tagWriterRepository
+     * @param TagFactoryInterface $tagFactory
      * @param string $staticImageDir
      * @param string $staticTorrentDir
      */
@@ -58,12 +80,18 @@ final class GetElementGeneralCollectionUseCase
         GeneralServiceInterface $generalService,
         MTContentReaderRepositoryInterface $mtContentReaderRepository,
         ElementGeneralWriterRepositoryInterface $elementGeneralWriter,
+        TagReaderRepositoryInterface $tagReaderRepository,
+        TagWriterRepositoryInterface $tagWriterRepository,
+        TagFactoryInterface $tagFactory,
         string $staticImageDir,
         string $staticTorrentDir
     ) {
         $this->generalService = $generalService;
         $this->mtContentReaderRepository = $mtContentReaderRepository;
         $this->elementGeneralWriter = $elementGeneralWriter;
+        $this->tagReaderRepository = $tagReaderRepository;
+        $this->tagWriterRepository = $tagWriterRepository;
+        $this->tagFactory = $tagFactory;
         $this->staticImageDir = $staticImageDir;
         $this->staticTorrentDir = $staticTorrentDir;
     }
@@ -108,6 +136,20 @@ final class GetElementGeneralCollectionUseCase
                                 );
                             }
                         } catch (ElementImageEmptyException $e) {
+                        }
+                    }
+
+                    if (!empty($elementGeneral->getElementDetail()->getElementGenre())) {
+                        preg_match_all(
+                            '/(?<tags>[^\-]+)/',
+                            $elementGeneral->getElementDetail()->getElementGenre(),
+                            $match
+                        );
+
+                        if (!empty($match['tags']) &&
+                            $match['tags'] === (array) $match['tags']
+                        ) {
+                            $this->saveTagCollection($match['tags']);
                         }
                     }
 
@@ -170,6 +212,36 @@ final class GetElementGeneralCollectionUseCase
                 );
         } catch (\Exception $e) {
             return null;
+        }
+    }
+
+    /**
+     * @param array $rawTagCollection
+     *
+     * @throws TagSaveException
+     */
+    protected function saveTagCollection (array $rawTagCollection)
+    {
+        $current = new \DateTimeImmutable();
+
+        foreach ($rawTagCollection as $rawTag) {
+            $tagFound = $this
+                ->tagReaderRepository
+                ->findByName($rawTag);
+
+            if (empty($tagFound)) {
+                $tagArr = [
+                    'name'      => $rawTag,
+                    'createdAt' => $current->format('Y-m-d H:i:s'),
+                    'updatedAt' => $current->format('Y-m-d H:i:s')
+                ];
+
+                $this
+                    ->tagWriterRepository
+                    ->persist(
+                        $this->tagFactory->createTagFromRaw($tagArr)
+                    );
+            }
         }
     }
 }
