@@ -1,5 +1,6 @@
 <?php
 
+use BestThor\ScrappingMaster\Infrastructure\Command\GetTagFromGeneralCommand;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
@@ -36,6 +37,9 @@ $application->add(
 );
 $application->add(
     $container->get(GeneralCrawlerCommand::class)
+);
+$application->add(
+    $container->get(GetTagFromGeneralCommand::class)
 );
 
 $application->run();

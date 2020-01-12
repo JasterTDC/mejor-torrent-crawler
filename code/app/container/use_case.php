@@ -1,6 +1,12 @@
 <?php
 
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralDetailUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetTagFromGeneralUseCase;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\GeneralTagFactory;
+use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralTagWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
@@ -44,6 +50,11 @@ $container->register(
     ->addArgument(new Reference(GeneralService::class))
     ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
     ->addArgument(new Reference(MysqlPdoElementGeneralWriterRepository::class))
+    ->addArgument(new Reference(MysqlPdoTagReaderRepository::class))
+    ->addArgument(new Reference(MysqlPdoTagWriterRepository::class))
+    ->addArgument(new Reference(MysqlPdoElementGeneralTagWriterRepository::class))
+    ->addArgument(new Reference(GeneralTagFactory::class))
+    ->addArgument(new Reference(TagFactory::class))
     ->addArgument(getenv('STATIC_IMG_DIR'))
     ->addArgument(getenv('TORRENT_FILM_DIR'));
 
@@ -82,3 +93,12 @@ $container->register(
     GetElementGeneralDetailUseCase::class,
     GetElementGeneralDetailUseCase::class
 )->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class));
+
+$container->register(
+    GetTagFromGeneralUseCase::class,
+    GetTagFromGeneralUseCase::class
+)
+    ->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class))
+    ->addArgument(new Reference(MysqlPdoTagWriterRepository::class))
+    ->addArgument(new Reference(MysqlPdoTagReaderRepository::class))
+    ->addArgument(new Reference(TagFactory::class));
