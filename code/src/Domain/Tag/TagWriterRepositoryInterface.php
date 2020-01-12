@@ -18,5 +18,5 @@ interface TagWriterRepositoryInterface
      * @return int
      * @throws TagSaveException
      */
-    public function persist(Tag $tag) : int;
+    public function persist(Tag $tag) : Tag;
 }

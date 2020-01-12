@@ -34,10 +34,10 @@ final class MysqlPdoTagWriterRepository implements TagWriterRepositoryInterface
     /**
      * @param Tag $tag
      *
-     * @return int
+     * @return Tag
      * @throws TagSaveException
      */
-    public function persist(Tag $tag) : int
+    public function persist(Tag $tag) : Tag
     {
         $sql = 'INSERT INTO `elements`.`tag` (
             `id`,
@@ -64,13 +64,12 @@ final class MysqlPdoTagWriterRepository implements TagWriterRepositoryInterface
                 'updatedAt' => $tag->getUpdatedAt()->format('Y-m-d H:i:s')
             ]);
 
-            return $this
-                ->pdoWriter
-                ->getPdo()
-                ->lastInsertId();
+            $tag->setId($this->pdoWriter->getPdo()->lastInsertId());
+
+            return $tag;
         } catch (\PDOException $e) {
             throw new TagSaveException(
-                'Tag ' . __FUNCTION__ . $e->getMessage(),
+                'TagWriterRepository ' . __FUNCTION__ . $e->getMessage(),
                 2
             );
         }

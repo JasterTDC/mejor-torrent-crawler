@@ -3,6 +3,8 @@
 
 namespace BestThor\ScrappingMaster\Domain;
 
+use BestThor\ScrappingMaster\Domain\Tag\TagCollection;
+
 /**
  * Class Element
  *
@@ -53,6 +55,11 @@ final class ElementGeneral
     protected $elementDownload;
 
     /**
+     * @var TagCollection|null
+     */
+    protected $tagCollection;
+
+    /**
      * Element constructor.
      *
      * @param int $elementId
@@ -82,6 +89,8 @@ final class ElementGeneral
         $this->elementDownload = $elementDownload;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+
+        $this->tagCollection = null;
     }
 
     /**
@@ -178,6 +187,22 @@ final class ElementGeneral
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return TagCollection|null
+     */
+    public function getTagCollection(): ?TagCollection
+    {
+        return $this->tagCollection;
+    }
+
+    /**
+     * @param TagCollection|null $tagCollection
+     */
+    public function setTagCollection(?TagCollection $tagCollection): void
+    {
+        $this->tagCollection = $tagCollection;
     }
 
     /**

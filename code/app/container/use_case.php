@@ -2,6 +2,8 @@
 
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralDetailUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetTagFromGeneralUseCase;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\GeneralTagFactory;
+use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralTagWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagReaderRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
@@ -50,6 +52,8 @@ $container->register(
     ->addArgument(new Reference(MysqlPdoElementGeneralWriterRepository::class))
     ->addArgument(new Reference(MysqlPdoTagReaderRepository::class))
     ->addArgument(new Reference(MysqlPdoTagWriterRepository::class))
+    ->addArgument(new Reference(MysqlPdoElementGeneralTagWriterRepository::class))
+    ->addArgument(new Reference(GeneralTagFactory::class))
     ->addArgument(new Reference(TagFactory::class))
     ->addArgument(getenv('STATIC_IMG_DIR'))
     ->addArgument(getenv('TORRENT_FILM_DIR'));

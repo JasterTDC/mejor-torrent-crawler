@@ -1,5 +1,6 @@
 <?php
 
+use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\GeneralTagFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
@@ -70,4 +71,9 @@ $container->register(
 $container->register(
     TagFactory::class,
     TagFactory::class
+);
+
+$container->register(
+    GeneralTagFactory::class,
+    GeneralTagFactory::class
 );

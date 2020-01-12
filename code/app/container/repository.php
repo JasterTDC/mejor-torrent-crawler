@@ -1,6 +1,7 @@
 <?php
 
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
+use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralTagWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagReaderRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagWriterRepository;
 use Symfony\Component\DependencyInjection\Reference;
@@ -80,3 +81,8 @@ $container->register(
 )
     ->addArgument(new Reference('PdoReader'))
     ->addArgument(new Reference(TagFactory::class));
+
+$container->register(
+    MysqlPdoElementGeneralTagWriterRepository::class,
+    MysqlPdoElementGeneralTagWriterRepository::class
+)->addArgument(new Reference(PdoAccess::class));
