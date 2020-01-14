@@ -15,9 +15,9 @@ interface ElementDownloadFactoryInterface
     /**
      * @param array $rawElementDownload
      *
-     * @return ElementDownload
+     * @return ElementDownload|null
      */
     public function createFromRaw(
         array $rawElementDownload
-    ) : ElementDownload;
+    ) : ?ElementDownload;
 }

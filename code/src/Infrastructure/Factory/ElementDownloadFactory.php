@@ -34,25 +34,23 @@ final class ElementDownloadFactory implements ElementDownloadFactoryInterface
     /**
      * @param array $rawElementDownload
      *
-     * @return ElementDownload
+     * @return ElementDownload|null
      */
     public function createFromRaw(
         array $rawElementDownload
-    ) : ElementDownload {
-        $downloadTorrentName    = null;
-        $downloadTorrentUrl     = null;
+    ) : ?ElementDownload {
+        $downloadTorrentName = null;
 
         if (!empty($rawElementDownload['downloadName'])) {
             $downloadTorrentName = $this->elementDownloadTorrentUrl .
                 $rawElementDownload['downloadName'];
         }
 
-        if (!empty($rawElementDownload['downloadTorrentUrl'])) {
-            $downloadTorrentUrl = $rawElementDownload['downloadTorrentUrl'];
+        if (empty($rawElementDownload['downloadName'])) {
+            return null;
         }
 
         return new ElementDownload(
-            $downloadTorrentUrl,
             $downloadTorrentName,
             $rawElementDownload['downloadName']
         );

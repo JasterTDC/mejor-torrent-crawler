@@ -13,3 +13,18 @@ CREATE TABLE IF NOT EXISTS `elements`.`general_tag` (
     CONSTRAINT `fk_general_tag_id`
     FOREIGN KEY (`tagId`) REFERENCES `elements`.`tag`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `elements`.`general`
+    DROP COLUMN IF EXISTS `downloadLink`;
+
+ALTER TABLE `elements`.`general`
+    DROP COLUMN IF EXISTS `downloadUrl`;
+
+ALTER TABLE `elements`.`general`
+    DROP COLUMN IF EXISTS `dir`;
+
+ALTER TABLE `elements`.`general`
+    DROP COLUMN IF EXISTS `monthDir`;
+
+ALTER TABLE `elements`.`general`
+    DROP COLUMN IF EXISTS `yearDir`;

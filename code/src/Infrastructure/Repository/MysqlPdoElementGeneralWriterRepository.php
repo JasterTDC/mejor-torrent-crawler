@@ -56,10 +56,6 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
             `coverImg`,
             `coverImgName`,
             `downloadLink`,
-            `dir`,
-            `yearDir`,
-            `monthDir`,
-            `downloadUrl`,
             `downloadTorrentUrl`,
             `downloadName`,
             `createdAt`,
@@ -76,10 +72,6 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
             :coverImg,
             :coverImgName,
             :downloadLink,
-            :dir,
-            :yearDir,
-            :monthDir,
-            :downloadUrl,
             :downloadTorrentUrl,
             :downloadName,
             :createdAt,
@@ -94,10 +86,6 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
         $coverImg           = null;
         $coverImgName       = null;
         $downloadLink       = null;
-        $dir                = null;
-        $yearDir            = null;
-        $monthDir           = null;
-        $downloadUrl        = null;
         $downloadTorrentUrl = null;
         $downloadName       = null;
 
@@ -132,25 +120,9 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
             $downloadLink = $elementGeneral
                 ->getElementDetail()
                 ->getElementDownloadLink();
-
-            $dir = $elementGeneral
-                ->getElementDetail()
-                ->getElementDir();
-
-            $yearDir = $elementGeneral
-                ->getElementDetail()
-                ->getElementYearDir();
-
-            $monthDir = $elementGeneral
-                ->getElementDetail()
-                ->getElementMonthDir();
         }
 
         if (!empty($elementGeneral->getElementDownload())) {
-            $downloadUrl = $elementGeneral
-                ->getElementDownload()
-                ->getElementDownloadUrl();
-
             $downloadTorrentUrl = $elementGeneral
                 ->getElementDownload()
                 ->getElementDownloadTorrentUrl();
@@ -172,10 +144,6 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
             'coverImg'              => $coverImg,
             'coverImgName'          => $coverImgName,
             'downloadLink'          => $downloadLink,
-            'dir'                   => $dir,
-            'yearDir'               => $yearDir,
-            'monthDir'              => $monthDir,
-            'downloadUrl'           => $downloadUrl,
             'downloadTorrentUrl'    => $downloadTorrentUrl,
             'downloadName'          => $downloadName,
             'createdAt'             => $elementGeneral->getCreatedAt()->format(self::DATETIME_FORMAT),
