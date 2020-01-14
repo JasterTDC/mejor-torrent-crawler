@@ -157,23 +157,6 @@ final class GetElementGeneralCollectionUseCase
                         }
                     }
 
-                    if (!empty($elementGeneral->getElementDetail()->getElementGenre())) {
-                        preg_match_all(
-                            '/(?<tags>[^\-]+)/',
-                            $elementGeneral->getElementDetail()->getElementGenre(),
-                            $match
-                        );
-
-                        if (!empty($match['tags']) &&
-                            $match['tags'] === (array) $match['tags']
-                        ) {
-                            $this->saveTagCollection(
-                                $match['tags'],
-                                $elementGeneral
-                            );
-                        }
-                    }
-
                     if (!empty($elementGeneral->getElementDownload()) &&
                         !empty($elementGeneral->getElementDownload()->getElementDownloadName()) &&
                         !empty($elementGeneral->getElementDownload()->getElementDownloadTorrentUrl())
@@ -206,6 +189,23 @@ final class GetElementGeneralCollectionUseCase
                             ->elementGeneralWriter
                             ->persist($elementGeneral);
                     } catch (ElementGeneralPersistException $e) {
+                    }
+
+                    if (!empty($elementGeneral->getElementDetail()->getElementGenre())) {
+                        preg_match_all(
+                            '/(?<tags>[^\-]+)/',
+                            $elementGeneral->getElementDetail()->getElementGenre(),
+                            $match
+                        );
+
+                        if (!empty($match['tags']) &&
+                            $match['tags'] === (array) $match['tags']
+                        ) {
+                            $this->saveTagCollection(
+                                $match['tags'],
+                                $elementGeneral
+                            );
+                        }
                     }
                 }
             }

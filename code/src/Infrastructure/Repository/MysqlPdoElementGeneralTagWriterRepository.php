@@ -57,12 +57,14 @@ final class MysqlPdoElementGeneralTagWriterRepository implements GeneralTagWrite
                 ->getPdo()
                 ->prepare($sql);
 
-            return $statement->execute([
+            $parameters = [
                 'generalId'     => $generalTag->getGeneralId(),
                 'tagId'         => $generalTag->getTagId(),
                 'createdAt'     => $generalTag->getCreatedAt()->format('Y-m-d H:i:s'),
                 'updatedAt'     => $generalTag->getUpdatedAt()->format('Y-m-d H:i:s')
-            ]);
+            ];
+
+            return $statement->execute($parameters);
         } catch (\PDOException $e) {
             throw new GeneralTagSaveException(
                 'GeneralTagPersist ' . $e->getMessage(),
