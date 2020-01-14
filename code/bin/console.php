@@ -14,6 +14,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 ini_set('display_errors', true);
 ini_set('display_startup_errors', true);
 
+error_reporting(E_ALL);
+
 $dotEnv = new Dotenv();
 $dotEnv->load(__DIR__ . '/../env/.env');
 

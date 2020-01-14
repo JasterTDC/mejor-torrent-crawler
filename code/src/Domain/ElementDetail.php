@@ -48,21 +48,6 @@ final class ElementDetail
     protected $elementDownloadLink;
 
     /**
-     * @var string|null
-     */
-    protected $elementDir;
-
-    /**
-     * @var string|null
-     */
-    protected $elementYearDir;
-
-    /**
-     * @var string|null
-     */
-    protected $elementMonthDir;
-
-    /**
      * ElementDetail constructor.
      * @param \DateTimeImmutable|null $elementPublishedDate
      * @param string|null $elementGenre
@@ -71,9 +56,6 @@ final class ElementDetail
      * @param string|null $elementCoverImg
      * @param string|null $elementCoverImgName
      * @param string|null $elementDownloadLink
-     * @param string|null $elementDir
-     * @param string|null $elementYearDir
-     * @param string|null $elementMonthDir
      */
     public function __construct(
         ?\DateTimeImmutable $elementPublishedDate,
@@ -82,10 +64,7 @@ final class ElementDetail
         ?string $elementDescription,
         ?string $elementCoverImg,
         ?string $elementCoverImgName,
-        ?string $elementDownloadLink,
-        ?string $elementDir,
-        ?string $elementYearDir,
-        ?string $elementMonthDir
+        ?string $elementDownloadLink
     ) {
         $this->elementPublishedDate = $elementPublishedDate;
         $this->elementGenre = $elementGenre;
@@ -94,9 +73,6 @@ final class ElementDetail
         $this->elementCoverImg = $elementCoverImg;
         $this->elementCoverImgName = $elementCoverImgName;
         $this->elementDownloadLink = $elementDownloadLink;
-        $this->elementDir = $elementDir;
-        $this->elementYearDir = $elementYearDir;
-        $this->elementMonthDir = $elementMonthDir;
     }
 
     /**
@@ -153,50 +129,5 @@ final class ElementDetail
     public function getElementDownloadLink(): ?string
     {
         return $this->elementDownloadLink;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getElementDir(): ?string
-    {
-        return $this->elementDir;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getElementYearDir(): ?string
-    {
-        return $this->elementYearDir;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getElementMonthDir(): ?string
-    {
-        return $this->elementMonthDir;
-    }
-
-    /**
-     * @param string $elementDir
-     *
-     * @return ElementDetail
-     */
-    public function setElementDir(string $elementDir) : self
-    {
-        return new ElementDetail(
-            $this->elementPublishedDate,
-            $this->elementGenre,
-            $this->elementFormat,
-            $this->elementDescription,
-            $this->elementCoverImg,
-            $this->elementCoverImgName,
-            $this->elementDownloadLink,
-            $elementDir,
-            $this->elementYearDir,
-            $this->elementMonthDir
-        );
     }
 }

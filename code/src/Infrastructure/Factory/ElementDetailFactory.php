@@ -37,19 +37,21 @@ final class ElementDetailFactory implements ElementDetailFactoryInterface
     public function createElementDetailFromRaw(
         array $rawElementDetail
     ) : ElementDetail {
-        $current = \DateTimeImmutable::createFromFormat(
-            'Y-m-d',
-            $rawElementDetail['publishedDate']
-        );
+
         $elementGenre           = null;
         $elementFormat          = null;
         $elementDescription     = null;
         $elementCoverImg        = null;
         $elementCoverImgName    = null;
         $elementDownloadLink    = null;
-        $elementDir             = null;
-        $elementYearDir         = null;
-        $elementMonthDir        = null;
+        $current                = new \DateTimeImmutable();
+
+        if (!empty($rawElementDetail['publishedDate'])){
+            $current = \DateTimeImmutable::createFromFormat(
+                'Y-m-d',
+                $rawElementDetail['publishedDate']
+            );
+        }
 
         if (!empty($rawElementDetail['genre'])) {
             $elementGenre = $rawElementDetail['genre'];
@@ -75,30 +77,14 @@ final class ElementDetailFactory implements ElementDetailFactoryInterface
             $elementDownloadLink = $rawElementDetail['downloadLink'];
         }
 
-        if (!empty($current)) {
-            $elementDir = $this->baseDir .
-                $current->format('Y') . DIRECTORY_SEPARATOR .
-                $current->format('m') . DIRECTORY_SEPARATOR;
-
-            $elementYearDir = $this->baseDir .
-                $current->format('Y') . DIRECTORY_SEPARATOR;
-
-            $elementMonthDir = $this->baseDir .
-                $current->format('Y') . DIRECTORY_SEPARATOR .
-                $current->format('m') . DIRECTORY_SEPARATOR;
-        }
-
         return new ElementDetail(
-            !empty($current) ? $current : null,
+            $current,
             $elementGenre,
             $elementFormat,
             $elementDescription,
             $elementCoverImg,
             $elementCoverImgName,
-            $elementDownloadLink,
-            $elementDir,
-            $elementYearDir,
-            $elementMonthDir
+            $elementDownloadLink
         );
     }
 }
