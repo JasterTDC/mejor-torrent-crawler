@@ -7,7 +7,7 @@ use BestThor\ScrappingMaster\Domain\ElementGeneralReaderRepositoryInterface;
 
 /**
  * RetrieveElementGeneralCollectionUseCase
- * 
+ *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
 final class RetrieveElementGeneralCollectionUseCase

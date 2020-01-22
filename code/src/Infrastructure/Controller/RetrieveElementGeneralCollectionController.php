@@ -11,7 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * RetrieveElementGeneralCollectionController
- * 
+ *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
 final class RetrieveElementGeneralCollectionController

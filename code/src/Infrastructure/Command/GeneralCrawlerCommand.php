@@ -67,14 +67,18 @@ final class GeneralCrawlerCommand extends Command
             $totalPages = (int) $totalPages;
         }
 
-        $response = $this->useCase->handle(
-            new GetElementGeneralCollectionArguments(
-                $totalPages
-            )
-        );
+        try {
+            $response = $this->useCase->handle(
+                new GetElementGeneralCollectionArguments(
+                    $totalPages
+                )
+            );
 
-        if (!empty($response->getError())) {
-            $output->writeln($response->getError());
+            if (!empty($response->getError())) {
+                $output->writeln($response->getError());
+            }
+        } catch (\Exception $e) {
+            $output->writeln($e->getMessage());
         }
     }
 }

@@ -55,7 +55,6 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
             `description`,
             `coverImg`,
             `coverImgName`,
-            `downloadLink`,
             `downloadTorrentUrl`,
             `downloadName`,
             `createdAt`,
@@ -71,7 +70,6 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
             :description,
             :coverImg,
             :coverImgName,
-            :downloadLink,
             :downloadTorrentUrl,
             :downloadName,
             :createdAt,
@@ -85,7 +83,6 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
         $description        = null;
         $coverImg           = null;
         $coverImgName       = null;
-        $downloadLink       = null;
         $downloadTorrentUrl = null;
         $downloadName       = null;
 
@@ -116,10 +113,6 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
             $coverImgName = $elementGeneral
                 ->getElementDetail()
                 ->getElementCoverImgName();
-
-            $downloadLink = $elementGeneral
-                ->getElementDetail()
-                ->getElementDownloadLink();
         }
 
         if (!empty($elementGeneral->getElementDownload())) {
@@ -143,7 +136,6 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
             'description'           => $description,
             'coverImg'              => $coverImg,
             'coverImgName'          => $coverImgName,
-            'downloadLink'          => $downloadLink,
             'downloadTorrentUrl'    => $downloadTorrentUrl,
             'downloadName'          => $downloadName,
             'createdAt'             => $elementGeneral->getCreatedAt()->format(self::DATETIME_FORMAT),
@@ -167,7 +159,7 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
             throw $e;
         } catch (\PDOException $e) {
             throw new ElementGeneralPersistException(
-                'We have an error with database',
+                '[ElementGeneralWriter][persist] ' . $e->getMessage(),
                 1
             );
         }

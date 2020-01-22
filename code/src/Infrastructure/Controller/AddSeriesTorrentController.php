@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * AddSeriesTorrentController class
- * 
+ *
  * @author Ismael Moral <jastertdc@gmai.com>
  */
 final class AddSeriesTorrentController

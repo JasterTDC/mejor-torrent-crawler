@@ -46,7 +46,7 @@ final class ElementDetailFactory implements ElementDetailFactoryInterface
         $elementDownloadLink    = null;
         $current                = new \DateTimeImmutable();
 
-        if (!empty($rawElementDetail['publishedDate'])){
+        if (!empty($rawElementDetail['publishedDate'])) {
             $current = \DateTimeImmutable::createFromFormat(
                 'Y-m-d',
                 $rawElementDetail['publishedDate']

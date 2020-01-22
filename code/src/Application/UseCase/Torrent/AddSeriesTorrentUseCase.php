@@ -7,7 +7,7 @@ use BestThor\ScrappingMaster\Application\UseCase\Torrent\TorrentClientInterface;
 
 /**
  * AddSeriesTorrentUseCase
- * 
+ *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
 final class AddSeriesTorrentUseCase

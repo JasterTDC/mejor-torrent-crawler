@@ -114,7 +114,8 @@ final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralRead
      *
      * @return int
      */
-    public function getTotal() : int {
+    public function getTotal() : int
+    {
         $sql = "SELECT COUNT(*) as total
         FROM `elements`.`general`";
 

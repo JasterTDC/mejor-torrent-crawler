@@ -6,7 +6,7 @@ use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
 
 /**
  * RetrieveElementGeneralCollectionUseCaseResponse
- * 
+ *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
 final class RetrieveElementGeneralCollectionUseCaseResponse
@@ -84,7 +84,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      * Get it indicates if the operation was successful or ot
      *
      * @return  bool
-     */ 
+     */
     public function getSuccess()
     {
         return $this->success;
@@ -94,7 +94,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      * Get error message
      *
      * @return  string|null
-     */ 
+     */
     public function getError()
     {
         return $this->error;
@@ -104,7 +104,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      * Get elementGeneralCollection
      *
      * @return  ElementGeneralCollection|null[type]
-     */ 
+     */
     public function getElementGeneralCollection()
     {
         return $this->elementGeneralCollection;
@@ -114,7 +114,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      * Get total
      *
      * @return  int|null
-     */ 
+     */
     public function getTotal()
     {
         return $this->total;
@@ -124,7 +124,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      * Get previous page
      *
      * @return  int|null
-     */ 
+     */
     public function getPreviousPage()
     {
         return $this->previousPage;
@@ -134,7 +134,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      * Get next page
      *
      * @return  int|null
-     */ 
+     */
     public function getNextPage()
     {
         return $this->nextPage;

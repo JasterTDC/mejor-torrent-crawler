@@ -11,7 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * RetrieveElementSeriesCollectionController class
- * 
+ *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
 final class RetrieveElementSeriesCollectionController
@@ -41,7 +41,7 @@ final class RetrieveElementSeriesCollectionController
     public function __construct(
         RetrieveElementSeriesCollectionUseCase $useCase,
         ElementSeriesDataTransformer $transformer,
-        TemplateRenderer $templateRenderer 
+        TemplateRenderer $templateRenderer
     ) {
         $this->useCase = $useCase;
         $this->transformer = $transformer;

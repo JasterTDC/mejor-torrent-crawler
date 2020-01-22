@@ -86,7 +86,8 @@ final class GetTagFromGeneralUseCase
 
             /** @var ElementGeneral $elementGeneral */
             foreach ($elementGeneralCollection as $elementGeneral) {
-                preg_match_all('/(?<tags>[^\-]+)/',
+                preg_match_all(
+                    '/(?<tags>[^\-]+)/',
                     $elementGeneral
                         ->getElementDetail()
                         ->getElementGenre(),
@@ -107,7 +108,7 @@ final class GetTagFromGeneralUseCase
      *
      * @throws TagSaveException
      */
-    protected function saveTagCollection (array $rawTagCollection)
+    protected function saveTagCollection(array $rawTagCollection)
     {
         $current = new \DateTimeImmutable();
 

@@ -1,5 +1,6 @@
 <?php
 
+use Monolog\Handler\StreamHandler;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
 use BestThor\ScrappingMaster\Infrastructure\Service\GeneralService;
@@ -29,11 +30,6 @@ $container->register(
     ElementDetailParser::class,
     ElementDetailParser::class
 )->addArgument(new Reference(ElementDetailFactory::class));
-
-$container->register(
-    ElementSeriesFactory::class,
-    ElementSeriesFactory::class
-);
 
 $container->register(
     ElementSeriesParser::class,
@@ -77,6 +73,18 @@ $container->register(
     ->addArgument('%TemplateOptions%');
 
 $container->register(
+    'GeneralLogStreamHandler',
+    StreamHandler::class
+)->addArgument(getenv('GENERAL_LOG_DIR'));
+
+$container->register(
+    'GeneralLogger',
+    Monolog\Logger::class
+)
+    ->addArgument('GeneralLogger')
+    ->addArgument([new Reference('GeneralLogStreamHandler')]);
+
+$container->register(
     SeriesService::class,
     SeriesService::class
 )
@@ -92,7 +100,8 @@ $container->register(
     ->addArgument(new Reference(GuzzleMTContentReaderRepository::class))
     ->addArgument(new Reference(ElementGeneralParser::class))
     ->addArgument(new Reference(ElementDetailParser::class))
-    ->addArgument(new Reference(ElementDownloadParser::class));
+    ->addArgument(new Reference(ElementDownloadParser::class))
+    ->addArgument(new Reference('GeneralLogger'));
 
 $container->register(
     TransmissionClient::class,
@@ -102,4 +111,3 @@ $container->register(
     ->addArgument(getenv('TRANSMISSION_PORT'))
     ->addArgument(getenv('TRANSMISSION_USERNAME'))
     ->addArgument(getenv('TRANSMISSION_PASSWORD'));
-

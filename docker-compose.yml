@@ -30,3 +30,4 @@ services:
       - ./media/film/download:/static/film/download:rw
       - ./code:/code
       - ./logs:/LOGS
+      - ./crawler:/crawler
