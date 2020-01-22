@@ -36,4 +36,3 @@ final class GetElementGeneralDetailRequest
         return $this->elementGeneralId;
     }
 }
-

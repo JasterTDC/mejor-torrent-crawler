@@ -4,7 +4,7 @@ namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
 /**
  * RetrieveElementGeneralCollectionUseCaseArguments class
- * 
+ *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
 final class RetrieveElementGeneralCollectionUseCaseArguments
@@ -42,7 +42,7 @@ final class RetrieveElementGeneralCollectionUseCaseArguments
      * Get page number
      *
      * @return  int
-     */ 
+     */
     public function getPage()
     {
         return $this->page;
@@ -52,7 +52,7 @@ final class RetrieveElementGeneralCollectionUseCaseArguments
      * Get limit
      *
      * @return  int
-     */ 
+     */
     public function getLimit()
     {
         return $this->limit;

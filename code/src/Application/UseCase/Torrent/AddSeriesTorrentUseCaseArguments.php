@@ -4,7 +4,7 @@ namespace BestThor\ScrappingMaster\Application\UseCase\Torrent;
 
 /**
  * AddSeriesTorrentUseCaseArguments
- * 
+ *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
 final class AddSeriesTorrentUseCaseArguments
@@ -42,7 +42,7 @@ final class AddSeriesTorrentUseCaseArguments
      * Get elementSeries identifier
      *
      * @return  int
-     */ 
+     */
     public function getSeriesId()
     {
         return $this->seriesId;
@@ -52,7 +52,7 @@ final class AddSeriesTorrentUseCaseArguments
      * Get elementSeries name
      *
      * @return  string
-     */ 
+     */
     public function getSeriesName()
     {
         return $this->seriesName;
