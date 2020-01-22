@@ -262,7 +262,7 @@ final class GuzzleMTContentReaderRepository implements
             return $response->getBody()->getContents();
         } catch (\Exception $e) {
             throw new ElementDownloadContentEmptyException(
-                'We could not get element file',
+                '[MTContentReaderRepository][ElementDownloadFile] ' . $e->getMessage(),
                 1
             );
         }

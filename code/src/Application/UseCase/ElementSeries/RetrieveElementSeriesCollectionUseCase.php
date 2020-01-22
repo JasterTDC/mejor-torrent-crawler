@@ -7,7 +7,7 @@ use BestThor\ScrappingMaster\Domain\Series\ElementSeriesReaderInterface;
 
 /**
  * RetrieveElementSeriesColectionUseCase class
- * 
+ *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
 final class RetrieveElementSeriesCollectionUseCase

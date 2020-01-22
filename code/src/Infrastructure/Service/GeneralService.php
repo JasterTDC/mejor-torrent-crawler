@@ -14,6 +14,7 @@ use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDetailParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDownloadParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementGeneralParser;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class GeneralService
@@ -45,29 +46,39 @@ final class GeneralService implements GeneralServiceInterface
     protected $elementDownloadParser;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * GeneralService constructor.
      *
      * @param MTContentReaderRepositoryInterface $mtContentReaderRepository
      * @param ElementGeneralParser $elementGeneralParser
      * @param ElementDetailParser $elementDetailParser
      * @param ElementDownloadParser $elementDownloadParser
+     * @param LoggerInterface $logger
      */
     public function __construct(
         MTContentReaderRepositoryInterface $mtContentReaderRepository,
         ElementGeneralParser $elementGeneralParser,
         ElementDetailParser $elementDetailParser,
-        ElementDownloadParser $elementDownloadParser
+        ElementDownloadParser $elementDownloadParser,
+        LoggerInterface $logger
     ) {
         $this->mtContentReaderRepository = $mtContentReaderRepository;
         $this->elementGeneralParser = $elementGeneralParser;
         $this->elementDetailParser = $elementDetailParser;
         $this->elementDownloadParser = $elementDownloadParser;
+        $this->logger = $logger;
     }
 
     /**
      * @param int $page
      *
      * @return ElementGeneralCollection
+     * @throws ElementDetailContentEmptyException
+     * @throws ElementDownloadContentEmptyException
      * @throws ElementGeneralContentEmptyException
      * @throws ElementGeneralEmptyException
      */
@@ -90,47 +101,45 @@ final class GeneralService implements GeneralServiceInterface
 
         /** @var ElementGeneral $elementGeneral */
         foreach ($elementGeneralCollection as $elementGeneral) {
-            try {
-                $elementDetailContent = $this
-                    ->mtContentReaderRepository
-                    ->getElementDetailContent(
-                        $elementGeneral->getElementLink()
-                    );
+            $elementDetailContent = $this
+                ->mtContentReaderRepository
+                ->getElementDetailContent(
+                    $elementGeneral->getElementLink()
+                );
 
-                $this
-                    ->elementDetailParser
-                    ->setContent($elementDetailContent);
+            $this
+                ->elementDetailParser
+                ->setContent($elementDetailContent);
 
-                $elementDetail = $this
-                    ->elementDetailParser
-                    ->getElementDetail();
+            $elementDetail = $this
+                ->elementDetailParser
+                ->getElementDetail();
 
-                $elementGeneral->setElementDetail($elementDetail);
-            } catch (ElementDetailContentEmptyException $e) {
-            }
+            $elementGeneral->setElementDetail($elementDetail);
 
-            try {
-                $elementDownloadContent = $this
-                    ->mtContentReaderRepository
-                    ->getElementDownloadContent(
-                        $elementGeneral->getElementId()
-                    );
+            $elementDownloadContent = $this
+                ->mtContentReaderRepository
+                ->getElementDownloadContent(
+                    $elementGeneral->getElementId()
+                );
 
-                $this
-                    ->elementDownloadParser
-                    ->setContent($elementDownloadContent);
+            $this
+                ->elementDownloadParser
+                ->setContent($elementDownloadContent);
 
-                $elementDownload = $this
-                    ->elementDownloadParser
-                    ->getElementDownload();
+            $elementDownload = $this
+                ->elementDownloadParser
+                ->getElementDownload();
 
-                $elementGeneral->setElementDownload($elementDownload);
-            } catch (ElementDownloadContentEmptyException $e) {
-            }
+            $elementGeneral->setElementDownload($elementDownload);
 
             $finalElementGeneralCollection->add(
                 $elementGeneral
             );
+
+            $this
+                ->logger
+                ->info("[General][{$elementGeneral->getElementId()}] {$elementGeneral->getElementName()}");
         }
 
         return $finalElementGeneralCollection;

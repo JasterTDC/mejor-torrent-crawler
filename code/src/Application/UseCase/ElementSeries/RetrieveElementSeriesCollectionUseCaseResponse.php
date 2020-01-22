@@ -6,7 +6,7 @@ use BestThor\ScrappingMaster\Domain\Series\ElementSeriesCollection;
 
 /**
  * RetrieveElementSeriesColectionUseCaseResponse
- * 
+ *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
 final class RetrieveElementSeriesCollectionUseCaseResponse
@@ -74,7 +74,7 @@ final class RetrieveElementSeriesCollectionUseCaseResponse
      * Get success
      *
      * @return  bool
-     */ 
+     */
     public function getSuccess()
     {
         return $this->success;
@@ -84,7 +84,7 @@ final class RetrieveElementSeriesCollectionUseCaseResponse
      * Get error message
      *
      * @return  string|null
-     */ 
+     */
     public function getError()
     {
         return $this->error;
@@ -94,7 +94,7 @@ final class RetrieveElementSeriesCollectionUseCaseResponse
      * Get elementSeriesCollection
      *
      * @return  ElementSeriesCollection|null
-     */ 
+     */
     public function getElementSeriesCollection()
     {
         return $this->elementSeriesCollection;
@@ -104,7 +104,7 @@ final class RetrieveElementSeriesCollectionUseCaseResponse
      * Get next page
      *
      * @return  int|null
-     */ 
+     */
     public function getNextPage()
     {
         return $this->nextPage;
@@ -114,7 +114,7 @@ final class RetrieveElementSeriesCollectionUseCaseResponse
      * Get previous page
      *
      * @return  int|null
-     */ 
+     */
     public function getPreviousPage()
     {
         return $this->previousPage;

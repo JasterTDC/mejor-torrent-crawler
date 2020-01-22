@@ -4,7 +4,7 @@ namespace BestThor\ScrappingMaster\Application\UseCase\Torrent;
 
 /**
  * AddSeriesTorrentUseCaseResponse
- * 
+ *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
 final class AddSeriesTorrentUseCaseResponse
@@ -42,7 +42,7 @@ final class AddSeriesTorrentUseCaseResponse
      * Get it indicates if the action was successful or not
      *
      * @return  bool
-     */ 
+     */
     public function getSuccess()
     {
         return $this->success;
@@ -52,7 +52,7 @@ final class AddSeriesTorrentUseCaseResponse
      * Get error message
      *
      * @return  string|null
-     */ 
+     */
     public function getError()
     {
         return $this->error;

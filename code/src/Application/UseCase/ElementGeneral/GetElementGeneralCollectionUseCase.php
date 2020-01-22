@@ -3,8 +3,11 @@
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
 use BestThor\ScrappingMaster\Domain\ElementDownloadContentEmptyException;
+use BestThor\ScrappingMaster\Domain\ElementDownloadFileEmptyException;
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Domain\ElementGeneralContentEmptyException;
+use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
 use BestThor\ScrappingMaster\Domain\ElementGeneralPersistException;
 use BestThor\ScrappingMaster\Domain\ElementGeneralWriterRepositoryInterface;
 use BestThor\ScrappingMaster\Domain\ElementImageEmptyException;
@@ -118,6 +121,12 @@ final class GetElementGeneralCollectionUseCase
      * @param GetElementGeneralCollectionArguments $arguments
      *
      * @return GetElementGeneralCollectionUseCaseResponse
+     * @throws ElementGeneralContentEmptyException
+     * @throws ElementGeneralEmptyException
+     * @throws ElementGeneralPersistException
+     * @throws ElementImageEmptyException
+     * @throws TagSaveException
+     * @throws TagSearchException
      */
     public function handle(
         GetElementGeneralCollectionArguments $arguments
@@ -132,28 +141,25 @@ final class GetElementGeneralCollectionUseCase
                         !empty($elementGeneral->getElementDetail()->getElementCoverImg()) &&
                         !empty($elementGeneral->getElementDetail()->getElementCoverImgName())
                     ) {
-                        try {
-                            $imageContent = $this
-                                ->mtContentReaderRepository
-                                ->getElementImageFile(
-                                    $elementGeneral
-                                        ->getElementDetail()
-                                        ->getElementCoverImg()
-                                );
+                        $imageContent = $this
+                            ->mtContentReaderRepository
+                            ->getElementImageFile(
+                                $elementGeneral
+                                    ->getElementDetail()
+                                    ->getElementCoverImg()
+                            );
 
-                            if (preg_match(
-                                '/(?<imageExtension>\.[^$]+)/',
-                                $elementGeneral->getElementDetail()->getElementCoverImgName(),
-                                $imageExtension
-                            )) {
-                                file_put_contents(
-                                    $this->staticImageDir .
-                                    $elementGeneral->getElementId() .
-                                    $imageExtension['imageExtension'],
-                                    $imageContent
-                                );
-                            }
-                        } catch (ElementImageEmptyException $e) {
+                        if (preg_match(
+                            '/(?<imageExtension>\.[^$]+)/',
+                            $elementGeneral->getElementDetail()->getElementCoverImgName(),
+                            $imageExtension
+                        )) {
+                            file_put_contents(
+                                $this->staticImageDir .
+                                $elementGeneral->getElementId() .
+                                $imageExtension['imageExtension'],
+                                $imageContent
+                            );
                         }
                     }
 
@@ -180,15 +186,12 @@ final class GetElementGeneralCollectionUseCase
                                 '.torrent',
                                 $downloadContent
                             );
+
+                            $this
+                                ->elementGeneralWriter
+                                ->persist($elementGeneral);
                         } catch (ElementDownloadContentEmptyException $e) {
                         }
-                    }
-
-                    try {
-                        $this
-                            ->elementGeneralWriter
-                            ->persist($elementGeneral);
-                    } catch (ElementGeneralPersistException $e) {
                     }
 
                     if (!empty($elementGeneral->getElementDetail()->getElementGenre())) {
@@ -221,19 +224,17 @@ final class GetElementGeneralCollectionUseCase
      * @param int $page
      *
      * @return ElementGeneralCollection|null
+     * @throws ElementGeneralContentEmptyException
+     * @throws ElementGeneralEmptyException
      */
     protected function getElementGeneralCollection(
         int $page
     ) : ?ElementGeneralCollection {
-        try {
-            return $this
-                ->generalService
-                ->getElementGeneralByPage(
-                    $page
-                );
-        } catch (\Exception $e) {
-            return null;
-        }
+        return $this
+            ->generalService
+            ->getElementGeneralByPage(
+                $page
+            );
     }
 
     /**
@@ -243,7 +244,7 @@ final class GetElementGeneralCollectionUseCase
      * @throws TagSaveException
      * @throws TagSearchException
      */
-    protected function saveTagCollection (
+    protected function saveTagCollection(
         array $rawTagCollection,
         ElementGeneral $elementGeneral
     ) {
