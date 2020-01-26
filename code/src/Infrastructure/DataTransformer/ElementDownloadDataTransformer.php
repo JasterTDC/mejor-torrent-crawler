@@ -27,11 +27,7 @@ final class ElementDownloadDataTransformer
         if (empty($elementDownload)) {
             return $ret;
         }
-
-        if (!empty($elementDownload->getElementDownloadUrl())) {
-            $ret['downloadUrl'] = $elementDownload->getElementDownloadUrl();
-        }
-
+        
         if (!empty($elementDownload->getElementDownloadTorrentUrl())) {
             $ret['downloadThorUrl'] = $elementDownload->getElementDownloadTorrentUrl();
         }

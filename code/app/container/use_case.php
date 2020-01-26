@@ -2,6 +2,8 @@
 
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralDetailUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetTagFromGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\Notification\SendNotificationUseCase;
+use BestThor\ScrappingMaster\Infrastructure\Bot\TelegramRequest;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\GeneralTagFactory;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralTagWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagReaderRepository;
@@ -102,3 +104,10 @@ $container->register(
     ->addArgument(new Reference(MysqlPdoTagWriterRepository::class))
     ->addArgument(new Reference(MysqlPdoTagReaderRepository::class))
     ->addArgument(new Reference(TagFactory::class));
+
+$container->register(
+    SendNotificationUseCase::class,
+    SendNotificationUseCase::class
+)
+    ->addArgument(new Reference(TelegramRequest::class))
+    ->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class));
