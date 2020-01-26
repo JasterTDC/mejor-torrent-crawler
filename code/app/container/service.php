@@ -1,5 +1,6 @@
 <?php
 
+use BestThor\ScrappingMaster\Infrastructure\Bot\TelegramRequest;
 use Monolog\Handler\StreamHandler;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
@@ -111,3 +112,10 @@ $container->register(
     ->addArgument(getenv('TRANSMISSION_PORT'))
     ->addArgument(getenv('TRANSMISSION_USERNAME'))
     ->addArgument(getenv('TRANSMISSION_PASSWORD'));
+
+$container->register(
+    TelegramRequest::class,
+    TelegramRequest::class
+)
+    ->addArgument(getenv('TELEGRAM_API_TOKEN'))
+    ->addArgument(getenv('TELEGRAM_BASE_URL'));

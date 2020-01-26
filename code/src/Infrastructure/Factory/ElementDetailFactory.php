@@ -51,6 +51,10 @@ final class ElementDetailFactory implements ElementDetailFactoryInterface
                 'Y-m-d',
                 $rawElementDetail['publishedDate']
             );
+
+            if (empty($current)) {
+                $current = new \DateTimeImmutable();
+            }
         }
 
         if (!empty($rawElementDetail['genre'])) {

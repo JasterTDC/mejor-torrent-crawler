@@ -54,18 +54,6 @@ final class ElementDetailDataTransformer
             $ret['coverImgName'] = $elementDetail->getElementCoverImgName();
         }
 
-        if (!empty($elementDetail->getElementDir())) {
-            $ret['dir'] = $elementDetail->getElementDir();
-        }
-
-        if (!empty($elementDetail->getElementYearDir())) {
-            $ret['yearDir'] = $elementDetail->getElementYearDir();
-        }
-
-        if (!empty($elementDetail->getElementMonthDir())) {
-            $ret['monthDir'] = $elementDetail->getElementMonthDir();
-        }
-
         if (!empty($elementDetail->getElementDownloadLink())) {
             $ret['downloadLink'] = $elementDetail->getElementDownloadLink();
         }
