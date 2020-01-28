@@ -4,6 +4,7 @@
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Factory;
 
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
+use BestThor\ScrappingMaster\Tests\Domain\TagCollectionRawMother;
 use BestThor\ScrappingMaster\Tests\Domain\TagRawMother;
 use PHPUnit\Framework\TestCase;
 
@@ -93,5 +94,44 @@ final class TagFactoryTest extends TestCase
             $tag->getUpdatedAt()->format(self::DATE_FORMAT),
             $rawTag['updatedAt']
         );
+    }
+
+    public function testIfRawTagCollectionHasOneThenTagCollectionIsCreatedSuccessfully()
+    {
+        $rawTagCollection = TagCollectionRawMother::createWithOne();
+
+        $tagCollection = $this
+            ->tagFactory
+            ->createTagCollectionFromRaw(
+                $rawTagCollection
+            );
+
+        $this->assertEquals(1, $tagCollection->count());
+    }
+
+    public function testIfRawTagCollectionIsValidThenTagCollectionIsCreatedSuccessfully()
+    {
+        $rawTagCollection = TagCollectionRawMother::create();
+
+        $tagCollection = $this
+            ->tagFactory
+            ->createTagCollectionFromRaw(
+                $rawTagCollection
+            );
+
+        $this->assertGreaterThanOrEqual(2, $tagCollection->count());
+    }
+
+    public function testIfRawTagCollectionIsEmptyThenTagCollectionIsCreatedSuccessfully()
+    {
+        $rawTagCollection = TagCollectionRawMother::createEmpty();
+
+        $tagCollection = $this
+            ->tagFactory
+            ->createTagCollectionFromRaw(
+                $rawTagCollection
+            );
+
+        $this->assertGreaterThanOrEqual(0, $tagCollection->count());
     }
 }

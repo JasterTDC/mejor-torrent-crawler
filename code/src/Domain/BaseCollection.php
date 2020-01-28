@@ -26,14 +26,15 @@ class BaseCollection implements \IteratorAggregate
      */
     public function __construct()
     {
-        $this->collection       = [];
-        $this->collectionById   = [];
+        $this->collection = [];
+        $this->collectionById = [];
     }
 
     protected function addToCollection(
         $element,
         $elementId
-    ) {
+    )
+    {
         $this->collection[] = $element;
         $this->collectionById[$elementId] = $element;
     }
@@ -41,7 +42,7 @@ class BaseCollection implements \IteratorAggregate
     /**
      * Get element in position
      *
-     * @param   int $position
+     * @param int $position
      *
      * @return  mixed
      */
@@ -53,8 +54,16 @@ class BaseCollection implements \IteratorAggregate
     /**
      * @return \ArrayIterator
      */
-    public function getIterator() : \ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->collection);
+    }
+
+    /**
+     * @return int
+     */
+    public function count(): int
+    {
+        return count($this->collection);
     }
 }
