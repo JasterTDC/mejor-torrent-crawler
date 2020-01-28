@@ -74,8 +74,14 @@ final class TagFactory implements TagFactoryInterface
 
         $tag->setId($tagId);
         $tag->setName($tagName);
-        $tag->setCreatedAt($tagCreatedAt);
-        $tag->setUpdatedAt($tagUpdatedAt);
+
+        if (!empty($tagCreatedAt)) {
+            $tag->setCreatedAt($tagCreatedAt);
+        }
+
+        if (!empty($tagUpdatedAt)) {
+            $tag->setUpdatedAt($tagUpdatedAt);
+        }
 
         return $tag;
     }

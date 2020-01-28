@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /code/src/Domain</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">/code/src</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Domain</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="BaseCollection.php.html#12">BestThor\ScrappingMaster\Domain\BaseCollection</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDetail.php.html#12">BestThor\ScrappingMaster\Domain\ElementDetail</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDownload.php.html#12">BestThor\ScrappingMaster\Domain\ElementDownload</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#14">BestThor\ScrappingMaster\Domain\ElementGeneral</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneralCollection.php.html#12">BestThor\ScrappingMaster\Domain\ElementGeneralCollection</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#12">BestThor\ScrappingMaster\Domain\Series\ElementSeries</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesCollection.php.html#14">BestThor\ScrappingMaster\Domain\Series\ElementSeriesCollection</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDescription.php.html#12">BestThor\ScrappingMaster\Domain\Series\ElementSeriesDescription</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#12">BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetailCollection.php.html#14">BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailCollection</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDownload.php.html#12">BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesImage.php.html#12">BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/GeneralTag.php.html#12">BestThor\ScrappingMaster\Domain\Tag\GeneralTag</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/TagCollection.php.html#14">BestThor\ScrappingMaster\Domain\Tag\TagCollection</a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Series/ElementSeries.php.html#12">BestThor\ScrappingMaster\Domain\Series\ElementSeries</a></td><td class="text-right">930</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#14">BestThor\ScrappingMaster\Domain\ElementGeneral</a></td><td class="text-right">756</td></tr>
+       <tr><td><a href="ElementDetail.php.html#12">BestThor\ScrappingMaster\Domain\ElementDetail</a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#12">BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail</a></td><td class="text-right">462</td></tr>
+       <tr><td><a href="ElementDownload.php.html#12">BestThor\ScrappingMaster\Domain\ElementDownload</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Series/ElementSeriesDownload.php.html#12">BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload</a></td><td class="text-right">72</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="BaseCollection.php.html#27"><abbr title="BestThor\ScrappingMaster\Domain\BaseCollection::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#60"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#145"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::getElementSeriesDownload">getElementSeriesDownload</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#137"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::setLink">setLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#129"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::getLink">getLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#121"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::setName">setName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#113"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::getName">getName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#105"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::setSeriesId">setSeriesId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#97"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::getSeriesId">getSeriesId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#89"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::setId">setId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#81"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDescription.php.html#44"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDescription::setDescription">setDescription</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#161"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::getCreatedAt">getCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDescription.php.html#34"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDescription::getDescription">getDescription</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDescription.php.html#25"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDescription::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesCollection.php.html#19"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesCollection::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#259"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setUpdatedAt">setUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#251"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getUpdatedAt">getUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#243"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setCreatedAt">setCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#235"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getCreatedAt">getCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#226"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setElementSeriesDetailCollection">setElementSeriesDetailCollection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#218"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getElementSeriesDetailCollection">getElementSeriesDetailCollection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#153"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::setElementSeriesDownload">setElementSeriesDownload</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#169"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::setCreatedAt">setCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#202"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getElementSeriesDescription">getElementSeriesDescription</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesImage.php.html#74"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage::setImageName">setImageName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/GeneralTag.php.html#114"><abbr title="BestThor\ScrappingMaster\Domain\Tag\GeneralTag::setUpdatedAt">setUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/GeneralTag.php.html#106"><abbr title="BestThor\ScrappingMaster\Domain\Tag\GeneralTag::getUpdatedAt">getUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/GeneralTag.php.html#98"><abbr title="BestThor\ScrappingMaster\Domain\Tag\GeneralTag::setCreatedAt">setCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/GeneralTag.php.html#90"><abbr title="BestThor\ScrappingMaster\Domain\Tag\GeneralTag::getCreatedAt">getCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/GeneralTag.php.html#82"><abbr title="BestThor\ScrappingMaster\Domain\Tag\GeneralTag::setTagId">setTagId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/GeneralTag.php.html#74"><abbr title="BestThor\ScrappingMaster\Domain\Tag\GeneralTag::getTagId">getTagId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/GeneralTag.php.html#66"><abbr title="BestThor\ScrappingMaster\Domain\Tag\GeneralTag::setGeneralId">setGeneralId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/GeneralTag.php.html#58"><abbr title="BestThor\ScrappingMaster\Domain\Tag\GeneralTag::getGeneralId">getGeneralId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/GeneralTag.php.html#43"><abbr title="BestThor\ScrappingMaster\Domain\Tag\GeneralTag::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesImage.php.html#60"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage::setImageUrl">setImageUrl</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#177"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::getUpdatedAt">getUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesImage.php.html#50"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage::getImageName">getImageName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesImage.php.html#42"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage::getImageUrl">getImageUrl</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesImage.php.html#31"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDownload.php.html#74"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload::setDownloadLink">setDownloadLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDownload.php.html#60"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload::setDownloadName">setDownloadName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDownload.php.html#50"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload::getDownloadLink">getDownloadLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDownload.php.html#42"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload::getDownloadName">getDownloadName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDownload.php.html#31"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetailCollection.php.html#20"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailCollection::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#185"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::setUpdatedAt">setUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#210"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setElementSeriesDescription">setElementSeriesDescription</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#194"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setElementSeriesImage">setElementSeriesImage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="BaseCollection.php.html#33"><abbr title="BestThor\ScrappingMaster\Domain\BaseCollection::addToCollection">addToCollection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDownload.php.html#31"><abbr title="BestThor\ScrappingMaster\Domain\ElementDownload::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#131"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getElementSlug">getElementSlug</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#123"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setElementName">setElementName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#115"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getElementName">getElementName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#107"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setElementId">setElementId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#99"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getElementId">getElementId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#74"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDownload.php.html#63"><abbr title="BestThor\ScrappingMaster\Domain\ElementDownload::getElementDownloadName">getElementDownloadName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDownload.php.html#52"><abbr title="BestThor\ScrappingMaster\Domain\ElementDownload::setElementDownloadTorrentUrl">setElementDownloadTorrentUrl</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDownload.php.html#42"><abbr title="BestThor\ScrappingMaster\Domain\ElementDownload::getElementDownloadTorrentUrl">getElementDownloadTorrentUrl</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDetail.php.html#129"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementDownloadLink">getElementDownloadLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#147"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getElementLink">getElementLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDetail.php.html#121"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementCoverImgName">getElementCoverImgName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDetail.php.html#113"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementCoverImg">getElementCoverImg</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDetail.php.html#105"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementDescription">getElementDescription</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDetail.php.html#97"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementFormat">getElementFormat</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDetail.php.html#89"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementGenre">getElementGenre</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDetail.php.html#81"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementPublishedDate">getElementPublishedDate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementDetail.php.html#60"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="BaseCollection.php.html#56"><abbr title="BestThor\ScrappingMaster\Domain\BaseCollection::getIterator">getIterator</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="BaseCollection.php.html#48"><abbr title="BestThor\ScrappingMaster\Domain\BaseCollection::getItemInPosition">getItemInPosition</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#139"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setElementSlug">setElementSlug</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#155"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setElementLink">setElementLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#186"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getElementSeriesImage">getElementSeriesImage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#106"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#178"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setLink">setLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#170"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getLink">getLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#162"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setSlug">setSlug</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#154"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getSlug">getSlug</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#146"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setName">setName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#138"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getName">getName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#130"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setFirstEpId">setFirstEpId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#122"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getFirstEpId">getFirstEpId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#114"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setId">setId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#79"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#163"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getCreatedAt">getCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneralCollection.php.html#18"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneralCollection::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#235"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setElementDownload">setElementDownload</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#227"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getElementDownload">getElementDownload</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#219"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setElementDetail">setElementDetail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#211"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getElementDetail">getElementDetail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#203"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setTagCollection">setTagCollection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#195"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getTagCollection">getTagCollection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#187"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setUpdatedAt">setUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#179"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getUpdatedAt">getUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#171"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setCreatedAt">setCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Tag/TagCollection.php.html#19"><abbr title="BestThor\ScrappingMaster\Domain\Tag\TagCollection::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="ElementDetail.php.html#60"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::__construct">__construct</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#79"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::__construct">__construct</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#74"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::__construct">__construct</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#60"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::__construct">__construct</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="ElementDownload.php.html#31"><abbr title="BestThor\ScrappingMaster\Domain\ElementDownload::__construct">__construct</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#145"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::getElementSeriesDownload">getElementSeriesDownload</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#105"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::setSeriesId">setSeriesId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#97"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::getSeriesId">getSeriesId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeriesDetail.php.html#153"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail::setElementSeriesDownload">setElementSeriesDownload</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeriesDownload.php.html#31"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload::__construct">__construct</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#226"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setElementSeriesDetailCollection">setElementSeriesDetailCollection</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#218"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getElementSeriesDetailCollection">getElementSeriesDetailCollection</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeriesDownload.php.html#50"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload::getDownloadLink">getDownloadLink</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#210"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setElementSeriesDescription">setElementSeriesDescription</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#202"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getElementSeriesDescription">getElementSeriesDescription</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#194"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::setElementSeriesImage">setElementSeriesImage</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeries.php.html#186"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeries::getElementSeriesImage">getElementSeriesImage</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#227"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getElementDownload">getElementDownload</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#235"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setElementDownload">setElementDownload</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementDetail.php.html#81"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementPublishedDate">getElementPublishedDate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#219"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setElementDetail">setElementDetail</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#211"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getElementDetail">getElementDetail</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#203"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::setTagCollection">setTagCollection</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementGeneral.php.html#195"><abbr title="BestThor\ScrappingMaster\Domain\ElementGeneral::getTagCollection">getTagCollection</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementDownload.php.html#63"><abbr title="BestThor\ScrappingMaster\Domain\ElementDownload::getElementDownloadName">getElementDownloadName</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementDownload.php.html#52"><abbr title="BestThor\ScrappingMaster\Domain\ElementDownload::setElementDownloadTorrentUrl">setElementDownloadTorrentUrl</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementDownload.php.html#42"><abbr title="BestThor\ScrappingMaster\Domain\ElementDownload::getElementDownloadTorrentUrl">getElementDownloadTorrentUrl</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementDetail.php.html#129"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementDownloadLink">getElementDownloadLink</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementDetail.php.html#121"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementCoverImgName">getElementCoverImgName</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementDetail.php.html#113"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementCoverImg">getElementCoverImg</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementDetail.php.html#105"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementDescription">getElementDescription</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementDetail.php.html#97"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementFormat">getElementFormat</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="ElementDetail.php.html#89"><abbr title="BestThor\ScrappingMaster\Domain\ElementDetail::getElementGenre">getElementGenre</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Series/ElementSeriesDownload.php.html#74"><abbr title="BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload::setDownloadLink">setDownloadLink</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 7.0.8</a> using <a href="https://secure.php.net/" target="_top">PHP 7.3.9</a> with <a href="https://xdebug.org/">Xdebug 2.7.2</a> and <a href="https://phpunit.de/">PHPUnit 8.5.2</a> at Tue Jan 28 21:53:09 UTC 2020.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js" type="text/javascript"></script>
+  <script src="../_js/d3.min.js" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([14,0,0,0,0,0,0,0,0,0,0,19], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([97,0,0,0,0,0,0,0,0,0,0,9], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,4,"<a href=\"BaseCollection.php.html#12\">BestThor\\ScrappingMaster\\Domain\\BaseCollection<\/a>"],[0,22,"<a href=\"ElementDetail.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementDetail<\/a>"],[100,0,"<a href=\"ElementDetailContentEmptyException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementDetailContentEmptyException<\/a>"],[100,0,"<a href=\"ElementDetailEmptyException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementDetailEmptyException<\/a>"],[0,9,"<a href=\"ElementDownload.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementDownload<\/a>"],[100,0,"<a href=\"ElementDownloadContentEmptyException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementDownloadContentEmptyException<\/a>"],[100,0,"<a href=\"ElementDownloadFileEmptyException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementDownloadFileEmptyException<\/a>"],[0,27,"<a href=\"ElementGeneral.php.html#14\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral<\/a>"],[0,1,"<a href=\"ElementGeneralCollection.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementGeneralCollection<\/a>"],[100,0,"<a href=\"ElementGeneralCollectionEmptyException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementGeneralCollectionEmptyException<\/a>"],[100,0,"<a href=\"ElementGeneralContentEmptyException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementGeneralContentEmptyException<\/a>"],[100,0,"<a href=\"ElementGeneralEmptyException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementGeneralEmptyException<\/a>"],[100,0,"<a href=\"ElementGeneralPersistException.php.html#11\">BestThor\\ScrappingMaster\\Domain\\ElementGeneralPersistException<\/a>"],[100,0,"<a href=\"ElementGeneralTotalException.php.html#10\">BestThor\\ScrappingMaster\\Domain\\ElementGeneralTotalException<\/a>"],[100,0,"<a href=\"ElementImageEmptyException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\ElementImageEmptyException<\/a>"],[0,30,"<a href=\"Series\/ElementSeries.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesCollection.php.html#14\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesCollection<\/a>"],[0,3,"<a href=\"Series\/ElementSeriesDescription.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDescription<\/a>"],[0,21,"<a href=\"Series\/ElementSeriesDetail.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetailCollection.php.html#14\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetailCollection<\/a>"],[100,0,"<a href=\"Series\/ElementSeriesDetailEmptyException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetailEmptyException<\/a>"],[100,0,"<a href=\"Series\/ElementSeriesDetailSaveException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetailSaveException<\/a>"],[0,8,"<a href=\"Series\/ElementSeriesDownload.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDownload<\/a>"],[100,0,"<a href=\"Series\/ElementSeriesEmptyException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesEmptyException<\/a>"],[0,5,"<a href=\"Series\/ElementSeriesImage.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesImage<\/a>"],[100,0,"<a href=\"Series\/ElementSeriesSaveException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesSaveException<\/a>"],[100,0,"<a href=\"Series\/TotalElementSeriesException.php.html#10\">BestThor\\ScrappingMaster\\Domain\\Series\\TotalElementSeriesException<\/a>"],[0,9,"<a href=\"Tag\/GeneralTag.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTag<\/a>"],[100,0,"<a href=\"Tag\/GeneralTagSaveException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTagSaveException<\/a>"],[100,11,"<a href=\"Tag\/Tag.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Tag\\Tag<\/a>"],[0,1,"<a href=\"Tag\/TagCollection.php.html#14\">BestThor\\ScrappingMaster\\Domain\\Tag\\TagCollection<\/a>"],[100,0,"<a href=\"Tag\/TagSaveException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Tag\\TagSaveException<\/a>"],[100,0,"<a href=\"Tag\/TagSearchException.php.html#12\">BestThor\\ScrappingMaster\\Domain\\Tag\\TagSearchException<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"BaseCollection.php.html#27\">BestThor\\ScrappingMaster\\Domain\\BaseCollection::__construct<\/a>"],[0,1,"<a href=\"BaseCollection.php.html#33\">BestThor\\ScrappingMaster\\Domain\\BaseCollection::addToCollection<\/a>"],[0,1,"<a href=\"BaseCollection.php.html#48\">BestThor\\ScrappingMaster\\Domain\\BaseCollection::getItemInPosition<\/a>"],[0,1,"<a href=\"BaseCollection.php.html#56\">BestThor\\ScrappingMaster\\Domain\\BaseCollection::getIterator<\/a>"],[0,8,"<a href=\"ElementDetail.php.html#60\">BestThor\\ScrappingMaster\\Domain\\ElementDetail::__construct<\/a>"],[0,2,"<a href=\"ElementDetail.php.html#81\">BestThor\\ScrappingMaster\\Domain\\ElementDetail::getElementPublishedDate<\/a>"],[0,2,"<a href=\"ElementDetail.php.html#89\">BestThor\\ScrappingMaster\\Domain\\ElementDetail::getElementGenre<\/a>"],[0,2,"<a href=\"ElementDetail.php.html#97\">BestThor\\ScrappingMaster\\Domain\\ElementDetail::getElementFormat<\/a>"],[0,2,"<a href=\"ElementDetail.php.html#105\">BestThor\\ScrappingMaster\\Domain\\ElementDetail::getElementDescription<\/a>"],[0,2,"<a href=\"ElementDetail.php.html#113\">BestThor\\ScrappingMaster\\Domain\\ElementDetail::getElementCoverImg<\/a>"],[0,2,"<a href=\"ElementDetail.php.html#121\">BestThor\\ScrappingMaster\\Domain\\ElementDetail::getElementCoverImgName<\/a>"],[0,2,"<a href=\"ElementDetail.php.html#129\">BestThor\\ScrappingMaster\\Domain\\ElementDetail::getElementDownloadLink<\/a>"],[0,3,"<a href=\"ElementDownload.php.html#31\">BestThor\\ScrappingMaster\\Domain\\ElementDownload::__construct<\/a>"],[0,2,"<a href=\"ElementDownload.php.html#42\">BestThor\\ScrappingMaster\\Domain\\ElementDownload::getElementDownloadTorrentUrl<\/a>"],[0,2,"<a href=\"ElementDownload.php.html#52\">BestThor\\ScrappingMaster\\Domain\\ElementDownload::setElementDownloadTorrentUrl<\/a>"],[0,2,"<a href=\"ElementDownload.php.html#63\">BestThor\\ScrappingMaster\\Domain\\ElementDownload::getElementDownloadName<\/a>"],[0,3,"<a href=\"ElementGeneral.php.html#74\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::__construct<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#99\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::getElementId<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#107\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::setElementId<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#115\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::getElementName<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#123\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::setElementName<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#131\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::getElementSlug<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#139\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::setElementSlug<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#147\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::getElementLink<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#155\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::setElementLink<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#163\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::getCreatedAt<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#171\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::setCreatedAt<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#179\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::getUpdatedAt<\/a>"],[0,1,"<a href=\"ElementGeneral.php.html#187\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::setUpdatedAt<\/a>"],[0,2,"<a href=\"ElementGeneral.php.html#195\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::getTagCollection<\/a>"],[0,2,"<a href=\"ElementGeneral.php.html#203\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::setTagCollection<\/a>"],[0,2,"<a href=\"ElementGeneral.php.html#211\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::getElementDetail<\/a>"],[0,2,"<a href=\"ElementGeneral.php.html#219\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::setElementDetail<\/a>"],[0,2,"<a href=\"ElementGeneral.php.html#227\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::getElementDownload<\/a>"],[0,2,"<a href=\"ElementGeneral.php.html#235\">BestThor\\ScrappingMaster\\Domain\\ElementGeneral::setElementDownload<\/a>"],[0,1,"<a href=\"ElementGeneralCollection.php.html#18\">BestThor\\ScrappingMaster\\Domain\\ElementGeneralCollection::add<\/a>"],[0,4,"<a href=\"Series\/ElementSeries.php.html#79\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::__construct<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#106\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::getId<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#114\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::setId<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#122\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::getFirstEpId<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#130\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::setFirstEpId<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#138\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::getName<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#146\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::setName<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#154\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::getSlug<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#162\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::setSlug<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#170\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::getLink<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#178\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::setLink<\/a>"],[0,2,"<a href=\"Series\/ElementSeries.php.html#186\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::getElementSeriesImage<\/a>"],[0,2,"<a href=\"Series\/ElementSeries.php.html#194\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::setElementSeriesImage<\/a>"],[0,2,"<a href=\"Series\/ElementSeries.php.html#202\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::getElementSeriesDescription<\/a>"],[0,2,"<a href=\"Series\/ElementSeries.php.html#210\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::setElementSeriesDescription<\/a>"],[0,2,"<a href=\"Series\/ElementSeries.php.html#218\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::getElementSeriesDetailCollection<\/a>"],[0,2,"<a href=\"Series\/ElementSeries.php.html#226\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::setElementSeriesDetailCollection<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#235\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::getCreatedAt<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#243\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::setCreatedAt<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#251\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::getUpdatedAt<\/a>"],[0,1,"<a href=\"Series\/ElementSeries.php.html#259\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeries::setUpdatedAt<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesCollection.php.html#19\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesCollection::add<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDescription.php.html#25\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDescription::__construct<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDescription.php.html#34\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDescription::getDescription<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDescription.php.html#44\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDescription::setDescription<\/a>"],[0,3,"<a href=\"Series\/ElementSeriesDetail.php.html#60\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::__construct<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetail.php.html#81\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::getId<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetail.php.html#89\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::setId<\/a>"],[0,2,"<a href=\"Series\/ElementSeriesDetail.php.html#97\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::getSeriesId<\/a>"],[0,2,"<a href=\"Series\/ElementSeriesDetail.php.html#105\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::setSeriesId<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetail.php.html#113\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::getName<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetail.php.html#121\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::setName<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetail.php.html#129\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::getLink<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetail.php.html#137\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::setLink<\/a>"],[0,2,"<a href=\"Series\/ElementSeriesDetail.php.html#145\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::getElementSeriesDownload<\/a>"],[0,2,"<a href=\"Series\/ElementSeriesDetail.php.html#153\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::setElementSeriesDownload<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetail.php.html#161\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::getCreatedAt<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetail.php.html#169\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::setCreatedAt<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetail.php.html#177\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::getUpdatedAt<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetail.php.html#185\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetail::setUpdatedAt<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDetailCollection.php.html#20\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDetailCollection::add<\/a>"],[0,2,"<a href=\"Series\/ElementSeriesDownload.php.html#31\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDownload::__construct<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDownload.php.html#42\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDownload::getDownloadName<\/a>"],[0,2,"<a href=\"Series\/ElementSeriesDownload.php.html#50\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDownload::getDownloadLink<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesDownload.php.html#60\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDownload::setDownloadName<\/a>"],[0,2,"<a href=\"Series\/ElementSeriesDownload.php.html#74\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesDownload::setDownloadLink<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesImage.php.html#31\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesImage::__construct<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesImage.php.html#42\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesImage::getImageUrl<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesImage.php.html#50\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesImage::getImageName<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesImage.php.html#60\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesImage::setImageUrl<\/a>"],[0,1,"<a href=\"Series\/ElementSeriesImage.php.html#74\">BestThor\\ScrappingMaster\\Domain\\Series\\ElementSeriesImage::setImageName<\/a>"],[0,1,"<a href=\"Tag\/GeneralTag.php.html#43\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTag::__construct<\/a>"],[0,1,"<a href=\"Tag\/GeneralTag.php.html#58\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTag::getGeneralId<\/a>"],[0,1,"<a href=\"Tag\/GeneralTag.php.html#66\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTag::setGeneralId<\/a>"],[0,1,"<a href=\"Tag\/GeneralTag.php.html#74\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTag::getTagId<\/a>"],[0,1,"<a href=\"Tag\/GeneralTag.php.html#82\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTag::setTagId<\/a>"],[0,1,"<a href=\"Tag\/GeneralTag.php.html#90\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTag::getCreatedAt<\/a>"],[0,1,"<a href=\"Tag\/GeneralTag.php.html#98\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTag::setCreatedAt<\/a>"],[0,1,"<a href=\"Tag\/GeneralTag.php.html#106\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTag::getUpdatedAt<\/a>"],[0,1,"<a href=\"Tag\/GeneralTag.php.html#114\">BestThor\\ScrappingMaster\\Domain\\Tag\\GeneralTag::setUpdatedAt<\/a>"],[100,1,"<a href=\"Tag\/Tag.php.html#40\">BestThor\\ScrappingMaster\\Domain\\Tag\\Tag::__construct<\/a>"],[100,2,"<a href=\"Tag\/Tag.php.html#51\">BestThor\\ScrappingMaster\\Domain\\Tag\\Tag::getId<\/a>"],[100,2,"<a href=\"Tag\/Tag.php.html#59\">BestThor\\ScrappingMaster\\Domain\\Tag\\Tag::setId<\/a>"],[100,1,"<a href=\"Tag\/Tag.php.html#67\">BestThor\\ScrappingMaster\\Domain\\Tag\\Tag::getName<\/a>"],[100,1,"<a href=\"Tag\/Tag.php.html#75\">BestThor\\ScrappingMaster\\Domain\\Tag\\Tag::setName<\/a>"],[100,1,"<a href=\"Tag\/Tag.php.html#83\">BestThor\\ScrappingMaster\\Domain\\Tag\\Tag::getCreatedAt<\/a>"],[100,1,"<a href=\"Tag\/Tag.php.html#91\">BestThor\\ScrappingMaster\\Domain\\Tag\\Tag::setCreatedAt<\/a>"],[100,1,"<a href=\"Tag\/Tag.php.html#99\">BestThor\\ScrappingMaster\\Domain\\Tag\\Tag::getUpdatedAt<\/a>"],[100,1,"<a href=\"Tag\/Tag.php.html#107\">BestThor\\ScrappingMaster\\Domain\\Tag\\Tag::setUpdatedAt<\/a>"],[0,1,"<a href=\"Tag\/TagCollection.php.html#19\">BestThor\\ScrappingMaster\\Domain\\Tag\\TagCollection::add<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
