@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Factory\ElementGeneral;
 
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
@@ -15,8 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class ElementDetailFactoryTest extends TestCase
 {
-
-    const TESTING_IMAGES = '/tmp/testing_images/';
+    public const TESTING_IMAGES = '/tmp/testing_images/';
 
     /** @var ElementDetailFactory */
     protected $elementDetailFactory;

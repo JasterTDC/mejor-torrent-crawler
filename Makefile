@@ -7,7 +7,7 @@ sniffer:
 	docker run --rm \
     --volume=${PWD}/code:/code \
     mejor-torrent-crawler_crawler:latest \
-	php /code/vendor/bin/phpcs --standard=PSR2 /code/src /code/tests
+	php /code/vendor/bin/phpcs --standard=PSR12 /code/src /code/tests
 test:
 	docker run --rm \
     --volume=${PWD}/code:/code \

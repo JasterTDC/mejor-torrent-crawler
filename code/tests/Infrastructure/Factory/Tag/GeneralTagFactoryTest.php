@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Factory\Tag;
 
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\GeneralTagFactory;
@@ -17,7 +16,7 @@ final class GeneralTagFactoryTest extends TestCase
 {
 
     // Date format
-    const DATE_FORMAT = 'Y-m-d H:i:s';
+    public const DATE_FORMAT = 'Y-m-d H:i:s';
 
     /** @var GeneralTagFactory */
     protected $generalTagFactory;

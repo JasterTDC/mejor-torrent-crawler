@@ -1,10 +1,8 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\Tag;
 
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
-use BestThor\ScrappingMaster\Tests\Domain\Tag\TagRawMother;
 
 /**
  * Class TagCollectionRawMother
@@ -18,7 +16,7 @@ final class TagCollectionRawMother
     /**
      * @return array
      */
-    public static function createWithOne() : array
+    public static function createWithOne(): array
     {
         $rawTagCollection = [];
 
@@ -30,7 +28,7 @@ final class TagCollectionRawMother
     /**
      * @return array
      */
-    public static function create() : array
+    public static function create(): array
     {
         $rawTagCollection = [];
 
@@ -46,7 +44,7 @@ final class TagCollectionRawMother
     /**
      * @return array
      */
-    public static function createEmpty() : array
+    public static function createEmpty(): array
     {
         return [];
     }

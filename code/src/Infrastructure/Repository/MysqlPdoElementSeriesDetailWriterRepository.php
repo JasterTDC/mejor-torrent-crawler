@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail;
@@ -19,7 +18,7 @@ final class MysqlPdoElementSeriesDetailWriterRepository implements ElementSeries
     /**
      * Date format
      */
-    const DATE_FORMAT = 'Y-m-d H:i:s';
+    public const DATE_FORMAT = 'Y-m-d H:i:s';
 
     /**
      * @var PdoAccess
@@ -45,7 +44,7 @@ final class MysqlPdoElementSeriesDetailWriterRepository implements ElementSeries
      */
     public function persist(
         ElementSeriesDetail $elementSeriesDetail
-    ) : bool {
+    ): bool {
         $sql = "INSERT INTO `elements`.`series_episodes` (
             `id`,
             `seriesId`,

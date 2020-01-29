@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
@@ -18,7 +17,7 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
     /**
      * Date format
      */
-    const DATETIME_FORMAT = 'Y-m-d H:i:s';
+    public const DATETIME_FORMAT = 'Y-m-d H:i:s';
 
     /**
      * @var PdoAccess
@@ -42,7 +41,7 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
      * @return bool
      * @throws ElementGeneralPersistException
      */
-    public function persist(ElementGeneral $elementGeneral) : bool
+    public function persist(ElementGeneral $elementGeneral): bool
     {
         $sql = "INSERT INTO `elements`.`general` (
             `id`, 
@@ -86,7 +85,8 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
         $downloadTorrentUrl = null;
         $downloadName       = null;
 
-        if (!empty($elementGeneral->getElementDetail()) &&
+        if (
+            !empty($elementGeneral->getElementDetail()) &&
             !empty($elementGeneral->getElementDetail()->getElementPublishedDate())
         ) {
             $publishedDate = $elementGeneral

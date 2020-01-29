@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain;
 
 use Faker\Factory;
@@ -22,7 +21,7 @@ final class MotherCreator
     /**
      * @return Generator
      */
-    public static function random() : Generator
+    public static function random(): Generator
     {
         return self::$faker = self::$faker ?: Factory::create();
     }

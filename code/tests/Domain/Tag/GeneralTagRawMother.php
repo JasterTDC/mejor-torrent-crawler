@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\Tag;
 
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
@@ -15,12 +14,12 @@ final class GeneralTagRawMother
 {
 
     // Date format
-    const DATE_FORMAT = 'Y-m-d H:i:s';
+    public const DATE_FORMAT = 'Y-m-d H:i:s';
 
     /**
      * @return array
      */
-    public static function random() : array
+    public static function random(): array
     {
         $dateCreated = \DateTimeImmutable::createFromMutable(
             MotherCreator::random()->dateTimeThisCentury
@@ -43,7 +42,7 @@ final class GeneralTagRawMother
     /**
      * @return array
      */
-    public static function createWithRequiredOnly() : array
+    public static function createWithRequiredOnly(): array
     {
         return [
             'generalId' => MotherCreator::random()->numberBetween(1),

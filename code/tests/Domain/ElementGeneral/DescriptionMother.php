@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\ElementGeneral;
 
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
@@ -13,11 +12,10 @@ use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
  */
 final class DescriptionMother
 {
-
     /**
      * @return string
      */
-    public static function random() : string
+    public static function random(): string
     {
         return MotherCreator::random()->text();
     }

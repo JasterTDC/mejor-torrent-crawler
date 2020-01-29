@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Tag\Tag;
@@ -49,7 +48,7 @@ final class MysqlPdoTagReaderRepository implements TagReaderRepositoryInterface
      */
     public function findByName(
         string $name
-    ) : ?Tag {
+    ): ?Tag {
         $sql = 'SELECT
             `id`,
             `name`,

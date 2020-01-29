@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\ElementGeneral;
 
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
@@ -14,12 +13,12 @@ use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
 final class DownloadMother
 {
 
-    const DOWNLOAD_PATH = '/uploads/torrents/peliculas/';
+    public const DOWNLOAD_PATH = '/uploads/torrents/peliculas/';
 
     /**
      * @return array
      */
-    public static function random() : array
+    public static function random(): array
     {
         return [
             'downloadName' => MotherCreator::random()->lastName .

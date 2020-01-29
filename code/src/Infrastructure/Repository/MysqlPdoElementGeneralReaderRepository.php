@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
@@ -54,7 +53,7 @@ final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralRead
     public function getElementGeneralByPage(
         int $page,
         int $limit
-    ) : ElementGeneralCollection {
+    ): ElementGeneralCollection {
         $offset = ($page - 1) * $limit;
 
         $sql = "SELECT *
@@ -114,7 +113,7 @@ final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralRead
      *
      * @return int
      */
-    public function getTotal() : int
+    public function getTotal(): int
     {
         $sql = "SELECT COUNT(*) as total
         FROM `elements`.`general`";
@@ -153,7 +152,7 @@ final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralRead
      * @return ElementGeneral|null
      * @throws ElementGeneralEmptyException
      */
-    public function getById(int $elementGeneralId) : ?ElementGeneral
+    public function getById(int $elementGeneralId): ?ElementGeneral
     {
         $sql = "SELECT *
         FROM `elements`.`general`

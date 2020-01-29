@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Factory\ElementGeneral;
 
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
@@ -16,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 class ElementDownloadFactoryTest extends TestCase
 {
 
-    const DOWNLOAD_PATH = '/uploads/torrents/peliculas/';
+    public const DOWNLOAD_PATH = '/uploads/torrents/peliculas/';
 
     /** @var ElementDownloadFactory */
     protected $elementDownloadFactory;

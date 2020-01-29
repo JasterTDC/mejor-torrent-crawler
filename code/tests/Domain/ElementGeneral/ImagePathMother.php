@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\ElementGeneral;
 
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
@@ -13,13 +12,12 @@ use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
  */
 final class ImagePathMother
 {
-
-    const IMAGE_PATH = '/uploads/imagenes/peliculas/';
+    public const IMAGE_PATH = '/uploads/imagenes/peliculas/';
 
     /**
      * @return string
      */
-    public static function random() : string
+    public static function random(): string
     {
         return self::IMAGE_PATH . MotherCreator::random()->lastName . '.jpg';
     }

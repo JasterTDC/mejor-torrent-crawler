@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\Tag;
 
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
@@ -15,12 +14,12 @@ final class TagRawMother
 {
 
     // Date format
-    const DATE_FORMAT = 'Y-m-d H:i:s';
+    public const DATE_FORMAT = 'Y-m-d H:i:s';
 
     /**
      * @return array
      */
-    public static function random() : array
+    public static function random(): array
     {
         $dateCreated = \DateTimeImmutable::createFromMutable(
             MotherCreator::random()->dateTimeThisCentury
@@ -43,7 +42,7 @@ final class TagRawMother
     /**
      * @return array
      */
-    public static function createWithOnlyName() : array
+    public static function createWithOnlyName(): array
     {
         return [
             'name' => MotherCreator::random()->lastName
@@ -53,7 +52,7 @@ final class TagRawMother
     /**
      * @return array
      */
-    public static function createWithoutId() : array
+    public static function createWithoutId(): array
     {
         $dateCreated = \DateTimeImmutable::createFromMutable(
             MotherCreator::random()->dateTimeThisCentury

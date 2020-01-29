@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Tag\Tag;
@@ -37,7 +36,7 @@ final class MysqlPdoTagWriterRepository implements TagWriterRepositoryInterface
      * @return Tag
      * @throws TagSaveException
      */
-    public function persist(Tag $tag) : Tag
+    public function persist(Tag $tag): Tag
     {
         $sql = 'INSERT INTO `elements`.`tag` (
             `id`,

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\ElementGeneral;
 
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
@@ -17,7 +16,7 @@ final class GenreMother
     /**
      * @return string
      */
-    public static function random() : string
+    public static function random(): string
     {
         $totalGenres = MotherCreator::random()->numberBetween(1, 5);
 

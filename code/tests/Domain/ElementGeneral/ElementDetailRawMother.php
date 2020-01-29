@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\ElementGeneral;
 
 /**
@@ -11,17 +10,16 @@ namespace BestThor\ScrappingMaster\Tests\Domain\ElementGeneral;
  */
 final class ElementDetailRawMother
 {
-
-    const GENRE_ATTR = 'genre';
-    const FORMAT_ATTR = 'format';
-    const DESCRIPTION_ATTR = 'description';
-    const COVER_IMG_ATTR = 'coverImg';
-    const COVER_IMG_NAME_ATTR = 'coverImgName';
+    public const GENRE_ATTR = 'genre';
+    public const FORMAT_ATTR = 'format';
+    public const DESCRIPTION_ATTR = 'description';
+    public const COVER_IMG_ATTR = 'coverImg';
+    public const COVER_IMG_NAME_ATTR = 'coverImgName';
 
     /**
      * @return array
      */
-    public static function random() : array
+    public static function random(): array
     {
         return [
             self::GENRE_ATTR            => GenreMother::random(),
@@ -35,7 +33,7 @@ final class ElementDetailRawMother
     /**
      * @return array
      */
-    public static function missingImage() : array
+    public static function missingImage(): array
     {
         return [
             self::GENRE_ATTR            => GenreMother::random(),

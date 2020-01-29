@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\ElementGeneral;
 
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
@@ -13,14 +12,14 @@ use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
  */
 final class FormatMother
 {
-    const ALLOWED_FORMATS = [
+    public const ALLOWED_FORMATS = [
         'HDRip', 'DVDRip', 'MicroHD-1080p'
     ];
 
     /**
      * @return string
      */
-    public static function random() : string
+    public static function random(): string
     {
         $randomIndex = MotherCreator::random()->numberBetween(0, 2);
 
