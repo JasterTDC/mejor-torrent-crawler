@@ -1,7 +1,9 @@
 <?php
 
 
-namespace BestThor\ScrappingMaster\Tests\Domain;
+namespace BestThor\ScrappingMaster\Tests\Domain\Tag;
+
+use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
 
 /**
  * Class TagMother

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace BestThor\ScrappingMaster\Tests\Infrastructure\Factory;
+namespace BestThor\ScrappingMaster\Tests\Infrastructure\Factory\Tag;
 
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
-use BestThor\ScrappingMaster\Tests\Domain\TagCollectionRawMother;
-use BestThor\ScrappingMaster\Tests\Domain\TagRawMother;
+use BestThor\ScrappingMaster\Tests\Domain\Tag\TagCollectionRawMother;
+use BestThor\ScrappingMaster\Tests\Domain\Tag\TagRawMother;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -64,15 +64,15 @@ final class TagFactoryTest extends TestCase
             ->createTagFromRaw($rawTag);
 
         $current = new \DateTimeImmutable();
-        $current->setTime(0, 0, 0);
+        $current = $current->setTime(0, 0, 0);
 
         $this->assertEquals($tag->getName(), $rawTag['name']);
         $this->assertArrayNotHasKey('id', $rawTag);
         $this->assertArrayNotHasKey('createdAt', $rawTag);
         $this->assertArrayNotHasKey('updatedAt', $rawTag);
         $this->assertNull($tag->getId());
-        $this->assertGreaterThanOrEqual($tag->getCreatedAt(), $current);
-        $this->assertGreaterThanOrEqual($tag->getUpdatedAt(), $current);
+        $this->assertGreaterThanOrEqual($current, $tag->getCreatedAt());
+        $this->assertGreaterThanOrEqual($current, $tag->getUpdatedAt());
     }
 
     public function testIfRawTagDoesNotHaveIdThenTagIsCreatedSuccessfully()

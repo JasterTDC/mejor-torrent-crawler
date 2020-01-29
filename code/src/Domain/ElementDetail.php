@@ -43,11 +43,6 @@ final class ElementDetail
     protected $elementCoverImgName;
 
     /**
-     * @var string|null
-     */
-    protected $elementDownloadLink;
-
-    /**
      * ElementDetail constructor.
      * @param \DateTimeImmutable|null $elementPublishedDate
      * @param string|null $elementGenre
@@ -55,7 +50,6 @@ final class ElementDetail
      * @param string|null $elementDescription
      * @param string|null $elementCoverImg
      * @param string|null $elementCoverImgName
-     * @param string|null $elementDownloadLink
      */
     public function __construct(
         ?\DateTimeImmutable $elementPublishedDate,
@@ -63,8 +57,7 @@ final class ElementDetail
         ?string $elementFormat,
         ?string $elementDescription,
         ?string $elementCoverImg,
-        ?string $elementCoverImgName,
-        ?string $elementDownloadLink
+        ?string $elementCoverImgName
     ) {
         $this->elementPublishedDate = $elementPublishedDate;
         $this->elementGenre = $elementGenre;
@@ -72,7 +65,6 @@ final class ElementDetail
         $this->elementDescription = $elementDescription;
         $this->elementCoverImg = $elementCoverImg;
         $this->elementCoverImgName = $elementCoverImgName;
-        $this->elementDownloadLink = $elementDownloadLink;
     }
 
     /**
@@ -121,13 +113,5 @@ final class ElementDetail
     public function getElementCoverImgName(): ?string
     {
         return $this->elementCoverImgName;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getElementDownloadLink(): ?string
-    {
-        return $this->elementDownloadLink;
     }
 }

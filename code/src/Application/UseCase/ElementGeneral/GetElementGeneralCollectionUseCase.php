@@ -3,7 +3,6 @@
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
 use BestThor\ScrappingMaster\Domain\ElementDownloadContentEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementDownloadFileEmptyException;
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
 use BestThor\ScrappingMaster\Domain\ElementGeneralContentEmptyException;
