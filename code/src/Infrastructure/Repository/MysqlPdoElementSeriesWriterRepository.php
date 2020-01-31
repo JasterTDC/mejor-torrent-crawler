@@ -74,13 +74,6 @@ final class MysqlPdoElementSeriesWriterRepository implements ElementSeriesWriter
                 ->getPdo()
                 ->prepare($sql);
 
-            if (empty($statement)) {
-                throw new ElementSeriesSaveException(
-                    'ElementSeriesSave. We could not save the series element',
-                    1
-                );
-            }
-
             $imageUrl       = null;
             $imageName      = null;
             $description    = null;
