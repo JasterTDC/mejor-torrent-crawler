@@ -69,13 +69,6 @@ final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralRead
                 ->getPdo()
                 ->prepare($sql);
 
-            if (empty($statement)) {
-                throw new ElementGeneralCollectionEmptyException(
-                    'An error has been occurred processing this request',
-                    0
-                );
-            }
-
             $result = $statement->execute([
                 'limit'     => $limit,
                 'offset'    => $offset

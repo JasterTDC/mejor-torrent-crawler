@@ -45,19 +45,6 @@ final class ElementDownload
     }
 
     /**
-     * @param string|null $elementDownloadTorrentUrl
-     *
-     * @return ElementDownload
-     */
-    public function setElementDownloadTorrentUrl(?string $elementDownloadTorrentUrl) : self
-    {
-        return new static(
-            $elementDownloadTorrentUrl,
-            $this->elementDownloadName
-        );
-    }
-
-    /**
      * @return string|null
      */
     public function getElementDownloadName(): ?string

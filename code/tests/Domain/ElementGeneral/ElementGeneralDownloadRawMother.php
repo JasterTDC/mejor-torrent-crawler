@@ -10,7 +10,7 @@ use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
  * @package BestThor\ScrappingMaster\Tests\Domain\ElementGeneral
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class DownloadMother
+final class ElementGeneralDownloadRawMother
 {
 
     public const DOWNLOAD_PATH = '/uploads/torrents/peliculas/';

@@ -48,6 +48,50 @@ class PDOMockUtilsTestCase extends TestCase
      *
      * @return PdoAccess
      */
+    protected function mockPDOExecuteOnceASelectAndReturnsEmpty(): PdoAccess
+    {
+        $mockStatement = $this->createMock(PDOStatement::class);
+
+        $mockStatement->expects(
+            $this->once()
+        )
+            ->method('execute')
+            ->willReturn(false);
+
+        return $this->mockSimplePDO($mockStatement);
+    }
+
+    /**
+     * @param array $dataSet
+     *
+     * @return PdoAccess
+     */
+    protected function mockPDOExecuteOnceASelectAndFetchEmpty(): PdoAccess
+    {
+        $mockStatement = $this->createMock(PDOStatement::class);
+
+        $mockStatement->expects(
+            $this->once()
+        )
+            ->method('execute')
+            ->willReturn(true);
+
+        $mockStatement
+            ->method('fetchAll')
+            ->willReturn(false);
+
+        $mockStatement
+            ->method('fetch')
+            ->willReturn(false);
+
+        return $this->mockSimplePDO($mockStatement);
+    }
+
+    /**
+     * @param array $dataSet
+     *
+     * @return PdoAccess
+     */
     protected function mockPDOExecuteOnceASelectAndReturnRows(
         array $dataSet
     ) : PdoAccess {
@@ -59,6 +103,10 @@ class PDOMockUtilsTestCase extends TestCase
 
         $mockStatement
             ->method('fetchAll')
+            ->willReturn($dataSet);
+
+        $mockStatement
+            ->method('fetch')
             ->willReturn($dataSet);
 
         $mockStatement
