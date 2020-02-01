@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Command;
 
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetTagFromGeneralUseCase;
@@ -16,7 +15,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class GetTagFromGeneralCommand extends Command
 {
-
     /**
      * @var GetTagFromGeneralUseCase
      */
@@ -56,8 +54,6 @@ final class GetTagFromGeneralCommand extends Command
         InputInterface $input,
         OutputInterface $output
     ) {
-        $response = $this
-            ->useCase
-            ->handle();
+        $this->useCase->handle();
     }
 }

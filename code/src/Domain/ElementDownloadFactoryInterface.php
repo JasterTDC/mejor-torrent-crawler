@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 /**
@@ -19,5 +18,5 @@ interface ElementDownloadFactoryInterface
      */
     public function createFromRaw(
         array $rawElementDownload
-    ) : ?ElementDownload;
+    ): ?ElementDownload;
 }

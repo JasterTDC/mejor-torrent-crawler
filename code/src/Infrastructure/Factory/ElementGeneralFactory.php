@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
@@ -16,7 +15,6 @@ use BestThor\ScrappingMaster\Domain\ElementGeneralFactoryInterface;
  */
 final class ElementGeneralFactory implements ElementGeneralFactoryInterface
 {
-
     /**
      * @var ElementDetailFactory
      */
@@ -49,7 +47,7 @@ final class ElementGeneralFactory implements ElementGeneralFactoryInterface
      */
     public function createFromRawElementGeneral(
         array $rawElementGeneral
-    ) : ElementGeneral {
+    ): ElementGeneral {
         $createdAt = new \DateTimeImmutable();
         $updatedAt = new \DateTimeImmutable();
 
@@ -98,7 +96,7 @@ final class ElementGeneralFactory implements ElementGeneralFactoryInterface
      */
     public function createFromRawElementGeneralCollection(
         array $rawElementGeneralCollection
-    ) : ElementGeneralCollection {
+    ): ElementGeneralCollection {
         $elementGeneralCollection = new ElementGeneralCollection();
 
         foreach ($rawElementGeneralCollection as $rawElementGeneral) {

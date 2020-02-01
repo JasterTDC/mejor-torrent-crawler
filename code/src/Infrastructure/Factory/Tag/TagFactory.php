@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory\Tag;
 
 use BestThor\ScrappingMaster\Domain\Tag\Tag;
@@ -15,7 +14,6 @@ use BestThor\ScrappingMaster\Domain\Tag\TagFactoryInterface;
  */
 final class TagFactory implements TagFactoryInterface
 {
-
     /**
      * @param array $rawTagCollection
      *

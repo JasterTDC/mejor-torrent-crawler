@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Tag;
 
 /**
@@ -20,5 +19,5 @@ interface TagReaderRepositoryInterface
      */
     public function findByName(
         string $name
-    ) : ?Tag;
+    ): ?Tag;
 }

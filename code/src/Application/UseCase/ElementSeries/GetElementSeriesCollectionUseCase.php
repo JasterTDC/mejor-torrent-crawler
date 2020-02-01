@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementSeries;
 
 use BestThor\ScrappingMaster\Domain\ElementDownloadContentEmptyException;
@@ -85,7 +84,7 @@ final class GetElementSeriesCollectionUseCase
      */
     public function __invoke(
         GetElementSeriesCollectionUseCaseArguments $arguments
-    ) : GetElementSeriesCollectionUseCaseResponse {
+    ): GetElementSeriesCollectionUseCaseResponse {
         $elementSeriesCollection = $this
             ->elementSeriesService
             ->getElementSeriesCollectionByPage(
@@ -148,7 +147,8 @@ final class GetElementSeriesCollectionUseCase
                 /** @var ElementSeriesDetail $elementSeriesDetail */
                 foreach ($elementSeries->getElementSeriesDetailCollection() as $elementSeriesDetail) {
                     try {
-                        if (!empty($elementSeriesDetail->getElementSeriesDownload()) &&
+                        if (
+                            !empty($elementSeriesDetail->getElementSeriesDownload()) &&
                             !empty($elementSeriesDetail->getElementSeriesDownload()->getDownloadLink())
                         ) {
                             $downloadContent = $this
@@ -180,7 +180,8 @@ final class GetElementSeriesCollectionUseCase
                             );
                         }
                     } catch (ElementDownloadContentEmptyException $e) {
-                        if (!empty($elementSeriesDetail->getElementSeriesDownload()) &&
+                        if (
+                            !empty($elementSeriesDetail->getElementSeriesDownload()) &&
                             !empty($elementSeriesDetail->getElementSeriesDownload()->getDownloadName())
                         ) {
                             $errorFileArr[] = $elementSeriesDetail

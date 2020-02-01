@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 /**
@@ -22,14 +21,14 @@ interface ElementGeneralReaderRepositoryInterface
     public function getElementGeneralByPage(
         int $page,
         int $limit
-    ) : ElementGeneralCollection;
+    ): ElementGeneralCollection;
 
     /**
      * Get total pages
      *
      * @return int
      */
-    public function getTotal() : int;
+    public function getTotal(): int;
 
     /**
      * Get ElementGeneral by the main identifier
@@ -39,5 +38,5 @@ interface ElementGeneralReaderRepositoryInterface
      * @return ElementGeneral|null
      * @throws ElementGeneralEmptyException
      */
-    public function getById(int $elementGeneralId) : ?ElementGeneral;
+    public function getById(int $elementGeneralId): ?ElementGeneral;
 }

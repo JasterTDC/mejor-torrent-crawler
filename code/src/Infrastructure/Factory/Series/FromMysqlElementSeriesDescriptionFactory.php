@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory\Series;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDescription;
@@ -20,7 +19,7 @@ final class FromMysqlElementSeriesDescriptionFactory
      */
     public function createFromRaw(
         array $rawElementSeriesDescription
-    ) : ElementSeriesDescription {
+    ): ElementSeriesDescription {
         return new ElementSeriesDescription(
             $rawElementSeriesDescription['description']
         );

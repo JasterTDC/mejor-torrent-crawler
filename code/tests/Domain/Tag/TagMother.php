@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\Tag;
 
 use BestThor\ScrappingMaster\Domain\Tag\Tag;
@@ -14,7 +13,6 @@ use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
  */
 final class TagMother
 {
-
     /**
      * @return Tag
      */

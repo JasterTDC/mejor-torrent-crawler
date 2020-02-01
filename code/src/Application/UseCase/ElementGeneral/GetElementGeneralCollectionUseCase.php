@@ -129,14 +129,15 @@ final class GetElementGeneralCollectionUseCase
      */
     public function handle(
         GetElementGeneralCollectionArguments $arguments
-    ) : GetElementGeneralCollectionUseCaseResponse {
+    ): GetElementGeneralCollectionUseCaseResponse {
         for ($i = 1; $i < $arguments->getTotalPages(); $i++) {
             $elementGeneralCollection = $this->getElementGeneralCollection($i);
 
             if (!empty($elementGeneralCollection)) {
                 /** @var ElementGeneral $elementGeneral */
                 foreach ($elementGeneralCollection as $elementGeneral) {
-                    if (!empty($elementGeneral->getElementDetail()) &&
+                    if (
+                        !empty($elementGeneral->getElementDetail()) &&
                         !empty($elementGeneral->getElementDetail()->getElementCoverImg()) &&
                         !empty($elementGeneral->getElementDetail()->getElementCoverImgName())
                     ) {
@@ -148,11 +149,13 @@ final class GetElementGeneralCollectionUseCase
                                     ->getElementCoverImg()
                             );
 
-                        if (preg_match(
-                            '/(?<imageExtension>\.[^$]+)/',
-                            $elementGeneral->getElementDetail()->getElementCoverImgName(),
-                            $imageExtension
-                        )) {
+                        if (
+                            preg_match(
+                                '/(?<imageExtension>\.[^$]+)/',
+                                $elementGeneral->getElementDetail()->getElementCoverImgName(),
+                                $imageExtension
+                            )
+                        ) {
                             file_put_contents(
                                 $this->staticImageDir .
                                 $elementGeneral->getElementId() .
@@ -162,7 +165,8 @@ final class GetElementGeneralCollectionUseCase
                         }
                     }
 
-                    if (!empty($elementGeneral->getElementDownload()) &&
+                    if (
+                        !empty($elementGeneral->getElementDownload()) &&
                         !empty($elementGeneral->getElementDownload()->getElementDownloadName()) &&
                         !empty($elementGeneral->getElementDownload()->getElementDownloadTorrentUrl())
                     ) {
@@ -193,14 +197,18 @@ final class GetElementGeneralCollectionUseCase
                         }
                     }
 
-                    if (!empty($elementGeneral->getElementDetail()->getElementGenre())) {
+                    if (
+                        !empty($elementGeneral->getElementDetail()) &&
+                        !empty($elementGeneral->getElementDetail()->getElementGenre())
+                    ) {
                         preg_match_all(
                             '/(?<tags>[^\-]+)/',
                             $elementGeneral->getElementDetail()->getElementGenre(),
                             $match
                         );
 
-                        if (!empty($match['tags']) &&
+                        if (
+                            !empty($match['tags']) &&
                             $match['tags'] === (array) $match['tags']
                         ) {
                             $this->saveTagCollection(
@@ -228,7 +236,7 @@ final class GetElementGeneralCollectionUseCase
      */
     protected function getElementGeneralCollection(
         int $page
-    ) : ?ElementGeneralCollection {
+    ): ?ElementGeneralCollection {
         return $this
             ->generalService
             ->getElementGeneralByPage(

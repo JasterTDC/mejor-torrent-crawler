@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Tag;
 
 /**
@@ -17,5 +16,5 @@ interface GeneralTagWriterRepositoryInterface
      *
      * @return bool
      */
-    public function persist(GeneralTag $generalTag) : bool;
+    public function persist(GeneralTag $generalTag): bool;
 }

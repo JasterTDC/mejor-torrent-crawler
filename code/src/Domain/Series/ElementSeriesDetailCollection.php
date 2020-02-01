@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Series;
 
 use BestThor\ScrappingMaster\Domain\BaseCollection;

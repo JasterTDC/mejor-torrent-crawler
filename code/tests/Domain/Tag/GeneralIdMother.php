@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\Tag;
 
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
@@ -13,7 +12,6 @@ use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
  */
 final class GeneralIdMother
 {
-
     /**
      * @return int
      */

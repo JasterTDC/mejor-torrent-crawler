@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage;
@@ -20,7 +19,7 @@ final class ElementSeriesImageFactory
      */
     public function createFromRaw(
         array $rawElementSeriesImage
-    ) : ElementSeriesImage {
+    ): ElementSeriesImage {
         return new ElementSeriesImage(
             $rawElementSeriesImage['imageUrl'],
             $rawElementSeriesImage['imageName']

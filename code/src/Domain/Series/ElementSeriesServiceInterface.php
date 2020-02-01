@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Series;
 
 /**
@@ -18,5 +17,5 @@ interface ElementSeriesServiceInterface
      */
     public function getElementSeriesCollectionByPage(
         int $page
-    ) : ElementSeriesCollection;
+    ): ElementSeriesCollection;
 }

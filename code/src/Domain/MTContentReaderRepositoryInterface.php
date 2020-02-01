@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailEmptyException;
@@ -23,7 +22,7 @@ interface MTContentReaderRepositoryInterface
      */
     public function getElementDetailContent(
         string $detailUrl
-    ) : string;
+    ): string;
 
     /**
      * @param int $page
@@ -33,7 +32,7 @@ interface MTContentReaderRepositoryInterface
      */
     public function getElementGeneralContent(
         int $page
-    ) : string;
+    ): string;
 
     /**
      * @param int $page
@@ -43,7 +42,7 @@ interface MTContentReaderRepositoryInterface
      */
     public function getElementSeriesContent(
         int $page
-    ) : string;
+    ): string;
 
     /**
      * @param string $detailUrl
@@ -53,7 +52,7 @@ interface MTContentReaderRepositoryInterface
      */
     public function getElementSeriesDetailContent(
         string $detailUrl
-    ) : string;
+    ): string;
 
     /**
      * @param int $episodeId
@@ -62,7 +61,7 @@ interface MTContentReaderRepositoryInterface
      */
     public function getElementSeriesDownloadContent(
         int $episodeId
-    ) : string;
+    ): string;
 
     /**
      * @param int $elementId
@@ -72,7 +71,7 @@ interface MTContentReaderRepositoryInterface
      */
     public function getElementDownloadContent(
         int $elementId
-    ) : string;
+    ): string;
 
     /**
      * @param int $elementId
@@ -81,7 +80,7 @@ interface MTContentReaderRepositoryInterface
      */
     public function getElementDownloadUrl(
         int $elementId
-    ) : string;
+    ): string;
 
     /**
      * @param string $downloadPath
@@ -91,7 +90,7 @@ interface MTContentReaderRepositoryInterface
      */
     public function getElementDownloadFile(
         string $downloadPath
-    ) : string;
+    ): string;
 
     /**
      * @param string $imageUrl
@@ -101,5 +100,5 @@ interface MTContentReaderRepositoryInterface
      */
     public function getElementImageFile(
         string $imageUrl
-    ) : string;
+    ): string;
 }

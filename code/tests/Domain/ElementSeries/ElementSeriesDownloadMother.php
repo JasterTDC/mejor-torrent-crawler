@@ -19,7 +19,7 @@ final class ElementSeriesDownloadMother
     public static function random(): ElementSeriesDownload
     {
         return new ElementSeriesDownload(
-            MotherCreator::random()->firstName .'.torrent',
+            MotherCreator::random()->firstName . '.torrent',
             MotherCreator::random()->url
         );
     }

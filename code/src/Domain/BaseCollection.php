@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 /**
@@ -33,8 +32,7 @@ class BaseCollection implements \IteratorAggregate
     protected function addToCollection(
         $element,
         $elementId
-    )
-    {
+    ) {
         $this->collection[] = $element;
         $this->collectionById[$elementId] = $element;
     }

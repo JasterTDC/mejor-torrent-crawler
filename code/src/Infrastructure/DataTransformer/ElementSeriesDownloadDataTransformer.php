@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\DataTransformer;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload;
@@ -20,7 +19,7 @@ final class ElementSeriesDownloadDataTransformer
      */
     public function transform(
         ElementSeriesDownload $elementSeriesDownload
-    ) : array {
+    ): array {
         return [
             'name'  => $elementSeriesDownload->getDownloadName(),
             'link'  => $elementSeriesDownload->getDownloadLink()

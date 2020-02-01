@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
@@ -18,11 +17,10 @@ use BestThor\ScrappingMaster\Domain\Tag\TagSaveException;
  */
 final class GetTagFromGeneralUseCase
 {
-
     /**
      * Elements per page
      */
-    const ELEMENTS_PER_PAGE = 50;
+    public const ELEMENTS_PER_PAGE = 50;
 
     /**
      * @var ElementGeneralReaderRepositoryInterface
@@ -64,17 +62,16 @@ final class GetTagFromGeneralUseCase
         $this->tagFactory = $tagFactory;
     }
 
-
     /**
      * @return GetTagFromGeneralUseCaseResponse
      */
-    public function handle() : GetTagFromGeneralUseCaseResponse
+    public function handle(): GetTagFromGeneralUseCaseResponse
     {
         $generalTotal = $this
             ->generalReaderRepository
             ->getTotal();
 
-        $totalPages = ceil($generalTotal/self::ELEMENTS_PER_PAGE);
+        $totalPages = ceil($generalTotal / self::ELEMENTS_PER_PAGE);
 
         for ($i = 1; $i <= $totalPages; $i++) {
             $elementGeneralCollection = $this
@@ -86,16 +83,21 @@ final class GetTagFromGeneralUseCase
 
             /** @var ElementGeneral $elementGeneral */
             foreach ($elementGeneralCollection as $elementGeneral) {
-                preg_match_all(
-                    '/(?<tags>[^\-]+)/',
-                    $elementGeneral
-                        ->getElementDetail()
-                        ->getElementGenre(),
-                    $match
-                );
+                if (
+                    !empty($elementGeneral->getElementDetail()) &&
+                    !empty($elementGeneral->getElementDetail()->getElementGenre())
+                ) {
+                    preg_match_all(
+                        '/(?<tags>[^\-]+)/',
+                        $elementGeneral
+                            ->getElementDetail()
+                            ->getElementGenre(),
+                        $match
+                    );
 
-                if (is_array($match['tags']) && !empty($match['tags'])) {
-                    $this->saveTagCollection($match['tags']);
+                    if (is_array($match['tags']) && !empty($match['tags'])) {
+                        $this->saveTagCollection($match['tags']);
+                    }
                 }
             }
         }

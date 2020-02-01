@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
 use BestThor\ScrappingMaster\Domain\ElementDownload;
@@ -63,7 +62,7 @@ final class ElementDownloadParser implements ElementDownloadParserInterface
     /**
      * @return ElementDownload
      */
-    public function getElementDownload() : ElementDownload
+    public function getElementDownload(): ElementDownload
     {
         $ret = [];
 
@@ -71,7 +70,8 @@ final class ElementDownloadParser implements ElementDownloadParserInterface
             ->domXPath
             ->query('//i');
 
-        if (!empty($downloadTorrentNameContainer) &&
+        if (
+            !empty($downloadTorrentNameContainer) &&
             !empty($downloadTorrentNameContainer->item(0))
         ) {
             $ret['downloadName'] = $downloadTorrentNameContainer
@@ -79,8 +79,17 @@ final class ElementDownloadParser implements ElementDownloadParserInterface
                 ->nodeValue;
         }
 
-        return $this
+        $elementDownload = $this
             ->elementDownloadFactory
             ->createFromRaw($ret);
+
+        if (!empty($elementDownload)) {
+            return $elementDownload;
+        }
+
+        return new ElementDownload(
+            null,
+            null
+        );
     }
 }

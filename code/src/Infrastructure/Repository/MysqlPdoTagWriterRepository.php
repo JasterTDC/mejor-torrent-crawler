@@ -63,7 +63,7 @@ final class MysqlPdoTagWriterRepository implements TagWriterRepositoryInterface
                 'updatedAt' => $tag->getUpdatedAt()->format('Y-m-d H:i:s')
             ]);
 
-            $tag->setId($this->pdoWriter->getPdo()->lastInsertId());
+            $tag->setId((int) $this->pdoWriter->getPdo()->lastInsertId());
 
             return $tag;
         } catch (\PDOException $e) {

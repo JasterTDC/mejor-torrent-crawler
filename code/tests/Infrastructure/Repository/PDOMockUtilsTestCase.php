@@ -94,7 +94,7 @@ class PDOMockUtilsTestCase extends TestCase
      */
     protected function mockPDOExecuteOnceASelectAndReturnRows(
         array $dataSet
-    ) : PdoAccess {
+    ): PdoAccess {
         $mockStatement = $this->createMock(PDOStatement::class);
 
         $mockStatement

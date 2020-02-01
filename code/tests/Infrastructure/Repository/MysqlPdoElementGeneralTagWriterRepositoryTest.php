@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Tag\GeneralTagSaveException;

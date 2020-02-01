@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Domain\ElementGeneral;
 
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
@@ -13,9 +12,8 @@ use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
  */
 final class ElementGeneralCollectionRawMother
 {
-
     /**
-     * @return arrays
+     * @return array
      */
     public static function random(): array
     {
@@ -23,7 +21,7 @@ final class ElementGeneralCollectionRawMother
 
         $ret = [];
 
-        for($i = 0; $i < $total; $i++) {
+        for ($i = 0; $i < $total; $i++) {
             $ret[] = ElementGeneralRawMother::random();
         }
 

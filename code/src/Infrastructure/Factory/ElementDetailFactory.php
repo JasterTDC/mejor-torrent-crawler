@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 
 use BestThor\ScrappingMaster\Domain\ElementDetail;
@@ -22,7 +21,7 @@ final class ElementDetailFactory implements ElementDetailFactoryInterface
      */
     public function createElementDetailFromRaw(
         array $rawElementDetail
-    ) : ElementDetail {
+    ): ElementDetail {
 
         $elementGenre           = null;
         $elementFormat          = null;

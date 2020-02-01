@@ -43,7 +43,7 @@ final class RetrieveElementGeneralCollectionUseCaseArguments
      *
      * @return  int
      */
-    public function getPage()
+    public function getPage(): int
     {
         return $this->page;
     }
@@ -53,7 +53,7 @@ final class RetrieveElementGeneralCollectionUseCaseArguments
      *
      * @return  int
      */
-    public function getLimit()
+    public function getLimit(): int
     {
         return $this->limit;
     }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Transmission;
 
 use BestThor\ScrappingMaster\Application\UseCase\Torrent\TorrentClientInterface;
@@ -15,11 +14,10 @@ use GuzzleHttp\Exception\ClientException;
  */
 final class TransmissionClient implements TorrentClientInterface
 {
-
     /**
      * Token header
      */
-    const TOKEN_HEADER = 'X-Transmission-Session-Id';
+    public const TOKEN_HEADER = 'X-Transmission-Session-Id';
 
     /**
      * @var string
@@ -84,14 +82,18 @@ final class TransmissionClient implements TorrentClientInterface
      *
      * @return array
      */
-    public function add(string $filename) : array
+    public function add(string $filename): array
     {
-        return $this->call([
-            'method'    => 'torrent-add',
-            'arguments' => [
-                'metainfo'  => base64_encode(file_get_contents($filename))
-            ]
-        ]);
+        $fileContent = file_get_contents($filename);
+
+        if (!empty($fileContent)) {
+            return $this->call([
+                'method'    => 'torrent-add',
+                'arguments' => [
+                    'metainfo'  => base64_encode($fileContent)
+                ]
+            ]);
+        }
     }
 
     /**
@@ -101,7 +103,7 @@ final class TransmissionClient implements TorrentClientInterface
      */
     protected function call(
         array $arguments
-    ) : array {
+    ): array {
 
         try {
             $response = $this->client->post($this->baseUrl, [
@@ -117,10 +119,20 @@ final class TransmissionClient implements TorrentClientInterface
 
             return json_decode($response->getBody(), true);
         } catch (ClientException $e) {
-            if (409 == $e->getResponse()->getStatusCode()) {
-                $this->token = $e
+            if (
+                !empty($e->getResponse()) &&
+                409 == $e->getResponse()->getStatusCode()
+            ) {
+                $tokenValue = $e
                     ->getResponse()
                     ->getHeader(self::TOKEN_HEADER);
+
+                if (
+                    $tokenValue === (array) $tokenValue &&
+                    !empty($tokenValue)
+                ) {
+                    $this->token = $tokenValue[0];
+                }
 
                 return $this->call($arguments);
             }

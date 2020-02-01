@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Series;
 
 /**
@@ -59,7 +58,7 @@ final class ElementSeriesImage
      */
     public function setImageUrl(
         string $imageUrl
-    ) : self {
+    ): self {
         return new static(
             $imageUrl,
             $this->imageName
@@ -73,7 +72,7 @@ final class ElementSeriesImage
      */
     public function setImageName(
         string $imageName
-    ) : self {
+    ): self {
         return new static(
             $this->imageUrl,
             $imageName

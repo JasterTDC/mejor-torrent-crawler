@@ -48,7 +48,7 @@ final class AddSeriesTorrentUseCase
      */
     public function handle(
         AddSeriesTorrentUseCaseArguments $arguments
-    ) : AddSeriesTorrentUseCaseResponse {
+    ): AddSeriesTorrentUseCaseResponse {
         $torrentDir = $this->staticSeriesTorrentDir .
             $arguments->getSeriesName();
 

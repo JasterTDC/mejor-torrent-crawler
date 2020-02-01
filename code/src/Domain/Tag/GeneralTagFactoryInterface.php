@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Tag;
 
 /**
@@ -17,5 +16,5 @@ interface GeneralTagFactoryInterface
      *
      * @return GeneralTag
      */
-    public function createFromRaw(array $rawGeneralTag) : GeneralTag;
+    public function createFromRaw(array $rawGeneralTag): GeneralTag;
 }

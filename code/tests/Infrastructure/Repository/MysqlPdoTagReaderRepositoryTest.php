@@ -6,7 +6,6 @@ use BestThor\ScrappingMaster\Domain\Tag\TagSearchException;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagReaderRepository;
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
-use BestThor\ScrappingMaster\Tests\Domain\Tag\TagCollectionRawMother;
 use BestThor\ScrappingMaster\Tests\Domain\Tag\TagRawMother;
 
 /**

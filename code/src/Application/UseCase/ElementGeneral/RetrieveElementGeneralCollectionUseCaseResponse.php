@@ -85,7 +85,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      *
      * @return  bool
      */
-    public function getSuccess()
+    public function getSuccess(): bool
     {
         return $this->success;
     }
@@ -95,7 +95,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      *
      * @return  string|null
      */
-    public function getError()
+    public function getError(): ?string
     {
         return $this->error;
     }
@@ -103,9 +103,9 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
     /**
      * Get elementGeneralCollection
      *
-     * @return  ElementGeneralCollection|null[type]
+     * @return  ElementGeneralCollection|null
      */
-    public function getElementGeneralCollection()
+    public function getElementGeneralCollection(): ?ElementGeneralCollection
     {
         return $this->elementGeneralCollection;
     }
@@ -115,7 +115,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      *
      * @return  int|null
      */
-    public function getTotal()
+    public function getTotal(): ?int
     {
         return $this->total;
     }
@@ -125,7 +125,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      *
      * @return  int|null
      */
-    public function getPreviousPage()
+    public function getPreviousPage(): ?int
     {
         return $this->previousPage;
     }
@@ -135,7 +135,7 @@ final class RetrieveElementGeneralCollectionUseCaseResponse
      *
      * @return  int|null
      */
-    public function getNextPage()
+    public function getNextPage(): ?int
     {
         return $this->nextPage;
     }

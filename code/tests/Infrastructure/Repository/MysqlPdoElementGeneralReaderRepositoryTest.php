@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollectionEmptyException;
@@ -252,4 +251,3 @@ final class MysqlPdoElementGeneralReaderRepositoryTest extends PDOMockUtilsTestC
             );
     }
 }
-

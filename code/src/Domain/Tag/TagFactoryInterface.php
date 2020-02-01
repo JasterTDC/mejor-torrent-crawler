@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Tag;
 
 /**
@@ -19,7 +18,7 @@ interface TagFactoryInterface
      */
     public function createTagCollectionFromRaw(
         array $rawTagCollection
-    ) : TagCollection;
+    ): TagCollection;
 
     /**
      * @param array $rawTag
@@ -28,5 +27,5 @@ interface TagFactoryInterface
      */
     public function createTagFromRaw(
         array $rawTag
-    ) : Tag;
+    ): Tag;
 }
