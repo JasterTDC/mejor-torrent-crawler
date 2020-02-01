@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 /**
@@ -22,5 +21,5 @@ interface ElementGeneralParserInterface
      *
      * @throws ElementGeneralEmptyException
      */
-    public function getElementGeneral() : ElementGeneralCollection;
+    public function getElementGeneral(): ElementGeneralCollection;
 }

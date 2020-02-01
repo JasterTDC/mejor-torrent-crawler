@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory\Tag;
 
 use BestThor\ScrappingMaster\Domain\Tag\GeneralTag;
@@ -22,8 +21,7 @@ final class GeneralTagFactory implements GeneralTagFactoryInterface
      */
     public function createFromRaw(array $rawGeneralTag): GeneralTag
     {
-        $createdAt = new \DateTimeImmutable();
-        $updatedAt = new \DateTimeImmutable();
+        $createdAt = $updatedAt = null;
 
         if (!empty($rawGeneralTag['createdAt'])) {
             $createdAt = \DateTimeImmutable::createFromFormat(
@@ -37,6 +35,14 @@ final class GeneralTagFactory implements GeneralTagFactoryInterface
                 'Y-m-d H:i:s',
                 $rawGeneralTag['updatedAt']
             );
+        }
+
+        if (empty($createdAt)) {
+            $createdAt = new \DateTimeImmutable();
+        }
+
+        if (empty($updatedAt)) {
+            $updatedAt = new \DateTimeImmutable();
         }
 
         return new GeneralTag(

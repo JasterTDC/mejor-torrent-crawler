@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Tag;
 
 /**
@@ -59,29 +58,13 @@ final class GeneralTag
     {
         return $this->generalId;
     }
-
-    /**
-     * @param int $generalId
-     */
-    public function setGeneralId(int $generalId): void
-    {
-        $this->generalId = $generalId;
-    }
-
+    
     /**
      * @return int
      */
     public function getTagId(): int
     {
         return $this->tagId;
-    }
-
-    /**
-     * @param int $tagId
-     */
-    public function setTagId(int $tagId): void
-    {
-        $this->tagId = $tagId;
     }
 
     /**
@@ -93,26 +76,10 @@ final class GeneralTag
     }
 
     /**
-     * @param \DateTimeImmutable $createdAt
-     */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
      * @return \DateTimeImmutable
      */
     public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTimeImmutable $updatedAt
-     */
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
     }
 }

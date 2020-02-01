@@ -1,10 +1,8 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesCollection;
-use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailCollection;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesFactory;
 
 /**
@@ -51,7 +49,7 @@ final class ElementSeriesParser
      */
     public function setContent(
         string $content
-    ) : void {
+    ): void {
         $this->content = $content;
 
         $this->domDocument = new \DOMDocument();
@@ -63,13 +61,14 @@ final class ElementSeriesParser
     /**
      * @return ElementSeriesCollection|null
      */
-    public function getElementSeriesCollection() : ?ElementSeriesCollection
+    public function getElementSeriesCollection(): ?ElementSeriesCollection
     {
         $linkNodeList = $this
             ->domXPath
             ->query('//a');
 
-        if (empty($linkNodeList) ||
+        if (
+            empty($linkNodeList) ||
             empty($linkNodeList->length)
         ) {
             return null;
@@ -78,7 +77,8 @@ final class ElementSeriesParser
         $seriesArr = [];
 
         for ($i = 0; $i < $linkNodeList->length; $i++) {
-            if (!empty($linkNodeList->item($i)->attributes) &&
+            if (
+                !empty($linkNodeList->item($i)->attributes) &&
                 !empty($linkNodeList->item($i)->attributes->getNamedItem('href'))
             ) {
                 $href = $linkNodeList
@@ -87,12 +87,14 @@ final class ElementSeriesParser
                     ->getNamedItem('href')
                     ->nodeValue;
 
-                if (preg_match(
-                    '/\/serie\-descargar\-torrents\-'.
-                    '(?<elementFirstId>\d+)\-(?<elementSecondId>\d+)\-(?<elementName>.+)\.html$/',
-                    $href,
-                    $match
-                )) {
+                if (
+                    preg_match(
+                        '/\/serie\-descargar\-torrents\-' .
+                        '(?<elementFirstId>\d+)\-(?<elementSecondId>\d+)\-(?<elementName>.+)\.html$/',
+                        $href,
+                        $match
+                    )
+                ) {
                     $seriesArr[] = [
                         'link'      => $href,
                         'id'        => (int) $match['elementFirstId'],

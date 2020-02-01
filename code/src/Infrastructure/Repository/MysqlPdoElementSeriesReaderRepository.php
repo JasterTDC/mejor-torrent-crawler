@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesCollection;
@@ -50,7 +49,7 @@ final class MysqlPdoElementSeriesReaderRepository implements ElementSeriesReader
     public function getElementSeriesByPageAndLimit(
         int $page,
         int $limit
-    ) : ElementSeriesCollection {
+    ): ElementSeriesCollection {
         $sql = "SELECT *
         FROM `elements`.`series`
         ORDER BY `updatedAt` DESC
@@ -102,7 +101,7 @@ final class MysqlPdoElementSeriesReaderRepository implements ElementSeriesReader
      *
      * @return int
      */
-    public function getTotal() : int
+    public function getTotal(): int
     {
         $sql = "SELECT COUNT(*) AS total
         FROM `elements`.`series`";

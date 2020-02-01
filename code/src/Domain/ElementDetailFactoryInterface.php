@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 /**
@@ -19,5 +18,5 @@ interface ElementDetailFactoryInterface
      */
     public function createElementDetailFromRaw(
         array $rawElementDetail
-    ) : ElementDetail;
+    ): ElementDetail;
 }

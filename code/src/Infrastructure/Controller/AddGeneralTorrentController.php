@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Controller;
 
 use BestThor\ScrappingMaster\Application\UseCase\Torrent\AddGeneralTorrentUseCase;
@@ -32,10 +31,16 @@ final class AddGeneralTorrentController
         $this->useCase = $useCase;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     *
+     * @return ResponseInterface
+     */
     public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response
-    ) : ResponseInterface {
+    ): ResponseInterface {
         $res = [
             'success' => false
         ];
@@ -43,9 +48,7 @@ final class AddGeneralTorrentController
         $parameters = json_decode($request->getBody(), true);
 
         if (empty($parameters['elementGeneralId'])) {
-            $response->getBody()->write(json_encode($res));
-
-            return $response->withStatus(400);
+            return $this->getResponse($response, $res, 400);
         }
 
         $useCaseResponse = $this
@@ -58,8 +61,29 @@ final class AddGeneralTorrentController
 
         $res['success'] = $useCaseResponse->isSuccess();
 
-        $response->getBody()->write(json_encode($res));
+        return $this->getResponse($response, $res, 200);
+    }
 
-        return $response->withStatus(200);
+    /**
+     * @param ResponseInterface $response
+     * @param array $res
+     * @param int $statusCode
+     *
+     * @return ResponseInterface
+     */
+    protected function getResponse(
+        ResponseInterface $response,
+        array $res,
+        int $statusCode = 400
+    ): ResponseInterface {
+        $encodedRes = json_encode($res);
+
+        if (empty($encodedRes)) {
+            return $response->withStatus($statusCode);
+        }
+
+        $response->getBody()->write($encodedRes);
+
+        return $response->withStatus($statusCode);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Bot;
 
 use BestThor\ScrappingMaster\Domain\Notification\NotificationServiceInterface;
@@ -16,10 +15,10 @@ use GuzzleHttp\Exception\GuzzleException;
 final class TelegramRequest implements NotificationServiceInterface
 {
     // Get method
-    const GET_METHOD = 'GET';
+    private const GET_METHOD = 'GET';
 
     // Post method
-    const POST_METHOD = 'POST';
+    private const POST_METHOD = 'POST';
 
     /**
      * @var string
@@ -59,7 +58,7 @@ final class TelegramRequest implements NotificationServiceInterface
      *
      * @return  array
      */
-    public function getMe() : array
+    public function getMe(): array
     {
         return $this->call(
             "/bot{$this->apiToken}/getMe",
@@ -72,7 +71,7 @@ final class TelegramRequest implements NotificationServiceInterface
      *
      * @return array
      */
-    public function sendMessage(array $parameters) : array
+    public function sendMessage(array $parameters): array
     {
         return $this->call(
             "/bot{$this->apiToken}/sendMessage",
@@ -86,7 +85,7 @@ final class TelegramRequest implements NotificationServiceInterface
      *
      * @return array
      */
-    public function sendPhoto(array $parameters) : array
+    public function sendPhoto(array $parameters): array
     {
         return $this->call(
             "/bot{$this->apiToken}/sendPhoto",
@@ -106,7 +105,7 @@ final class TelegramRequest implements NotificationServiceInterface
         string $url,
         string $method = 'GET',
         array $json = []
-    ) : array  {
+    ): array {
 
         try {
             $response = $this

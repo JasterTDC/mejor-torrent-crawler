@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
@@ -39,7 +38,7 @@ final class GetElementGeneralDetailUseCase
      */
     public function handle(
         GetElementGeneralDetailRequest $request
-    ) : GetElementGeneralDetailResponse {
+    ): GetElementGeneralDetailResponse {
         $elementGeneral = $this
             ->elementGeneralReaderRepository
             ->getById(

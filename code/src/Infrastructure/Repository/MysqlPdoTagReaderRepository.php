@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Tag\Tag;
@@ -49,7 +48,7 @@ final class MysqlPdoTagReaderRepository implements TagReaderRepositoryInterface
      */
     public function findByName(
         string $name
-    ) : ?Tag {
+    ): ?Tag {
         $sql = 'SELECT
             `id`,
             `name`,
@@ -66,18 +65,16 @@ final class MysqlPdoTagReaderRepository implements TagReaderRepositoryInterface
                 ->getPdo()
                 ->prepare($sql);
 
-            if (!empty($statement)) {
-                $statement->execute([
-                    'name'  => $name
-                ]);
+            $statement->execute([
+                'name'  => $name
+            ]);
 
-                $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
 
-                if ($result === (array) $result) {
-                    return $this
-                        ->tagFactory
-                        ->createTagFromRaw($result);
-                }
+            if ($result === (array) $result) {
+                return $this
+                    ->tagFactory
+                    ->createTagFromRaw($result);
             }
 
             return null;

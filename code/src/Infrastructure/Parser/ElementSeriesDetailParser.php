@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDescription;
@@ -73,11 +72,12 @@ final class ElementSeriesDetailParser
     /**
      * @return ElementSeriesDetailCollection|null
      */
-    public function getElementDetailCollection() : ?ElementSeriesDetailCollection
+    public function getElementDetailCollection(): ?ElementSeriesDetailCollection
     {
         $linkNodeList = $this->domXPath->query('//a');
 
-        if (empty($linkNodeList) ||
+        if (
+            empty($linkNodeList) ||
             empty($linkNodeList->length)
         ) {
             return null;
@@ -86,7 +86,8 @@ final class ElementSeriesDetailParser
         $detailArr = [];
 
         for ($i = 0; $i < $linkNodeList->length; $i++) {
-            if (!empty($linkNodeList->item($i)->attributes) &&
+            if (
+                !empty($linkNodeList->item($i)->attributes) &&
                 !empty($linkNodeList->item($i)->attributes->getNamedItem('href'))
             ) {
                 $href = $linkNodeList
@@ -95,11 +96,13 @@ final class ElementSeriesDetailParser
                     ->getNamedItem('href')
                     ->nodeValue;
 
-                if (preg_match(
-                    '/serie\-episodio\-descargar\-torrent\-(?<episodeId>\d+)\-(?<episodeName>.+)\.html/',
-                    $href,
-                    $match
-                )) {
+                if (
+                    preg_match(
+                        '/serie\-episodio\-descargar\-torrent\-(?<episodeId>\d+)\-(?<episodeName>.+)\.html/',
+                        $href,
+                        $match
+                    )
+                ) {
                     $detailArr[] = [
                         'link'      => $href,
                         'id'        => (int) $match['episodeId'],
@@ -117,13 +120,14 @@ final class ElementSeriesDetailParser
     /**
      * @return ElementSeriesDescription|null
      */
-    public function getElementSeriesDescription() : ?ElementSeriesDescription
+    public function getElementSeriesDescription(): ?ElementSeriesDescription
     {
         $descriptionContainer = $this
             ->domXPath
             ->query('//div[@align="justify"]');
 
-        if (!empty($descriptionContainer) &&
+        if (
+            !empty($descriptionContainer) &&
             !empty($descriptionContainer->item(0))
         ) {
             return new ElementSeriesDescription(
@@ -137,13 +141,14 @@ final class ElementSeriesDetailParser
     /**
      * @return ElementSeriesImage|null
      */
-    public function getElementSeriesImage() : ?ElementSeriesImage
+    public function getElementSeriesImage(): ?ElementSeriesImage
     {
         $imageNode = $this
             ->domXPath
             ->query('//img[@width="120"]');
 
-        if (!empty($imageNode) &&
+        if (
+            !empty($imageNode) &&
             !empty($imageNode->item(0)) &&
             !empty($imageNode->item(0)->attributes) &&
             !empty($imageNode->item(0)->attributes->getNamedItem('src'))

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
@@ -65,7 +64,7 @@ final class ElementGeneralParser implements ElementGeneralParserInterface
      *
      * @throws ElementGeneralEmptyException
      */
-    public function getElementGeneral() : ElementGeneralCollection
+    public function getElementGeneral(): ElementGeneralCollection
     {
         $rawElementGeneralCollection = [];
 
@@ -91,11 +90,13 @@ final class ElementGeneralParser implements ElementGeneralParserInterface
             if (!empty($hrefLink)) {
                 $match = [];
 
-                if (preg_match(
-                    '/\/peli\-descargar\-torrent\-(?<elementId>\d+)\-(?<elementSlug>.*)\.html/',
-                    $hrefLink->textContent,
-                    $match
-                )) {
+                if (
+                    preg_match(
+                        '/\/peli\-descargar\-torrent\-(?<elementId>\d+)\-(?<elementSlug>.*)\.html/',
+                        $hrefLink->textContent,
+                        $match
+                    )
+                ) {
                     $rawElement = [
                         'id'     => $match['elementId'],
                         'slug'   => $match['elementSlug'],

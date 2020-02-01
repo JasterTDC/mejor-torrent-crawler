@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeries;
@@ -19,7 +18,7 @@ final class MysqlPdoElementSeriesWriterRepository implements ElementSeriesWriter
     /**
      * Date format
      */
-    const DATE_FORMAT = 'Y-m-d H:i:s';
+    public const DATE_FORMAT = 'Y-m-d H:i:s';
 
     /**
      * @var PdoAccess
@@ -44,7 +43,7 @@ final class MysqlPdoElementSeriesWriterRepository implements ElementSeriesWriter
      */
     public function persist(
         ElementSeries $elementSeries
-    ) : bool {
+    ): bool {
         $sql = "INSERT INTO `elements`.`series` (
             `id`,
             `firstEpisodeId`,
@@ -74,13 +73,6 @@ final class MysqlPdoElementSeriesWriterRepository implements ElementSeriesWriter
                 ->pdoWriter
                 ->getPdo()
                 ->prepare($sql);
-
-            if (empty($statement)) {
-                throw new ElementSeriesSaveException(
-                    'ElementSeriesSave. We could not save the series element',
-                    1
-                );
-            }
 
             $imageUrl       = null;
             $imageName      = null;

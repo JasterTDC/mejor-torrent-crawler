@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Command;
 
 use BestThor\ScrappingMaster\Application\UseCase\Notification\SendNotificationUseCase;
@@ -16,7 +15,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class SendNotificationCommand extends Command
 {
-
     /**
      * @var SendNotificationUseCase
      */

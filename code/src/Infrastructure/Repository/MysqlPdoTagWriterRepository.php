@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Tag\Tag;
@@ -37,7 +36,7 @@ final class MysqlPdoTagWriterRepository implements TagWriterRepositoryInterface
      * @return Tag
      * @throws TagSaveException
      */
-    public function persist(Tag $tag) : Tag
+    public function persist(Tag $tag): Tag
     {
         $sql = 'INSERT INTO `elements`.`tag` (
             `id`,
@@ -64,7 +63,7 @@ final class MysqlPdoTagWriterRepository implements TagWriterRepositoryInterface
                 'updatedAt' => $tag->getUpdatedAt()->format('Y-m-d H:i:s')
             ]);
 
-            $tag->setId($this->pdoWriter->getPdo()->lastInsertId());
+            $tag->setId((int) $this->pdoWriter->getPdo()->lastInsertId());
 
             return $tag;
         } catch (\PDOException $e) {

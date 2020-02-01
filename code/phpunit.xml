@@ -3,18 +3,19 @@
     <testsuites>
         <testsuite name="Coverage">
             <directory suffix="Test.php">./tests</directory>
+            <exclude>./vendor</exclude>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
-            <directory suffix=".php">.</directory>
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
     <logging>
         <log type="coverage-html"
-             target="./tests/coverage"
-             lowUpperBound="50"
-             highLowerBound="80"
+             target="./coverage"
+             lowUpperBound="90"
+             highLowerBound="100"
         />
     </logging>
 </phpunit>

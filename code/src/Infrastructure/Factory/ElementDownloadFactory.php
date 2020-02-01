@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 
 use BestThor\ScrappingMaster\Domain\ElementDownload;
@@ -14,7 +13,6 @@ use BestThor\ScrappingMaster\Domain\ElementDownloadFactoryInterface;
  */
 final class ElementDownloadFactory implements ElementDownloadFactoryInterface
 {
-
     /**
      * @var string
      */
@@ -38,7 +36,7 @@ final class ElementDownloadFactory implements ElementDownloadFactoryInterface
      */
     public function createFromRaw(
         array $rawElementDownload
-    ) : ?ElementDownload {
+    ): ?ElementDownload {
         $downloadTorrentName = null;
 
         if (!empty($rawElementDownload['downloadName'])) {

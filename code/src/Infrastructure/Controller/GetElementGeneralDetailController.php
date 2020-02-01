@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Controller;
 
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralDetailRequest;
@@ -18,7 +17,6 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 final class GetElementGeneralDetailController
 {
-
     /**
      * @var GetElementGeneralDetailUseCase
      */
@@ -62,7 +60,7 @@ final class GetElementGeneralDetailController
         ServerRequestInterface $request,
         ResponseInterface $response,
         array $args
-    ) : ResponseInterface {
+    ): ResponseInterface {
         $elementGeneralId = (int) $args['id'];
 
         $useCaseResponse = $this
@@ -73,14 +71,23 @@ final class GetElementGeneralDetailController
                 )
             );
 
-        $html = $this
-            ->templateRenderer
-            ->getTemplateRenderer()
-            ->render('element_general_detail.html.twig', [
+        $templateData = [];
+
+        if (!empty($useCaseResponse->getElementGeneral())) {
+            $templateData = [
                 'elementGeneral' => $this
                     ->elementGeneralDataTransformer
                     ->transform($useCaseResponse->getElementGeneral())
-            ]);
+            ];
+        }
+
+        $html = $this
+            ->templateRenderer
+            ->getTemplateRenderer()
+            ->render(
+                'element_general_detail.html.twig',
+                $templateData
+            );
 
         $response->getBody()->write($html);
         $response = $response->withHeader('Content-type', 'html');

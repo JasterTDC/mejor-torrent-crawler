@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\DataTransformer;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage;
@@ -20,7 +19,7 @@ final class ElementSeriesImageDataTransformer
      */
     public function transform(
         ElementSeriesImage $elementSeriesImage
-    ) : array {
+    ): array {
         return [
             'imageUrl'  => $elementSeriesImage->getImageUrl(),
             'imageName' => $elementSeriesImage->getImageName()

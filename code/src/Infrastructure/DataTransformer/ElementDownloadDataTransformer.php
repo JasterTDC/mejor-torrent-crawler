@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\DataTransformer;
 
 use BestThor\ScrappingMaster\Domain\ElementDownload;
@@ -21,7 +20,7 @@ final class ElementDownloadDataTransformer
      */
     public function transform(
         ?ElementDownload $elementDownload
-    ) : array {
+    ): array {
         $ret = [];
 
         if (empty($elementDownload)) {

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Tag\GeneralTag;

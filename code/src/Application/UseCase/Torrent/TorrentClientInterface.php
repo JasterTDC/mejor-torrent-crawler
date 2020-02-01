@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Application\UseCase\Torrent;
 
 /**
@@ -17,5 +16,5 @@ interface TorrentClientInterface
      *
      * @return array
      */
-    public function add(string $filename) : array;
+    public function add(string $filename): array;
 }

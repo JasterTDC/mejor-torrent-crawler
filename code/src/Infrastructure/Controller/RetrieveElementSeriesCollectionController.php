@@ -16,13 +16,12 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 final class RetrieveElementSeriesCollectionController
 {
-
     /**
      * Series route
      */
-    const RETRIEVE_ELEMENT_ROUTE = '/series/get/';
+    public const RETRIEVE_ELEMENT_ROUTE = '/series/get/';
 
-    /** @var RetrieveElementSeriesCollectionUseCaseectionUseCase $useCase */
+    /** @var RetrieveElementSeriesCollectionUseCase $useCase */
     protected $useCase;
 
     /** @var ElementSeriesDataTransformer $transformer */
@@ -61,7 +60,7 @@ final class RetrieveElementSeriesCollectionController
         ServerRequestInterface $request,
         ResponseInterface $response,
         array $args
-    ) : ResponseInterface {
+    ): ResponseInterface {
         $res['success'] = true;
 
         $page = (int) $args['page'];

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Application\UseCase;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;

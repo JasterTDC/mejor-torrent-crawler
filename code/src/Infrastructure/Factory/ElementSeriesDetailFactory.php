@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail;
@@ -22,7 +21,7 @@ final class ElementSeriesDetailFactory
      */
     public function createFromRaw(
         array $rawElementSeriesDetail
-    ) : ElementSeriesDetail {
+    ): ElementSeriesDetail {
         return new ElementSeriesDetail(
             $rawElementSeriesDetail['id'],
             null,
@@ -41,7 +40,7 @@ final class ElementSeriesDetailFactory
      */
     public function createFromRawCollection(
         array $rawCollection
-    ) : ElementSeriesDetailCollection {
+    ): ElementSeriesDetailCollection {
         $collection = new ElementSeriesDetailCollection();
 
         foreach ($rawCollection as $rawElementSeriesDetail) {

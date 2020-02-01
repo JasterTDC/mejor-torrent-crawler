@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 /**
@@ -42,19 +41,6 @@ final class ElementDownload
     public function getElementDownloadTorrentUrl(): ?string
     {
         return $this->elementDownloadTorrentUrl;
-    }
-
-    /**
-     * @param string|null $elementDownloadTorrentUrl
-     *
-     * @return ElementDownload
-     */
-    public function setElementDownloadTorrentUrl(?string $elementDownloadTorrentUrl) : self
-    {
-        return new static(
-            $elementDownloadTorrentUrl,
-            $this->elementDownloadName
-        );
     }
 
     /**

@@ -8,3 +8,4 @@ logs/*.log
 crawler/*.log
 media/*
 code/env/.env
+code/coverage

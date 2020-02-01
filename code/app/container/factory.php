@@ -17,7 +17,7 @@ use BestThor\ScrappingMaster\Infrastructure\Factory\Series\FromMysqlElementSerie
 $container->register(
     ElementDetailFactory::class,
     ElementDetailFactory::class
-)->addArgument(getenv('TORRENT_DIR'));
+);
 
 $container->register(
     ElementDownloadFactory::class,

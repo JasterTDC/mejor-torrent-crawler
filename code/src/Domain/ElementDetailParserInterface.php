@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 /**
@@ -20,5 +19,5 @@ interface ElementDetailParserInterface
     /**
      * @return ElementDetail
      */
-    public function getElementDetail() : ElementDetail;
+    public function getElementDetail(): ElementDetail;
 }

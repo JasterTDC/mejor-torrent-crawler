@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Notification;
 
 /**
@@ -16,19 +15,19 @@ interface NotificationServiceInterface
      *
      * @return  array
      */
-    public function getMe() : array;
+    public function getMe(): array;
 
     /**
      * @param array $parameters
      *
      * @return array
      */
-    public function sendMessage(array $parameters) : array;
+    public function sendMessage(array $parameters): array;
 
     /**
      * @param array $parameters
      *
      * @return array
      */
-    public function sendPhoto(array $parameters) : array;
+    public function sendPhoto(array $parameters): array;
 }

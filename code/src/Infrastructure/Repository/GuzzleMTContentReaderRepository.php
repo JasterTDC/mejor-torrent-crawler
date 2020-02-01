@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\ElementDetailContentEmptyException;
@@ -87,7 +86,7 @@ final class GuzzleMTContentReaderRepository implements
      */
     public function getElementDetailContent(
         string $detailUrl
-    ) : string {
+    ): string {
         try {
             $response = $this->httpClient->get($detailUrl);
 
@@ -108,7 +107,7 @@ final class GuzzleMTContentReaderRepository implements
      */
     public function getElementImageFile(
         ?string $imageUrl
-    ) : string {
+    ): string {
         if (empty($imageUrl)) {
             throw new ElementImageEmptyException(
                 'We need a valid image path',
@@ -136,7 +135,7 @@ final class GuzzleMTContentReaderRepository implements
      */
     public function getElementGeneralContent(
         int $page
-    ) : string {
+    ): string {
         $elementGeneralUrl = sprintf(
             $this->generalUrl,
             $page
@@ -162,7 +161,7 @@ final class GuzzleMTContentReaderRepository implements
      */
     public function getElementSeriesContent(
         int $page
-    ) : string {
+    ): string {
         $elementSeriesUrl = sprintf(
             $this->seriesUrl,
             $page
@@ -188,7 +187,7 @@ final class GuzzleMTContentReaderRepository implements
      */
     public function getElementSeriesDetailContent(
         string $detailUrl
-    ) : string {
+    ): string {
         try {
             $response = $this->httpClient->get($detailUrl);
 
@@ -208,7 +207,7 @@ final class GuzzleMTContentReaderRepository implements
      */
     public function getElementSeriesDownloadContent(
         int $episodeId
-    ) : string {
+    ): string {
         try {
             $response = $this->httpClient->get(sprintf($this->seriesDownloadUrl, $episodeId));
 
@@ -229,7 +228,7 @@ final class GuzzleMTContentReaderRepository implements
      */
     public function getElementDownloadContent(
         int $elementId
-    ) : string {
+    ): string {
         $elementDownloadUrl = sprintf(
             $this->downloadUrl,
             $elementId
@@ -255,7 +254,7 @@ final class GuzzleMTContentReaderRepository implements
      */
     public function getElementDownloadFile(
         string $downloadPath
-    ) : string {
+    ): string {
         try {
             $response = $this->httpClient->get($downloadPath);
 
@@ -275,7 +274,7 @@ final class GuzzleMTContentReaderRepository implements
      */
     public function getElementDownloadUrl(
         int $elementId
-    ) : string {
+    ): string {
         return sprintf(
             $this->downloadUrl,
             $elementId

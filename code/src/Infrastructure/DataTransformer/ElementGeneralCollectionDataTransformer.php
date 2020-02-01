@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\DataTransformer;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
@@ -14,7 +13,6 @@ use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
  */
 final class ElementGeneralCollectionDataTransformer
 {
-
     /**
      * @var ElementGeneralDataTransformer
      */
@@ -34,7 +32,7 @@ final class ElementGeneralCollectionDataTransformer
      */
     public function transform(
         ElementGeneralCollection $collection
-    ) : array {
+    ): array {
         $ret = [];
 
         /** @var ElementGeneral $elementGeneral */
