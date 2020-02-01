@@ -71,13 +71,6 @@ final class MysqlPdoElementSeriesDetailWriterRepository implements ElementSeries
                 ->getPdo()
                 ->prepare($sql);
 
-            if (empty($statement)) {
-                throw new ElementSeriesDetailSaveException(
-                    'ElementSeriesDetail. The selected detail cannot be saved',
-                    1
-                );
-            }
-
             $downloadName   = null;
             $downloadLink   = null;
 
