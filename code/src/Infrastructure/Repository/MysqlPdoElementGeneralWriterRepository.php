@@ -148,15 +148,7 @@ final class MysqlPdoElementGeneralWriterRepository implements ElementGeneralWrit
                 ->getPdo()
                 ->prepare($sql);
 
-            if (empty($statement)) {
-                throw new ElementGeneralPersistException(
-                    'We could not persist the element general',
-                    0
-                );
-            }
             return $statement->execute($parameters);
-        } catch (ElementGeneralPersistException $e) {
-            throw $e;
         } catch (\PDOException $e) {
             throw new ElementGeneralPersistException(
                 '[ElementGeneralWriter][persist] ' . $e->getMessage(),

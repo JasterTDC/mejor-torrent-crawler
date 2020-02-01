@@ -65,18 +65,16 @@ final class MysqlPdoTagReaderRepository implements TagReaderRepositoryInterface
                 ->getPdo()
                 ->prepare($sql);
 
-            if (!empty($statement)) {
-                $statement->execute([
-                    'name'  => $name
-                ]);
+            $statement->execute([
+                'name'  => $name
+            ]);
 
-                $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
 
-                if ($result === (array) $result) {
-                    return $this
-                        ->tagFactory
-                        ->createTagFromRaw($result);
-                }
+            if ($result === (array) $result) {
+                return $this
+                    ->tagFactory
+                    ->createTagFromRaw($result);
             }
 
             return null;
