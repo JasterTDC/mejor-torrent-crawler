@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Series;
 
 /**
@@ -59,7 +58,7 @@ final class ElementSeriesDownload
      */
     public function setDownloadName(
         string $downloadName
-    ) : self {
+    ): self {
         return new static(
             $downloadName,
             $this->downloadLink
@@ -73,7 +72,7 @@ final class ElementSeriesDownload
      */
     public function setDownloadLink(
         ?string $downloadLink
-    ) : self {
+    ): self {
         return new static(
             $this->downloadName,
             $downloadLink

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Series;
 
 /**
@@ -19,7 +18,7 @@ interface ElementSeriesFactoryInterface
      */
     public function createFromRaw(
         array $rawElementSeries
-    ) : ElementSeries;
+    ): ElementSeries;
 
     /**
      * @param array $rawCollection
@@ -28,5 +27,5 @@ interface ElementSeriesFactoryInterface
      */
     public function createCollectionFromRaw(
         array $rawCollection
-    ) : ElementSeriesCollection;
+    ): ElementSeriesCollection;
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
 use BestThor\ScrappingMaster\Domain\ElementDetail;
@@ -63,7 +62,7 @@ final class ElementDetailParser implements ElementDetailParserInterface
     /**
      * @return ElementDetail
      */
-    public function getElementDetail() : ElementDetail
+    public function getElementDetail(): ElementDetail
     {
         $elementDetail = [];
 
@@ -103,7 +102,8 @@ final class ElementDetailParser implements ElementDetailParserInterface
             }
         }
 
-        if (!empty($descriptionContainer) &&
+        if (
+            !empty($descriptionContainer) &&
             !empty($descriptionContainer->item(0))
         ) {
             $elementDetail['description'] = $descriptionContainer
@@ -111,7 +111,8 @@ final class ElementDetailParser implements ElementDetailParserInterface
                 ->nodeValue;
         }
 
-        if (!empty($centerContainer) &&
+        if (
+            !empty($centerContainer) &&
             !empty($centerContainer->item(0))
         ) {
             $elementGeneralInfo = $centerContainer->item(0)->nodeValue;
@@ -141,7 +142,7 @@ final class ElementDetailParser implements ElementDetailParserInterface
      */
     protected function getElementGenre(
         string $rawText
-    ) : ?string {
+    ): ?string {
         $elementGenre = [];
 
         preg_match(
@@ -180,7 +181,7 @@ final class ElementDetailParser implements ElementDetailParserInterface
      */
     protected function getElementFormat(
         string $rawText
-    ) : ?string {
+    ): ?string {
         $elementFormat = [];
 
         preg_match(
@@ -203,13 +204,11 @@ final class ElementDetailParser implements ElementDetailParserInterface
             '',
             $elementFormatStr
         );
-        $elementFormatStr = preg_replace(
+        return preg_replace(
             '/\s/',
             '',
             $elementFormatStr
         );
-
-        return $elementFormatStr;
     }
 
     /**
@@ -219,7 +218,7 @@ final class ElementDetailParser implements ElementDetailParserInterface
      */
     protected function getElementPublishedDate(
         string $rawText
-    ) : ?string {
+    ): ?string {
         $elementPublishedDate = [];
 
         preg_match(
@@ -244,12 +243,10 @@ final class ElementDetailParser implements ElementDetailParserInterface
             $elementPublishedDateStr
         );
 
-        $elementPublishedDateStr = preg_replace(
+        return preg_replace(
             '/\s/',
             '',
             $elementPublishedDateStr
         );
-
-        return $elementPublishedDateStr;
     }
 }

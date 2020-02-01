@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload;
@@ -59,11 +58,12 @@ final class ElementSeriesDownloadParser
     /**
      * @return ElementSeriesDownload|null
      */
-    public function getElementSeriesDownload() : ?ElementSeriesDownload
+    public function getElementSeriesDownload(): ?ElementSeriesDownload
     {
         $iNodeList = $this->domXPath->query('//i');
 
-        if (empty($iNodeList) ||
+        if (
+            empty($iNodeList) ||
             empty($iNodeList->length) ||
             empty($iNodeList->item(0)->nodeValue)
         ) {

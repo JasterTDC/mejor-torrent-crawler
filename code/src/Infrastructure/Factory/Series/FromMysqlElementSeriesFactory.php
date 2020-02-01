@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory\Series;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeries;
@@ -15,11 +14,10 @@ use BestThor\ScrappingMaster\Domain\Series\ElementSeriesFactoryInterface;
  */
 final class FromMysqlElementSeriesFactory implements ElementSeriesFactoryInterface
 {
-
     /**
      * Date format
      */
-    const DATETIME_FORMAT = 'Y-m-d H:i:s';
+    public const DATETIME_FORMAT = 'Y-m-d H:i:s';
 
     /**
      * @var FromMysqlElementSeriesImageFactory
@@ -52,7 +50,7 @@ final class FromMysqlElementSeriesFactory implements ElementSeriesFactoryInterfa
      */
     public function createFromRaw(
         array $rawElementSeries
-    ) : ElementSeries {
+    ): ElementSeries {
         try {
             $createdAt = \DateTimeImmutable::createFromFormat(
                 self::DATETIME_FORMAT,
@@ -101,7 +99,7 @@ final class FromMysqlElementSeriesFactory implements ElementSeriesFactoryInterfa
      */
     public function createCollectionFromRaw(
         array $rawCollection
-    ) : ElementSeriesCollection {
+    ): ElementSeriesCollection {
         $elementSeriesCollection = new ElementSeriesCollection();
 
         foreach ($rawCollection as $rawElementSeries) {

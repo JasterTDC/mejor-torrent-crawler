@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Series;
 
 /**
@@ -19,5 +18,5 @@ interface ElementSeriesWriterInterface
      */
     public function persist(
         ElementSeries $elementSeries
-    ) : bool;
+    ): bool;
 }

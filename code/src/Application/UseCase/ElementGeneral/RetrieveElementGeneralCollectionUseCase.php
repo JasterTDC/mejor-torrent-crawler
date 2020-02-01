@@ -38,9 +38,10 @@ final class RetrieveElementGeneralCollectionUseCase
      */
     public function handle(
         RetrieveElementGeneralCollectionUseCaseArguments $arguments
-    ) : RetrieveElementGeneralCollectionUseCaseResponse {
+    ): RetrieveElementGeneralCollectionUseCaseResponse {
         $previousPage = null;
         $nextPage = null;
+        $total = null;
 
         try {
             $elementGeneralCollection = $this
@@ -54,7 +55,7 @@ final class RetrieveElementGeneralCollectionUseCase
                 ->elementGeneralReader
                 ->getTotal();
 
-            $totalPages = ceil($total/$arguments->getLimit());
+            $totalPages = ceil($total / $arguments->getLimit());
 
             if ($arguments->getPage() > 1) {
                 $previousPage = $arguments->getPage() - 1;

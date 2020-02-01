@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneralReaderRepositoryInterface;
@@ -36,7 +35,7 @@ final class GetElementGeneralUseCase
      */
     public function handle(
         GetElementGeneralUseCaseArguments $arguments
-    ) : GetElementGeneralUseCaseResponse {
+    ): GetElementGeneralUseCaseResponse {
         if ($arguments->getPage() <= 0) {
             return new GetElementGeneralUseCaseResponse(
                 false,

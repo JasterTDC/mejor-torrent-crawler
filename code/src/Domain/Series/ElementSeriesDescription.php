@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Series;
 
 /**
@@ -43,7 +42,7 @@ final class ElementSeriesDescription
      */
     public function setDescription(
         string $description
-    ) : self {
+    ): self {
         return new static(
             $description
         );

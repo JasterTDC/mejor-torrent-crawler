@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory\Series;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage;
@@ -13,7 +12,6 @@ use BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage;
  */
 final class FromMysqlElementSeriesImageFactory
 {
-
     /**
      * @param array $rawElementSeriesImage
      *
@@ -21,7 +19,7 @@ final class FromMysqlElementSeriesImageFactory
      */
     public function createFromRaw(
         array $rawElementSeriesImage
-    ) : ElementSeriesImage {
+    ): ElementSeriesImage {
         return new ElementSeriesImage(
             $rawElementSeriesImage['imageUrl'],
             $rawElementSeriesImage['imageName']

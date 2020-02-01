@@ -2,8 +2,6 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Controller;
 
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCaseArguments;
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCaseArguments;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
@@ -60,7 +58,7 @@ final class MainController
     public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response
-    ) : ResponseInterface {
+    ): ResponseInterface {
         $useCaseResponse = $this
             ->getElementUseCase
             ->handle(
@@ -70,7 +68,8 @@ final class MainController
                 )
             );
 
-        if (empty($useCaseResponse->isSuccess()) ||
+        if (
+            empty($useCaseResponse->isSuccess()) ||
             empty($useCaseResponse->getElementGeneralCollection()) ||
             empty($useCaseResponse->getElementSeriesCollection())
         ) {

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Service;
 
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
@@ -70,7 +69,7 @@ final class SeriesService implements ElementSeriesServiceInterface
      */
     public function getElementSeriesCollectionByPage(
         int $page
-    ) : ElementSeriesCollection {
+    ): ElementSeriesCollection {
         try {
             $seriesContent = $this
                 ->mtContentReadRepository

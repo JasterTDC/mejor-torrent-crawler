@@ -20,7 +20,7 @@ final class RetrieveElementGeneralCollectionController
     /**
      * General route
      */
-    const RETRIEVE_ELEMENT_ROUTE = '/general/get/';
+    public const RETRIEVE_ELEMENT_ROUTE = '/general/get/';
 
     /** @var RetrieveElementGeneralCollectionUseCase */
     protected $useCase;
@@ -61,7 +61,7 @@ final class RetrieveElementGeneralCollectionController
         ServerRequestInterface $request,
         ResponseInterface $response,
         array $args
-    ) : ResponseInterface {
+    ): ResponseInterface {
         $page = (int) $args['page'];
 
         $useCaseResponse = $this

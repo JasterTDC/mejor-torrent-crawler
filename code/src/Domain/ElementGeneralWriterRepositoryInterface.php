@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 /**
@@ -18,5 +17,5 @@ interface ElementGeneralWriterRepositoryInterface
      * @return bool
      * @throws ElementGeneralPersistException
      */
-    public function persist(ElementGeneral $elementGeneral) : bool;
+    public function persist(ElementGeneral $elementGeneral): bool;
 }

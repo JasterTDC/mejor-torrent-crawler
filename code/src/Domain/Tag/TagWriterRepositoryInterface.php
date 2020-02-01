@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Tag;
 
 /**
@@ -15,8 +14,7 @@ interface TagWriterRepositoryInterface
     /**
      * @param Tag $tag
      *
-     * @return int
-     * @throws TagSaveException
+     * @return Tag
      */
-    public function persist(Tag $tag) : Tag;
+    public function persist(Tag $tag): Tag;
 }

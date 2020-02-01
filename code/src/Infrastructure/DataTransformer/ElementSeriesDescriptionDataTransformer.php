@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\DataTransformer;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDescription;
@@ -13,7 +12,6 @@ use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDescription;
  */
 final class ElementSeriesDescriptionDataTransformer
 {
-
     /**
      * @param ElementSeriesDescription $elementSeriesDescription
      *
@@ -21,7 +19,7 @@ final class ElementSeriesDescriptionDataTransformer
      */
     public function transform(
         ElementSeriesDescription $elementSeriesDescription
-    ) : string {
+    ): string {
         return $elementSeriesDescription->getDescription();
     }
 }

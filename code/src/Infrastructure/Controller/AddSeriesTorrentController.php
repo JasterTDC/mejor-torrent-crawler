@@ -44,7 +44,7 @@ final class AddSeriesTorrentController
     public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response
-    ) : ResponseInterface {
+    ): ResponseInterface {
         $res = [
             'success' => false
         ];
@@ -52,15 +52,11 @@ final class AddSeriesTorrentController
         $parameters = json_decode($request->getBody(), true);
 
         if (empty($parameters['elementSeriesId'])) {
-            $response->getBody()->write(json_encode($res));
-
-            return $response->withStatus(400);
+            return $this->getResponse($response, $res, 400);
         }
 
         if (empty($parameters['elementSeriesName'])) {
-            $response->getBody()->write(json_encode($res));
-
-            return $response->withStatus(400);
+            return $this->getResponse($response, $res, 400);
         }
 
         $useCaseResponse = $this->useCase->handle(
@@ -72,8 +68,29 @@ final class AddSeriesTorrentController
 
         $res['success'] = $useCaseResponse->getSuccess();
 
-        $response->getBody()->write(json_encode($res));
+        return $this->getResponse($response, $res, 200);
+    }
 
-        return $response->withStatus(200);
+    /**
+     * @param ResponseInterface $response
+     * @param array $res
+     * @param int $statusCode
+     *
+     * @return ResponseInterface
+     */
+    protected function getResponse(
+        ResponseInterface $response,
+        array $res,
+        int $statusCode = 400
+    ): ResponseInterface {
+        $encodedRes = json_encode($res);
+
+        if (empty($encodedRes)) {
+            return $response->withStatus($statusCode);
+        }
+
+        $response->getBody()->write($encodedRes);
+
+        return $response->withStatus($statusCode);
     }
 }

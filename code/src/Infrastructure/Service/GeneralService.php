@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Service;
 
 use BestThor\ScrappingMaster\Domain\ElementDetailContentEmptyException;
@@ -84,7 +83,7 @@ final class GeneralService implements GeneralServiceInterface
      */
     public function getElementGeneralByPage(
         int $page
-    ) : ElementGeneralCollection {
+    ): ElementGeneralCollection {
         $elementGeneralContent = $this
             ->mtContentReaderRepository
             ->getElementGeneralContent($page);

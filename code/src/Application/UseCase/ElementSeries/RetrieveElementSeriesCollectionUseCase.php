@@ -2,11 +2,10 @@
 
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementSeries;
 
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCaseResponse;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesReaderInterface;
 
 /**
- * RetrieveElementSeriesColectionUseCase class
+ * RetrieveElementSeriesCollectionUseCase class
  *
  * @author Ismael Moral <jastertdc@gmail.com>
  */
@@ -17,7 +16,7 @@ final class RetrieveElementSeriesCollectionUseCase
     protected $elementSeriesReaderRepository;
 
     /**
-     * RetrieveElementSeriesColectionUseCase constructor
+     * RetrieveElementSeriesCollectionUseCase constructor
      *
      * @param ElementSeriesReaderInterface $elementSeriesReaderRepository
      */
@@ -32,11 +31,11 @@ final class RetrieveElementSeriesCollectionUseCase
      *
      * @param RetrieveElementSeriesCollectionUseCaseArguments $arguments
      *
-     * @return RetrieveElementGeneralCollectionUseCaseResponse
+     * @return RetrieveElementSeriesCollectionUseCaseResponse
      */
     public function handle(
         RetrieveElementSeriesCollectionUseCaseArguments $arguments
-    ) : RetrieveElementSeriesCollectionUseCaseResponse {
+    ): RetrieveElementSeriesCollectionUseCaseResponse {
 
         $previousPage = null;
         $nextPage = null;
@@ -53,7 +52,7 @@ final class RetrieveElementSeriesCollectionUseCase
                 ->elementSeriesReaderRepository
                 ->getTotal();
 
-            $totalPages = ceil($total/$arguments->getLimit());
+            $totalPages = ceil($total / $arguments->getLimit());
 
             if ($arguments->getPage() > 1) {
                 $previousPage = $arguments->getPage() - 1;

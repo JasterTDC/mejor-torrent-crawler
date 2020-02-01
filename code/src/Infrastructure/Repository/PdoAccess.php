@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
 /**
@@ -9,7 +8,7 @@ namespace BestThor\ScrappingMaster\Infrastructure\Repository;
  * @package BestThor\ScrappingMaster\Infrastructure\Repository
  * @author  Ismael Moral <jastertdc@gmail.com>
  */
-final class PdoAccess
+class PdoAccess
 {
     /**
      * @var string

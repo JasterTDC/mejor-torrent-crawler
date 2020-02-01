@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Application\UseCase\Notification;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
@@ -16,7 +15,7 @@ use BestThor\ScrappingMaster\Domain\Notification\NotificationServiceInterface;
 final class SendNotificationUseCase
 {
     // Channel identifier
-    const CHANNEL_ID = 3277573;
+    public const CHANNEL_ID = 3277573;
 
     /**
      * @var NotificationServiceInterface
@@ -45,7 +44,7 @@ final class SendNotificationUseCase
     /**
      * @return SendNotificationUseCaseResponse
      */
-    public function handle() : SendNotificationUseCaseResponse
+    public function handle(): SendNotificationUseCaseResponse
     {
         $total = $this
             ->elementGeneralReaderRepository
@@ -67,8 +66,23 @@ final class SendNotificationUseCase
         foreach ($generalCollection as $elementGeneral) {
             $elementMessage = "*{$elementGeneral->getElementName()}*\n";
 
-            $elementMessage .= $elementGeneral->getElementDetail()->getElementFormat() . "\n";
-            $elementMessage .= $elementGeneral->getElementDetail()->getElementDescription();
+            if (
+                !empty($elementGeneral->getElementDetail()) &&
+                !empty($elementGeneral->getElementDetail()->getElementFormat())
+            ) {
+                $elementMessage .= $elementGeneral
+                        ->getElementDetail()
+                        ->getElementFormat() . "\n";
+            }
+
+            if (
+                !empty($elementGeneral->getElementDetail()) &&
+                !empty($elementGeneral->getElementDetail()->getElementDescription())
+            ) {
+                $elementMessage .= $elementGeneral
+                    ->getElementDetail()
+                    ->getElementDescription();
+            }
 
             $message = $this
                 ->notificationService
@@ -83,7 +97,8 @@ final class SendNotificationUseCase
                     ->notificationService
                     ->sendPhoto([
                         'chat_id'   => self::CHANNEL_ID,
-                        'photo'     => "http://korean-tomato.duckdns.org/static/img/{$elementGeneral->getElementId()}.jpg",
+                        'photo'     => "http://korean-tomato.duckdns.org/" .
+                            "static/img/{$elementGeneral->getElementId()}.jpg",
                         'reply_to_message_id' => $message['result']['message_id']
                     ]);
             }

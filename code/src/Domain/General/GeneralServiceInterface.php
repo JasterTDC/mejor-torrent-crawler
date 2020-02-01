@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\General;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
@@ -25,5 +24,5 @@ interface GeneralServiceInterface
      */
     public function getElementGeneralByPage(
         int $page
-    ) : ElementGeneralCollection;
+    ): ElementGeneralCollection;
 }

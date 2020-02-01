@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 use BestThor\ScrappingMaster\Domain\Tag\TagCollection;

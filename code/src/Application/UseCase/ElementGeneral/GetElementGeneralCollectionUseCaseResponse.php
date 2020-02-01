@@ -1,9 +1,6 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
-
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
 
 /**
  * Class GetElementGeneralCollectionUseCaseResponse

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\DataTransformer;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeries;
@@ -53,7 +52,7 @@ final class ElementSeriesDataTransformer
      */
     public function transform(
         ElementSeries $elementSeries
-    ) : array {
+    ): array {
         $ret = [];
 
         $ret['id']          = $elementSeries->getId();
@@ -92,7 +91,7 @@ final class ElementSeriesDataTransformer
      */
     public function transformCollection(
         ElementSeriesCollection $elementSeriesCollection
-    ) : array {
+    ): array {
         $ret = [];
 
         /** @var ElementSeries $elementSeries */

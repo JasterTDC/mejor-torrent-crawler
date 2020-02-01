@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain;
 
 /**
@@ -19,7 +18,7 @@ interface ElementGeneralFactoryInterface
      */
     public function createFromRawElementGeneral(
         array $rawElementGeneral
-    ) : ElementGeneral;
+    ): ElementGeneral;
 
     /**
      * @param array $rawElementGeneralCollection
@@ -28,5 +27,5 @@ interface ElementGeneralFactoryInterface
      */
     public function createFromRawElementGeneralCollection(
         array $rawElementGeneralCollection
-    ) : ElementGeneralCollection;
+    ): ElementGeneralCollection;
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload;
@@ -37,7 +36,7 @@ final class ElementSeriesDownloadFactory
      */
     public function createFromRaw(
         array $rawDownload
-    ) : ElementSeriesDownload {
+    ): ElementSeriesDownload {
         return new ElementSeriesDownload(
             $rawDownload['name'],
             $this->downloadUrl . $rawDownload['name']

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Domain\Series;
 
 /**
@@ -21,12 +20,12 @@ interface ElementSeriesReaderInterface
     public function getElementSeriesByPageAndLimit(
         int $page,
         int $limit
-    ) : ElementSeriesCollection;
+    ): ElementSeriesCollection;
 
     /**
      * Get total
      *
      * @return int
      */
-    public function getTotal() : int;
+    public function getTotal(): int;
 }

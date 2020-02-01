@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\DataTransformer;
 
 use BestThor\ScrappingMaster\Domain\ElementGeneral;
@@ -41,7 +40,7 @@ final class ElementGeneralDataTransformer
      */
     public function transform(
         ElementGeneral $elementGeneral
-    ) : array {
+    ): array {
         $ret = [
             'id'     => $elementGeneral->getElementId(),
             'link'   => $elementGeneral->getElementLink(),

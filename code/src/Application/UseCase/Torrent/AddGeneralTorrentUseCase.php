@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Application\UseCase\Torrent;
 
 /**
@@ -42,14 +41,14 @@ final class AddGeneralTorrentUseCase
      */
     public function handle(
         AddGeneralTorrentUseCaseArguments $arguments
-    ) : AddGeneralTorrentUseCaseResponse {
+    ): AddGeneralTorrentUseCaseResponse {
         $filename = $this->staticDir . $arguments->getElementGeneralId() . '.torrent';
 
         if (!is_file($filename)) {
             return new AddGeneralTorrentUseCaseResponse(false);
         }
 
-        $response = $this->torrentClient->add($filename);
+        $this->torrentClient->add($filename);
 
         return new AddGeneralTorrentUseCaseResponse(true);
     }

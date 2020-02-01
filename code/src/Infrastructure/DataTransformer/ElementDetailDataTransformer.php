@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BestThor\ScrappingMaster\Infrastructure\DataTransformer;
 
 use BestThor\ScrappingMaster\Domain\ElementDetail;
@@ -21,7 +20,7 @@ final class ElementDetailDataTransformer
      */
     public function transform(
         ?ElementDetail $elementDetail
-    ) : array {
+    ): array {
         $ret = [];
 
         if (empty($elementDetail)) {
@@ -52,10 +51,6 @@ final class ElementDetailDataTransformer
 
         if (!empty($elementDetail->getElementCoverImgName())) {
             $ret['coverImgName'] = $elementDetail->getElementCoverImgName();
-        }
-
-        if (!empty($elementDetail->getElementDownloadLink())) {
-            $ret['downloadLink'] = $elementDetail->getElementDownloadLink();
         }
 
         return $ret;
