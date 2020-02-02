@@ -89,11 +89,13 @@ class PDOMockUtilsTestCase extends TestCase
 
     /**
      * @param array $dataSet
+     * @param bool $executeOne
      *
      * @return PdoAccess
      */
     protected function mockPDOExecuteOnceASelectAndReturnRows(
-        array $dataSet
+        array $dataSet,
+        bool $executeOne = true
     ): PdoAccess {
         $mockStatement = $this->createMock(PDOStatement::class);
 
@@ -121,11 +123,19 @@ class PDOMockUtilsTestCase extends TestCase
             $this->never()
         )->method('errorInfo');
 
-        $mockStatement->expects(
-            $this->once()
-        )
-            ->method('execute')
-            ->willReturn(true);
+        if ($executeOne === true) {
+            $mockStatement->expects(
+                $this->once()
+            )
+                ->method('execute')
+                ->willReturn(true);
+        }
+
+        if ($executeOne === false) {
+            $mockStatement
+                ->method('execute')
+                ->willReturn(true);
+        }
 
         return $this->mockSimplePDO($mockStatement);
     }
