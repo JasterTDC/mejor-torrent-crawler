@@ -50,13 +50,14 @@ final class RetrieveElementGeneralCollectionUseCaseTest extends PDOMockUtilsTest
 
         $response = $this->useCase->handle(
             new RetrieveElementGeneralCollectionUseCaseArguments(
-                MotherCreator::random()->numberBetween(1, 20),
-                MotherCreator::random()->numberBetween(100, 500)
+                1,
+                10
             )
         );
 
         $this->assertTrue($response->getSuccess());
         $this->assertNull($response->getError());
+        $this->assertNotEmpty($response->getElementGeneralCollection());
     }
 
     public function testIfRetrieveElementGeneralThrowsException(): void
@@ -85,6 +86,8 @@ final class RetrieveElementGeneralCollectionUseCaseTest extends PDOMockUtilsTest
         $this->assertFalse($response->getSuccess());
         $this->assertIsString($response->getError());
         $this->assertNotEmpty($response->getError());
+        $this->assertNull($response->getPreviousPage());
+        $this->assertNull($response->getNextPage());
     }
 
     public function testIfPageIsBelowTotalThenReturnsValidResponse(): void
@@ -118,6 +121,12 @@ final class RetrieveElementGeneralCollectionUseCaseTest extends PDOMockUtilsTest
 
         $this->assertTrue($response->getSuccess());
         $this->assertGreaterThanOrEqual(15, $response->getTotal());
+        $this->assertGreaterThanOrEqual(
+            1,
+            $response->getElementGeneralCollection()->count()
+        );
         $this->assertNull($response->getError());
+        $this->assertIsInt($response->getNextPage());
+        $this->assertIsInt($response->getPreviousPage());
     }
 }
