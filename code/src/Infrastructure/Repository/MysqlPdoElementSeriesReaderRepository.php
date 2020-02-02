@@ -64,13 +64,6 @@ final class MysqlPdoElementSeriesReaderRepository implements ElementSeriesReader
                 ->getPdo()
                 ->prepare($sql);
 
-            if (empty($statement)) {
-                throw new ElementSeriesEmptyException(
-                    'ElementSeries. We could not retrieve the series list',
-                    1
-                );
-            }
-
             $statement->execute([
                 'limit'     => $limit,
                 'offset'    => $offset
