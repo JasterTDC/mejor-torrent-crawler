@@ -59,7 +59,7 @@ final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralRead
         $sql = "SELECT *
         FROM
             `elements`.`general`
-        ORDER BY `name` ASC
+        ORDER BY `createdAt` DESC
         LIMIT :offset, :limit
         ";
 
