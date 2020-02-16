@@ -20,4 +20,14 @@ interface TagReaderRepositoryInterface
     public function findByName(
         string $name
     ): ?Tag;
+
+    /**
+     * @param TagCriteria $tagCriteria
+     *
+     * @return TagCollection|null
+     * @throws TagSearchException
+     */
+    public function findAll(
+        TagCriteria $tagCriteria
+    ): ?TagCollection;
 }

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% if tagCollection is not empty %}
+                <div id="tags-collection" class="col-lg-12">
+                    <ul>
+                        {% for tag in tagCollection %}
+                            <li data-id = "{{ tag.id }}"
+                                data-name = "{{ tag.name }}"
+                            >
+                                {{ tag.name }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

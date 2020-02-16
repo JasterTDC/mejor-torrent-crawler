@@ -2,6 +2,7 @@
 
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\GetTagDataTransformer;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesImageDataTransformer;
@@ -46,4 +47,9 @@ $container->register(
 $container->register(
     ElementGeneralDataTransformer::class,
     ElementGeneralDataTransformer::class
+);
+
+$container->register(
+    GetTagDataTransformer::class,
+    GetTagDataTransformer::class
 );
