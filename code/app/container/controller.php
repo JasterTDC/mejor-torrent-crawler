@@ -3,8 +3,11 @@
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralDetailUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\RetrieveElementSeriesCollectionUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\Tag\GetTagUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Controller\GetElementGeneralDetailController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\GetTagController;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\GetTagDataTransformer;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
@@ -60,3 +63,11 @@ $container->register(
     ->addArgument(new Reference(GetElementGeneralDetailUseCase::class))
     ->addArgument(new Reference(TemplateRenderer::class))
     ->addArgument(new Reference(ElementGeneralDataTransformer::class));
+
+$container->register(
+    GetTagController::class,
+    GetTagController::class
+)
+    ->addArgument(new Reference(GetTagUseCase::class))
+    ->addArgument(new Reference(TemplateRenderer::class))
+    ->addArgument(new Reference(GetTagDataTransformer::class));
