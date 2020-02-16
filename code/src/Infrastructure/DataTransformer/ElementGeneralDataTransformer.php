@@ -58,7 +58,7 @@ final class ElementGeneralDataTransformer
                 ->transform($elementGeneral->getElementDownload());
         }
 
-        $ret['staticImg'] = '/static/' . $elementGeneral->getElementId() . '.jpg';
+        $ret['staticImg'] = '/static/img/' . $elementGeneral->getElementId() . '.jpg';
 
         return $ret;
     }
