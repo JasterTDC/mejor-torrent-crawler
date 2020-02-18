@@ -1,7 +1,6 @@
 <?php
 
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralDetailUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetTagFromGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\Notification\SendNotificationUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\Tag\GetTagUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Bot\TelegramRequest;
