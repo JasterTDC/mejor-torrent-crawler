@@ -40,8 +40,5 @@ $application->add(
 $application->add(
     $container->get(GeneralCrawlerCommand::class)
 );
-$application->add(
-    $container->get(SendNotificationCommand::class)
-);
 
 $application->run();
