@@ -22,6 +22,10 @@ final class TorrentFileMother
     public static function random(
         string $sourceDirectory = '/tmp'
     ): TorrentFile {
+        if (!is_dir($sourceDirectory)) {
+            mkdir($sourceDirectory);
+        }
+
         $elementGeneralId = ElementGeneralIdMother::random();
 
         $filename = $sourceDirectory . '/' .

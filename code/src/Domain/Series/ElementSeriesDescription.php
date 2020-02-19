@@ -34,17 +34,4 @@ final class ElementSeriesDescription
     {
         return $this->description;
     }
-
-    /**
-     * @param string $description
-     *
-     * @return ElementSeriesDescription
-     */
-    public function setDescription(
-        string $description
-    ): self {
-        return new static(
-            $description
-        );
-    }
 }

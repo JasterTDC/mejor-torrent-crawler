@@ -64,18 +64,4 @@ final class ElementSeriesImage
             $this->imageName
         );
     }
-
-    /**
-     * @param string $imageName
-     *
-     * @return ElementSeriesImage
-     */
-    public function setImageName(
-        string $imageName
-    ): self {
-        return new static(
-            $this->imageUrl,
-            $imageName
-        );
-    }
 }

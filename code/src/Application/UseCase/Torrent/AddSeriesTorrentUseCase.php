@@ -62,7 +62,7 @@ final class AddSeriesTorrentUseCase
                 continue;
             }
 
-            $this->torrentClient->add($file->getPathname());
+            $this->torrentClient->add((string) file_get_contents($file->getPathname()));
         }
 
         return new AddSeriesTorrentUseCaseResponse(
