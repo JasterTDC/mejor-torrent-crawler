@@ -70,84 +70,80 @@ final class SeriesService implements ElementSeriesServiceInterface
     public function getElementSeriesCollectionByPage(
         int $page
     ): ElementSeriesCollection {
-        try {
-            $seriesContent = $this
+        $seriesContent = $this
+            ->mtContentReadRepository
+            ->getElementSeriesContent($page);
+
+        $this
+            ->elementSeriesParser
+            ->setContent($seriesContent);
+
+        $elementSeriesCollection = $this
+            ->elementSeriesParser
+            ->getElementSeriesCollection();
+
+        if (empty($elementSeriesCollection)) {
+            return new ElementSeriesCollection();
+        }
+
+        /** @var ElementSeries $elementSeries */
+        foreach ($elementSeriesCollection as $elementSeries) {
+            $seriesDetailContent = $this
                 ->mtContentReadRepository
-                ->getElementSeriesContent($page);
+                ->getElementSeriesDetailContent(
+                    $elementSeries->getLink()
+                );
 
             $this
-                ->elementSeriesParser
-                ->setContent($seriesContent);
+                ->elementSeriesDetailParser
+                ->setContent($seriesDetailContent);
 
-            $elementSeriesCollection = $this
-                ->elementSeriesParser
-                ->getElementSeriesCollection();
+            $elementDetailCollection = $this
+                ->elementSeriesDetailParser
+                ->getElementDetailCollection();
+            $elementSeriesDescription = $this
+                ->elementSeriesDetailParser
+                ->getElementSeriesDescription();
+            $elementSeriesImage = $this
+                ->elementSeriesDetailParser
+                ->getElementSeriesImage();
 
-            if (empty($elementSeriesCollection)) {
-                return new ElementSeriesCollection();
-            }
+            $finalElementSeriesDetailCollection = new ElementSeriesDetailCollection();
 
-            /** @var ElementSeries $elementSeries */
-            foreach ($elementSeriesCollection as $elementSeries) {
-                $seriesDetailContent = $this
-                    ->mtContentReadRepository
-                    ->getElementSeriesDetailContent(
-                        $elementSeries->getLink()
-                    );
-
-                $this
-                    ->elementSeriesDetailParser
-                    ->setContent($seriesDetailContent);
-
-                $elementDetailCollection = $this
-                    ->elementSeriesDetailParser
-                    ->getElementDetailCollection();
-                $elementSeriesDescription = $this
-                    ->elementSeriesDetailParser
-                    ->getElementSeriesDescription();
-                $elementSeriesImage = $this
-                    ->elementSeriesDetailParser
-                    ->getElementSeriesImage();
-
-                $finalElementSeriesDetailCollection = new ElementSeriesDetailCollection();
-
-                if (!empty($elementDetailCollection)) {
-                    /** @var ElementSeriesDetail $elementSeriesDetail */
-                    foreach ($elementDetailCollection as $elementSeriesDetail) {
-                        $elementSeriesDownloadContent = $this
-                            ->mtContentReadRepository
-                            ->getElementSeriesDownloadContent(
-                                $elementSeriesDetail->getId()
-                            );
-
-                        $this
-                            ->elementSeriesDownloadParser
-                            ->setContent($elementSeriesDownloadContent);
-
-                        $elementSeriesDetail
-                            ->setElementSeriesDownload(
-                                $this
-                                    ->elementSeriesDownloadParser
-                                    ->getElementSeriesDownload()
-                            );
-
-                        $finalElementSeriesDetailCollection->add(
-                            $elementSeriesDetail
+            if (!empty($elementDetailCollection)) {
+                /** @var ElementSeriesDetail $elementSeriesDetail */
+                foreach ($elementDetailCollection as $elementSeriesDetail) {
+                    $elementSeriesDownloadContent = $this
+                        ->mtContentReadRepository
+                        ->getElementSeriesDownloadContent(
+                            $elementSeriesDetail->getId()
                         );
-                    }
-                }
 
-                $elementSeries
-                    ->setElementSeriesDescription($elementSeriesDescription);
-                $elementSeries
-                    ->setElementSeriesImage($elementSeriesImage);
-                $elementSeries
-                    ->setElementSeriesDetailCollection($finalElementSeriesDetailCollection);
+                    $this
+                        ->elementSeriesDownloadParser
+                        ->setContent($elementSeriesDownloadContent);
+
+                    $elementSeriesDetail
+                        ->setElementSeriesDownload(
+                            $this
+                                ->elementSeriesDownloadParser
+                                ->getElementSeriesDownload()
+                        );
+
+                    $finalElementSeriesDetailCollection->add(
+                        $elementSeriesDetail
+                    );
+                }
             }
 
-            return $elementSeriesCollection;
-        } catch (ElementSeriesEmptyException $e) {
-        } catch (ElementSeriesDetailEmptyException $e) {
+            $elementSeries
+                ->setElementSeriesDescription($elementSeriesDescription);
+            $elementSeries
+                ->setElementSeriesImage($elementSeriesImage);
+            $elementSeries
+                ->setElementSeriesDetailCollection($finalElementSeriesDetailCollection);
         }
+
+        return $elementSeriesCollection;
     }
 }

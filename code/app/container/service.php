@@ -1,6 +1,7 @@
 <?php
 
 use BestThor\ScrappingMaster\Infrastructure\Bot\TelegramRequest;
+use GuzzleHttp\Client;
 use Monolog\Handler\StreamHandler;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
@@ -104,6 +105,8 @@ $container->register(
     ->addArgument(new Reference(ElementDownloadParser::class))
     ->addArgument(new Reference('GeneralLogger'));
 
+$guzzleClient = new Client();
+
 $container->register(
     TransmissionClient::class,
     TransmissionClient::class
@@ -111,7 +114,8 @@ $container->register(
     ->addArgument(getenv('TRANSMISSION_HOSTNAME'))
     ->addArgument(getenv('TRANSMISSION_PORT'))
     ->addArgument(getenv('TRANSMISSION_USERNAME'))
-    ->addArgument(getenv('TRANSMISSION_PASSWORD'));
+    ->addArgument(getenv('TRANSMISSION_PASSWORD'))
+    ->addArgument($guzzleClient);
 
 $container->register(
     TelegramRequest::class,

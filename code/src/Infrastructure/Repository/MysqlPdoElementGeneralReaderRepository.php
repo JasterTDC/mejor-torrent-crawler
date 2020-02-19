@@ -128,6 +128,10 @@ final class MysqlPdoElementGeneralReaderRepository implements ElementGeneralRead
 
             $total = $statement->fetchAll();
 
+            if (empty($total)) {
+                return 0;
+            }
+
             return (int) $total[0]['total'];
         } catch (PDOException $e) {
             throw new ElementGeneralTotalException(

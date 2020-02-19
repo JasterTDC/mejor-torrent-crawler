@@ -162,22 +162,30 @@ final class GetElementSeriesCollectionUseCase
                             $elementSeriesDetail
                                 ->setSeriesId($elementSeries->getId());
 
-                            $staticDir = $elementDir . DIRECTORY_SEPARATOR .
-                                $elementSeriesDetail
+                            if (
+                                null !== $elementSeriesDetail
+                                    ->getElementSeriesDownload() &&
+                                null !== $elementSeriesDetail
                                     ->getElementSeriesDownload()
-                                    ->getDownloadName();
-
-                            $elementSeriesDetail
-                                ->setElementSeriesDownload(
+                                    ->getDownloadName()
+                            ) {
+                                $staticDir = $elementDir . DIRECTORY_SEPARATOR .
                                     $elementSeriesDetail
                                         ->getElementSeriesDownload()
-                                        ->setDownloadLink($staticDir)
-                                );
+                                        ->getDownloadName();
 
-                            file_put_contents(
-                                $staticDir,
-                                $downloadContent
-                            );
+                                $elementSeriesDetail
+                                    ->setElementSeriesDownload(
+                                        $elementSeriesDetail
+                                            ->getElementSeriesDownload()
+                                            ->setDownloadLink($staticDir)
+                                    );
+
+                                file_put_contents(
+                                    $staticDir,
+                                    $downloadContent
+                                );
+                            }
                         }
                     } catch (ElementDownloadContentEmptyException $e) {
                         if (

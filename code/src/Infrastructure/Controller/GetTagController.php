@@ -3,7 +3,6 @@
 namespace BestThor\ScrappingMaster\Infrastructure\Controller;
 
 use BestThor\ScrappingMaster\Application\UseCase\Tag\GetTagUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\Tag\GetTagUseCaseResponse;
 use BestThor\ScrappingMaster\Infrastructure\DataTransformer\GetTagDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Renderer\TemplateRenderer;
 use Psr\Http\Message\ResponseInterface;
@@ -72,8 +71,13 @@ final class GetTagController
     /**
      * @return array
      */
-    protected function getTemplateData(): array {
+    protected function getTemplateData(): array
+    {
         $response = $this->useCase->handle();
+
+        if (empty($response->getTagCollection())) {
+            return [];
+        }
 
         return $this
             ->transformer

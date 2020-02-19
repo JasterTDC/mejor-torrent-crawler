@@ -16,7 +16,7 @@ interface ElementDownloadParserInterface
      */
     public function setContent(
         string $content
-    );
+    ): void;
 
     /**
      * @return ElementDownload

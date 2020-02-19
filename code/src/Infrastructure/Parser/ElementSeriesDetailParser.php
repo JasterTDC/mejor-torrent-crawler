@@ -60,7 +60,7 @@ final class ElementSeriesDetailParser
      */
     public function setContent(
         string $content
-    ) {
+    ): void {
         $this->content = $content;
 
         $this->domDocument = new \DOMDocument();

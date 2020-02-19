@@ -23,7 +23,7 @@ $readerPort = getenv('DB_ELEMENT_READER_PORT');
 $readerDatabase = getenv('DB_ELEMENT_READER_DATABASE');
 
 $pdoWriterDsn = "mysql:host={$writerHost};charset=utf8;port={$writerPort};database={$writerDatabase}";
-$pdoReaderDsn = "mysql:host={$readerHost};charset=utf8;port={$readerPort};database={$writerDatabase}";
+$pdoReaderDsn = "mysql:host={$readerHost};charset=utf8;port={$readerPort};database={$readerDatabase}";
 
 $container->register(
     PdoAccess::class,
