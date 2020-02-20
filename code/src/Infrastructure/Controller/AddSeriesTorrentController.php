@@ -61,7 +61,6 @@ final class AddSeriesTorrentController
 
         $useCaseResponse = $this->useCase->handle(
             new AddSeriesTorrentUseCaseArguments(
-                (int) $parameters['elementSeriesId'],
                 $parameters['elementSeriesName']
             )
         );

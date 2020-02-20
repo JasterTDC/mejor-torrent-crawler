@@ -64,7 +64,6 @@ final class AddSeriesTorrentUseCaseTest extends TestCase
             ->addSeriesTorrentUseCase
             ->handle(
                 new AddSeriesTorrentUseCaseArguments(
-                    MotherCreator::random()->numberBetween(1),
                     $word
                 )
             );
@@ -112,7 +111,6 @@ final class AddSeriesTorrentUseCaseTest extends TestCase
             ->addSeriesTorrentUseCase
             ->handle(
                 new AddSeriesTorrentUseCaseArguments(
-                    MotherCreator::random()->numberBetween(1),
                     $word
                 )
             );

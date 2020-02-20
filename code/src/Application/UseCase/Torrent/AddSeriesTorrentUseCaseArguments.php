@@ -11,41 +11,21 @@ final class AddSeriesTorrentUseCaseArguments
 {
 
     /**
-     * ElementSeries identifier
-     *
-     * @var int
-     */
-    protected $seriesId;
-
-    /**
      * ElementSeries name
      *
      * @var string
      */
-    protected $seriesName;
+    protected string $seriesName;
 
     /**
      * AddSeriesTorrentUseCaseArguments constructor
      *
-     * @param int $seriesId
      * @param string $seriesName
      */
     public function __construct(
-        int $seriesId,
         string $seriesName
     ) {
-        $this->seriesId = $seriesId;
         $this->seriesName = $seriesName;
-    }
-
-    /**
-     * Get elementSeries identifier
-     *
-     * @return  int
-     */
-    public function getSeriesId()
-    {
-        return $this->seriesId;
     }
 
     /**
@@ -53,7 +33,7 @@ final class AddSeriesTorrentUseCaseArguments
      *
      * @return  string
      */
-    public function getSeriesName()
+    public function getSeriesName(): string
     {
         return $this->seriesName;
     }

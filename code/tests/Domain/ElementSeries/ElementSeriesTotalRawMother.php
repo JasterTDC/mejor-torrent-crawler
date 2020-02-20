@@ -24,4 +24,19 @@ final class ElementSeriesTotalRawMother
             ]
         ];
     }
+
+    /**
+     * @param int $total
+     *
+     * @return array
+     */
+    public static function create(
+        int $total
+    ): array {
+        return [
+            [
+                'total' => $total
+            ]
+        ];
+    }
 }
