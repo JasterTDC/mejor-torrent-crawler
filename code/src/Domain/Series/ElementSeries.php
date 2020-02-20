@@ -108,27 +108,11 @@ final class ElementSeries
     }
 
     /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return int
      */
     public function getFirstEpId(): int
     {
         return $this->firstEpId;
-    }
-
-    /**
-     * @param int $firstEpId
-     */
-    public function setFirstEpId(int $firstEpId): void
-    {
-        $this->firstEpId = $firstEpId;
     }
 
     /**
@@ -140,14 +124,6 @@ final class ElementSeries
     }
 
     /**
-     * @param string $name
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    /**
      * @return string
      */
     public function getSlug(): string
@@ -156,27 +132,11 @@ final class ElementSeries
     }
 
     /**
-     * @param string $slug
-     */
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
-    }
-
-    /**
      * @return string
      */
     public function getLink(): string
     {
         return $this->link;
-    }
-
-    /**
-     * @param string $link
-     */
-    public function setLink(string $link): void
-    {
-        $this->link = $link;
     }
 
     /**
@@ -237,26 +197,10 @@ final class ElementSeries
     }
 
     /**
-     * @param \DateTimeImmutable $createdAt
-     */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
      * @return \DateTimeImmutable
      */
     public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTimeImmutable $updatedAt
-     */
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
     }
 }

@@ -40,7 +40,7 @@ final class SeriesCrawlerCommand extends Command
     /**
      * Configure
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('crawl:series')
@@ -52,9 +52,9 @@ final class SeriesCrawlerCommand extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int|void|null
+     * @return int
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $useCase = $this->useCase;
 
@@ -87,6 +87,6 @@ final class SeriesCrawlerCommand extends Command
             }
         }
 
-        exit();
+        return 0;
     }
 }

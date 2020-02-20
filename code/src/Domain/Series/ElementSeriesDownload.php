@@ -52,20 +52,6 @@ final class ElementSeriesDownload
     }
 
     /**
-     * @param string $downloadName
-     *
-     * @return ElementSeriesDownload
-     */
-    public function setDownloadName(
-        string $downloadName
-    ): self {
-        return new static(
-            $downloadName,
-            $this->downloadLink
-        );
-    }
-
-    /**
      * @param string|null $downloadLink
      *
      * @return ElementSeriesDownload

@@ -2,6 +2,8 @@
 
 namespace BestThor\ScrappingMaster\Domain;
 
+use phpDocumentor\Reflection\Types\Mixed_;
+
 /**
  * Class BaseCollection
  *
@@ -29,10 +31,14 @@ class BaseCollection implements \IteratorAggregate
         $this->collectionById = [];
     }
 
+    /**
+     * @param mixed $element
+     * @param mixed $elementId
+     */
     protected function addToCollection(
         $element,
         $elementId
-    ) {
+    ): void {
         $this->collection[] = $element;
         $this->collectionById[$elementId] = $element;
     }

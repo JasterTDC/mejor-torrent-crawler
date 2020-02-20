@@ -248,13 +248,12 @@ final class GetElementGeneralCollectionUseCase
      * @param array $rawTagCollection
      * @param ElementGeneral $elementGeneral
      *
-     * @throws TagSaveException
      * @throws TagSearchException
      */
     protected function saveTagCollection(
         array $rawTagCollection,
         ElementGeneral $elementGeneral
-    ) {
+    ): void {
         $current = new \DateTimeImmutable();
 
         foreach ($rawTagCollection as $rawTag) {

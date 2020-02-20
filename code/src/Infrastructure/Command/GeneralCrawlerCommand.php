@@ -39,7 +39,7 @@ final class GeneralCrawlerCommand extends Command
     /**
      * General configure
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('crawl:general')

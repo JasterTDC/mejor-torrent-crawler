@@ -101,10 +101,3 @@ $container->register(
     GetTagUseCase::class
 )
     ->addArgument(new Reference(MysqlPdoTagReaderRepository::class));
-
-$container->register(
-    SendNotificationUseCase::class,
-    SendNotificationUseCase::class
-)
-    ->addArgument(new Reference(TelegramRequest::class))
-    ->addArgument(new Reference(MysqlPdoElementGeneralReaderRepository::class));

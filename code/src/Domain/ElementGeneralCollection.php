@@ -14,7 +14,7 @@ final class ElementGeneralCollection extends BaseCollection
     /**
      * @param ElementGeneral $elementGeneral
      */
-    public function add(ElementGeneral $elementGeneral)
+    public function add(ElementGeneral $elementGeneral): void
     {
         $this->addToCollection(
             $elementGeneral,

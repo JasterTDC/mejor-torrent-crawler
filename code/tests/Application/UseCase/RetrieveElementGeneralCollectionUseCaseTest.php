@@ -114,7 +114,7 @@ final class RetrieveElementGeneralCollectionUseCaseTest extends PDOMockUtilsTest
             ->useCase
             ->handle(
                 new RetrieveElementGeneralCollectionUseCaseArguments(
-                    MotherCreator::random()->numberBetween(1, 15),
+                    MotherCreator::random()->numberBetween(2, 15),
                     MotherCreator::random()->numberBetween(1, 10)
                 )
             );

@@ -101,27 +101,11 @@ final class ElementGeneral
     }
 
     /**
-     * @param int $elementId
-     */
-    public function setElementId(int $elementId): void
-    {
-        $this->elementId = $elementId;
-    }
-
-    /**
      * @return string
      */
     public function getElementName(): string
     {
         return $this->elementName;
-    }
-
-    /**
-     * @param string $elementName
-     */
-    public function setElementName(string $elementName): void
-    {
-        $this->elementName = $elementName;
     }
 
     /**
@@ -133,27 +117,11 @@ final class ElementGeneral
     }
 
     /**
-     * @param string $elementSlug
-     */
-    public function setElementSlug(string $elementSlug): void
-    {
-        $this->elementSlug = $elementSlug;
-    }
-
-    /**
      * @return string
      */
     public function getElementLink(): string
     {
         return $this->elementLink;
-    }
-
-    /**
-     * @param string $elementLink
-     */
-    public function setElementLink(string $elementLink): void
-    {
-        $this->elementLink = $elementLink;
     }
 
     /**
@@ -165,43 +133,11 @@ final class ElementGeneral
     }
 
     /**
-     * @param \DateTimeImmutable $createdAt
-     */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
      * @return \DateTimeImmutable
      */
     public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTimeImmutable $updatedAt
-     */
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * @return TagCollection|null
-     */
-    public function getTagCollection(): ?TagCollection
-    {
-        return $this->tagCollection;
-    }
-
-    /**
-     * @param TagCollection|null $tagCollection
-     */
-    public function setTagCollection(?TagCollection $tagCollection): void
-    {
-        $this->tagCollection = $tagCollection;
     }
 
     /**

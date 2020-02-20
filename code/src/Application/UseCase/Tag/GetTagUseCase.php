@@ -2,7 +2,6 @@
 
 namespace BestThor\ScrappingMaster\Application\UseCase\Tag;
 
-use BestThor\ScrappingMaster\Domain\Tag\Tag;
 use BestThor\ScrappingMaster\Domain\Tag\TagCriteria;
 use BestThor\ScrappingMaster\Domain\Tag\TagReaderRepositoryInterface;
 
@@ -31,7 +30,8 @@ final class GetTagUseCase
     /**
      * @return GetTagUseCaseResponse
      */
-    public function handle(): GetTagUseCaseResponse {
+    public function handle(): GetTagUseCaseResponse
+    {
         $tagCriteria = new TagCriteria();
 
         $tagCriteria->setOrderBy(TagCriteria::ORDER_NAME);

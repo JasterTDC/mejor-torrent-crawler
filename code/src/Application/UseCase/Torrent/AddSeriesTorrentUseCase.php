@@ -2,9 +2,6 @@
 
 namespace BestThor\ScrappingMaster\Application\UseCase\Torrent;
 
-use BestThor\ScrappingMaster\Application\UseCase\Torrent\AddSeriesTorrentUseCaseArguments;
-use BestThor\ScrappingMaster\Application\UseCase\Torrent\TorrentClientInterface;
-
 /**
  * AddSeriesTorrentUseCase
  *
@@ -59,13 +56,13 @@ final class AddSeriesTorrentUseCase
             );
         }
 
-        /** @var string $filename */
+        /** @var \DirectoryIterator $file */
         foreach (new \DirectoryIterator($torrentDir) as $file) {
             if ($file->isDot()) {
                 continue;
             }
 
-            $this->torrentClient->add($file->getPathname());
+            $this->torrentClient->add((string) file_get_contents($file->getPathname()));
         }
 
         return new AddSeriesTorrentUseCaseResponse(

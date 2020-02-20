@@ -137,6 +137,10 @@ final class MysqlPdoTagReaderRepository implements TagReaderRepositoryInterface
 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
+            if (empty($result)) {
+                return null;
+            }
+
             return $this
                 ->tagFactory
                 ->createTagCollectionFromRaw($result);
