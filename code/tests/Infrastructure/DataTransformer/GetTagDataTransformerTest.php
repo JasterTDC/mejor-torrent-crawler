@@ -44,5 +44,4 @@ final class GetTagDataTransformerTest extends TestCase
         $this->assertIsArray($collectionTransformed['tagCollection']);
         $this->assertNotEmpty($collectionTransformed['tagCollection']);
     }
-
 }
