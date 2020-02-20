@@ -83,14 +83,6 @@ final class ElementSeriesDetail
     }
 
     /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return int|null
      */
     public function getSeriesId(): ?int
@@ -114,13 +106,6 @@ final class ElementSeriesDetail
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
 
     /**
      * @return string
@@ -128,14 +113,6 @@ final class ElementSeriesDetail
     public function getLink(): string
     {
         return $this->link;
-    }
-
-    /**
-     * @param string $link
-     */
-    public function setLink(string $link): void
-    {
-        $this->link = $link;
     }
 
     /**
@@ -163,26 +140,10 @@ final class ElementSeriesDetail
     }
 
     /**
-     * @param \DateTimeImmutable $createdAt
-     */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
      * @return \DateTimeImmutable
      */
     public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTimeImmutable $updatedAt
-     */
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
     }
 }

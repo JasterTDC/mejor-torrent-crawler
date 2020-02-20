@@ -14,7 +14,7 @@ interface ElementGeneralParserInterface
     /**
      * @param string $content
      */
-    public function setContent(string $content);
+    public function setContent(string $content): void;
 
     /**
      * @return ElementGeneralCollection

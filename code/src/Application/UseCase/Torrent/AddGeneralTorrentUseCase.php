@@ -48,7 +48,7 @@ final class AddGeneralTorrentUseCase
             return new AddGeneralTorrentUseCaseResponse(false);
         }
 
-        $this->torrentClient->add($filename);
+        $this->torrentClient->add((string) file_get_contents($filename));
 
         return new AddGeneralTorrentUseCaseResponse(true);
     }

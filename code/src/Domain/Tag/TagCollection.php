@@ -15,7 +15,7 @@ final class TagCollection extends BaseCollection
     /**
      * @param Tag $tag
      */
-    public function add(Tag $tag)
+    public function add(Tag $tag): void
     {
         $this->addToCollection($tag, $tag->getId());
     }

@@ -41,4 +41,58 @@ final class ElementGeneralMother
             ElementGeneralDownloadMother::random()
         );
     }
+
+    /**
+     * @return ElementGeneral
+     */
+    public static function createWithEmptyDetail(): ElementGeneral
+    {
+        $dateCreated = \DateTimeImmutable::createFromMutable(
+            MotherCreator::random()->dateTimeThisCentury
+        );
+
+        $dateModified = \DateTimeImmutable::createFromMutable(
+            MotherCreator::random()->dateTimeBetween(
+                $dateCreated->format(self::DATE_FORMAT)
+            )
+        );
+
+        return new ElementGeneral(
+            MotherCreator::random()->numberBetween(1),
+            MotherCreator::random()->lastName,
+            MotherCreator::random()->slug,
+            MotherCreator::random()->url,
+            $dateCreated,
+            $dateModified,
+            null,
+            ElementGeneralDownloadMother::random()
+        );
+    }
+
+    /**
+     * @return ElementGeneral
+     */
+    public static function createWithEmptyDownload(): ElementGeneral
+    {
+        $dateCreated = \DateTimeImmutable::createFromMutable(
+            MotherCreator::random()->dateTimeThisCentury
+        );
+
+        $dateModified = \DateTimeImmutable::createFromMutable(
+            MotherCreator::random()->dateTimeBetween(
+                $dateCreated->format(self::DATE_FORMAT)
+            )
+        );
+
+        return new ElementGeneral(
+            MotherCreator::random()->numberBetween(1),
+            MotherCreator::random()->lastName,
+            MotherCreator::random()->slug,
+            MotherCreator::random()->url,
+            $dateCreated,
+            $dateModified,
+            ElementDetailMother::random(),
+            null
+        );
+    }
 }

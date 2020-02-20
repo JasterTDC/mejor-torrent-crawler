@@ -49,7 +49,7 @@ final class ElementGeneralParser implements ElementGeneralParserInterface
     /**
      * @param string $content
      */
-    public function setContent(string $content)
+    public function setContent(string $content): void
     {
         $this->content = $content;
 

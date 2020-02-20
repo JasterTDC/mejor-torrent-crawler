@@ -56,16 +56,19 @@ final class TransmissionClient implements TorrentClientInterface
 
     /**
      * TransmissionClient constructor.
+     *
      * @param string $host
      * @param int $port
      * @param string $username
      * @param string $password
+     * @param Client $client
      */
     public function __construct(
         string $host,
         int $port,
         string $username,
-        string $password
+        string $password,
+        Client $client
     ) {
         $this->host = $host;
         $this->port = $port;
@@ -73,27 +76,23 @@ final class TransmissionClient implements TorrentClientInterface
         $this->password = $password;
 
         $this->baseUrl  = "{$this->host}:{$this->port}/transmission/rpc";
-        $this->client   = new Client();
+        $this->client   = $client;
         $this->token    = '';
     }
 
     /**
-     * @param string $filename
+     * @param string $fileContent
      *
      * @return array
      */
-    public function add(string $filename): array
+    public function add(string $fileContent): array
     {
-        $fileContent = file_get_contents($filename);
-
-        if (!empty($fileContent)) {
-            return $this->call([
-                'method'    => 'torrent-add',
-                'arguments' => [
-                    'metainfo'  => base64_encode($fileContent)
-                ]
-            ]);
-        }
+        return $this->call([
+            'method'    => 'torrent-add',
+            'arguments' => [
+                'metainfo'  => base64_encode($fileContent)
+            ]
+        ]);
     }
 
     /**
@@ -106,7 +105,7 @@ final class TransmissionClient implements TorrentClientInterface
     ): array {
 
         try {
-            $response = $this->client->post($this->baseUrl, [
+            $response = $this->client->request('POST', $this->baseUrl, [
                 'auth'  => [
                     $this->username,
                     $this->password
@@ -137,5 +136,7 @@ final class TransmissionClient implements TorrentClientInterface
                 return $this->call($arguments);
             }
         }
+
+        return [];
     }
 }

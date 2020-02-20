@@ -50,7 +50,7 @@ final class ElementDownloadParser implements ElementDownloadParserInterface
      */
     public function setContent(
         string $content
-    ) {
+    ): void {
         $this->content = $content;
 
         $this->domDoc = new \DOMDocument();

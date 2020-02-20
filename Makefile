@@ -2,7 +2,7 @@ stan:
 	docker run --rm \
 	--volume=${PWD}/code:/code \
 	mejor-torrent-crawler_crawler:latest \
-	php /code/vendor/bin/phpstan analyze /code/src -l 7
+	php /code/vendor/bin/phpstan analyze /code/src -l 8
 sniffer:
 	docker run --rm \
     --volume=${PWD}/code:/code \

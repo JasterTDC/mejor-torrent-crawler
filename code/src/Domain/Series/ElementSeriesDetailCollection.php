@@ -16,7 +16,7 @@ final class ElementSeriesDetailCollection extends BaseCollection
     /**
      * @param ElementSeriesDetail $elementSeriesDetail
      */
-    public function add(ElementSeriesDetail $elementSeriesDetail)
+    public function add(ElementSeriesDetail $elementSeriesDetail): void
     {
         $this->addToCollection(
             $elementSeriesDetail,
