@@ -40,4 +40,30 @@ final class ElementSeriesDetailMother
             ElementSeriesDownloadMother::random()
         );
     }
+
+    /**
+     * @return ElementSeriesDetail
+     */
+    public static function createWithoutDownload(): ElementSeriesDetail
+    {
+        $dateCreated = \DateTimeImmutable::createFromMutable(
+            MotherCreator::random()->dateTimeThisCentury
+        );
+
+        $dateModified = \DateTimeImmutable::createFromMutable(
+            MotherCreator::random()->dateTimeBetween(
+                $dateCreated->format(self::DATE_FORMAT)
+            )
+        );
+
+        return new ElementSeriesDetail(
+            MotherCreator::random()->numberBetween(1),
+            MotherCreator::random()->numberBetween(1),
+            MotherCreator::random()->lastName,
+            MotherCreator::random()->url,
+            $dateCreated,
+            $dateModified,
+            null
+        );
+    }
 }

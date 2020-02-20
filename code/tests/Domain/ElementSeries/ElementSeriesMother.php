@@ -73,7 +73,7 @@ final class ElementSeriesMother
             $dateModified,
             ElementSeriesImageMother::random(),
             ElementSeriesDescriptionMother::random(),
-            new ElementSeriesDetailCollection()
+            ElementSeriesDetailCollectionMother::random()
         );
     }
 }
