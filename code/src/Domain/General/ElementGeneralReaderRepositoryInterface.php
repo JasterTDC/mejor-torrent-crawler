@@ -1,6 +1,11 @@
 <?php
 
-namespace BestThor\ScrappingMaster\Domain;
+namespace BestThor\ScrappingMaster\Domain\General;
+
+use BestThor\ScrappingMaster\Domain\General\ElementGeneral;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralCollectionEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralEmptyException;
 
 /**
  * Interface ElementGeneralReaderRepositoryInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace BestThor\ScrappingMaster\Domain;
+namespace BestThor\ScrappingMaster\Domain\General;
 
 /**
  * Class ElementGeneralPersistException

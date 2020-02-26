@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Parser;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralEmptyException;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;

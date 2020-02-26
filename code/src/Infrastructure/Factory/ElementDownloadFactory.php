@@ -2,8 +2,8 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 
-use BestThor\ScrappingMaster\Domain\ElementDownload;
-use BestThor\ScrappingMaster\Domain\ElementDownloadFactoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementDownload;
+use BestThor\ScrappingMaster\Domain\General\ElementDownloadFactoryInterface;
 
 /**
  * Class ElementDownloadFactory

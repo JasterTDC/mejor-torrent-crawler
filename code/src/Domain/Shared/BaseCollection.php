@@ -1,8 +1,6 @@
 <?php
 
-namespace BestThor\ScrappingMaster\Domain;
-
-use phpDocumentor\Reflection\Types\Mixed_;
+namespace BestThor\ScrappingMaster\Domain\Shared;
 
 /**
  * Class BaseCollection

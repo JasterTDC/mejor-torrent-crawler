@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Repository;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneralPersistException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralPersistException;
 use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWriterRepository;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\ElementGeneralMother;
 

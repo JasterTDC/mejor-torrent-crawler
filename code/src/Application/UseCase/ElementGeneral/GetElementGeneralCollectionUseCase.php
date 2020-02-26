@@ -2,14 +2,14 @@
 
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
-use BestThor\ScrappingMaster\Domain\ElementDownloadContentEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneral;
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
-use BestThor\ScrappingMaster\Domain\ElementGeneralContentEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralPersistException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralWriterRepositoryInterface;
-use BestThor\ScrappingMaster\Domain\ElementImageEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementDownloadContentEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneral;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralContentEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralPersistException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralWriterRepositoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementImageEmptyException;
 use BestThor\ScrappingMaster\Domain\General\GeneralServiceInterface;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
 use BestThor\ScrappingMaster\Domain\Tag\GeneralTagFactoryInterface;

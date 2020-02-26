@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\DataTransformer;
 
-use BestThor\ScrappingMaster\Domain\ElementDetail;
+use BestThor\ScrappingMaster\Domain\General\ElementDetail;
 
 /**
  * Class ElementDetailDataTransformer

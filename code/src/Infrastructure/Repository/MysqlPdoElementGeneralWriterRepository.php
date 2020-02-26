@@ -2,9 +2,9 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneral;
-use BestThor\ScrappingMaster\Domain\ElementGeneralPersistException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralWriterRepositoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneral;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralPersistException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralWriterRepositoryInterface;
 
 /**
  * Class MysqlPdoElementGeneralWriterRepository

@@ -2,14 +2,14 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneral;
-use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneral;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralEmptyException;
 use PDOException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
-use BestThor\ScrappingMaster\Domain\ElementGeneralTotalException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralFactoryInterface;
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollectionEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralReaderRepositoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralTotalException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralFactoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralCollectionEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralReaderRepositoryInterface;
 
 /**
  * Class MysqlPdoElementGeneralReaderRepository

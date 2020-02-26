@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\DataTransformer;
 
-use BestThor\ScrappingMaster\Domain\ElementDownload;
+use BestThor\ScrappingMaster\Domain\General\ElementDownload;
 
 /**
  * Class ElementDownloadDataTransformer

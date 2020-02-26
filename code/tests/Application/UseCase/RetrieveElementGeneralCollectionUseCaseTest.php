@@ -4,7 +4,7 @@ namespace BestThor\ScrappingMaster\Tests\Application\UseCase;
 
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCaseArguments;
-use BestThor\ScrappingMaster\Domain\ElementGeneralReaderRepositoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralReaderRepositoryInterface;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;

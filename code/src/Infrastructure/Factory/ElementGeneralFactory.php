@@ -2,10 +2,10 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Factory;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneral;
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
-use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralFactoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneral;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralFactoryInterface;
 
 /**
  * Class ElementFactory
