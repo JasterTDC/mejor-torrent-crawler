@@ -3,7 +3,7 @@
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDownload;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesDownloadFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\ElementSeriesDownloadFactory;
 
 /**
  * Class ElementSeriesDetailDownloadParser

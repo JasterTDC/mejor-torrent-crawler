@@ -2,8 +2,8 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\DataTransformer;
 
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDetailDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDownloadDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDetailDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDownloadDataTransformer;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesDetailCollectionMother;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesDetailMother;
 use PHPUnit\Framework\TestCase;

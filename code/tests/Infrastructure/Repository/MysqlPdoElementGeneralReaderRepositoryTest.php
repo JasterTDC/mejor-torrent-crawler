@@ -2,13 +2,13 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Repository;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollectionEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralTotalException;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralReaderRepository;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralCollectionEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralTotalException;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDetailFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDownloadFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementGeneralFactory;
+use BestThor\ScrappingMaster\Infrastructure\Repository\General\MysqlPdoElementGeneralReaderRepository;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\ElementGeneralCollectionRawMother;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\ElementGeneralRawMother;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\GeneralTotalMother;

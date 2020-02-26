@@ -3,7 +3,7 @@
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Tag\TagSaveException;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Tag\MysqlPdoTagWriterRepository;
 use BestThor\ScrappingMaster\Tests\Domain\Tag\TagMother;
 
 /**

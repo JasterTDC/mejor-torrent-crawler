@@ -7,7 +7,7 @@ use BestThor\ScrappingMaster\Domain\Series\TotalElementSeriesException;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Series\FromMysqlElementSeriesDescriptionFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Series\FromMysqlElementSeriesFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Series\FromMysqlElementSeriesImageFactory;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Series\MysqlPdoElementSeriesReaderRepository;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesCollectionRawMother;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesTotalRawMother;
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;

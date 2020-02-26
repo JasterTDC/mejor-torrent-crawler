@@ -2,9 +2,9 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
-use BestThor\ScrappingMaster\Domain\ElementDetail;
-use BestThor\ScrappingMaster\Domain\ElementDetailFactoryInterface;
-use BestThor\ScrappingMaster\Domain\ElementDetailParserInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementDetail;
+use BestThor\ScrappingMaster\Domain\General\ElementDetailFactoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementDetailParserInterface;
 
 /**
  * Class ElementDetailParser

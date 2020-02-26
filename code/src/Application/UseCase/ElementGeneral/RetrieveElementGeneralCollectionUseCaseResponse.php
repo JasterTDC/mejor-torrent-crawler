@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralCollection;
 
 /**
  * RetrieveElementGeneralCollectionUseCaseResponse

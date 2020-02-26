@@ -3,7 +3,7 @@
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesSaveException;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Series\MysqlPdoElementSeriesWriterRepository;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesMother;
 
 /**

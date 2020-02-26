@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Domain\Series;
 
-use BestThor\ScrappingMaster\Domain\BaseCollection;
+use BestThor\ScrappingMaster\Domain\Shared\BaseCollection;
 
 /**
  * Class ElementSeriesDetailCollection

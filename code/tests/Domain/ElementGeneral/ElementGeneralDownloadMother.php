@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Tests\Domain\ElementGeneral;
 
-use BestThor\ScrappingMaster\Domain\ElementDownload;
+use BestThor\ScrappingMaster\Domain\General\ElementDownload;
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
 
 /**

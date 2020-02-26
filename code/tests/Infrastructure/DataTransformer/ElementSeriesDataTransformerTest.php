@@ -2,11 +2,11 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\DataTransformer;
 
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDescriptionDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDetailDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDownloadDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesImageDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDescriptionDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDetailDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDownloadDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesImageDataTransformer;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesCollectionMother;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesMother;
 use PHPUnit\Framework\TestCase;

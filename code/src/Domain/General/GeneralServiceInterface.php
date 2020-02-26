@@ -2,9 +2,8 @@
 
 namespace BestThor\ScrappingMaster\Domain\General;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
-use BestThor\ScrappingMaster\Domain\ElementGeneralContentEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralContentEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralEmptyException;
 
 /**
  * Interface GeneralServiceInterface

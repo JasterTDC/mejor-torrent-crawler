@@ -4,8 +4,8 @@ namespace BestThor\ScrappingMaster\Infrastructure\Controller;
 
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCaseArguments;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\General\ElementGeneralCollectionDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDataTransformer;
 use BestThor\ScrappingMaster\Infrastructure\Renderer\TemplateRenderer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

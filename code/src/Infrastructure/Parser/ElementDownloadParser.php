@@ -2,9 +2,9 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
-use BestThor\ScrappingMaster\Domain\ElementDownload;
-use BestThor\ScrappingMaster\Domain\ElementDownloadFactoryInterface;
-use BestThor\ScrappingMaster\Domain\ElementDownloadParserInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementDownload;
+use BestThor\ScrappingMaster\Domain\General\ElementDownloadFactoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementDownloadParserInterface;
 
 /**
  * Class ElementDownloadParser

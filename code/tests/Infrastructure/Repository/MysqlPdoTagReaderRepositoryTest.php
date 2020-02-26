@@ -4,7 +4,7 @@ namespace BestThor\ScrappingMaster\Tests\Infrastructure\Repository;
 
 use BestThor\ScrappingMaster\Domain\Tag\TagSearchException;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Tag\MysqlPdoTagReaderRepository;
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
 use BestThor\ScrappingMaster\Tests\Domain\Tag\TagRawMother;
 

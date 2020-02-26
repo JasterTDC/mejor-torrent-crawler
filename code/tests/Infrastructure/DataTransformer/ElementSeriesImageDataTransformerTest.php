@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\DataTransformer;
 
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesImageDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesImageDataTransformer;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesImageMother;
 use PHPUnit\Framework\TestCase;
 

@@ -3,7 +3,7 @@
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesCollection;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\ElementSeriesFactory;
 
 /**
  * Class ElementSeriesParser

@@ -1,12 +1,12 @@
 <?php
 
-use BestThor\ScrappingMaster\Infrastructure\Controller\AddGeneralTorrentController;
-use BestThor\ScrappingMaster\Infrastructure\Controller\AddSeriesTorrentController;
-use BestThor\ScrappingMaster\Infrastructure\Controller\GetElementGeneralDetailController;
-use BestThor\ScrappingMaster\Infrastructure\Controller\GetTagController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\General\AddGeneralTorrentController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\Series\AddSeriesTorrentController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\General\GetElementGeneralDetailController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\Tag\GetTagController;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
-use BestThor\ScrappingMaster\Infrastructure\Controller\RetrieveElementGeneralCollectionController;
-use BestThor\ScrappingMaster\Infrastructure\Controller\RetrieveElementSeriesCollectionController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\General\RetrieveElementGeneralCollectionController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\Series\RetrieveElementSeriesCollectionController;
 use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
 
