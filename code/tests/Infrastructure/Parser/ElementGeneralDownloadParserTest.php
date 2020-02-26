@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Parser;
 
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDownloadFactory;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDownloadParser;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\DownloadTorrentUrlMother;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\ElementGeneralDownloadHtmlMother;

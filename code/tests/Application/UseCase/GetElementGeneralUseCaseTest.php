@@ -4,10 +4,10 @@ namespace BestThor\ScrappingMaster\Tests\Application\UseCase;
 
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCaseArguments;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDetailFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDownloadFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementGeneralFactory;
+use BestThor\ScrappingMaster\Infrastructure\Repository\General\MysqlPdoElementGeneralReaderRepository;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\ElementGeneralCollectionRawMother;
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
 use BestThor\ScrappingMaster\Tests\Infrastructure\Repository\PDOMockUtilsTestCase;

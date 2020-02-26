@@ -5,7 +5,7 @@ namespace BestThor\ScrappingMaster\Tests\Application\UseCase;
 use BestThor\ScrappingMaster\Application\UseCase\Tag\GetTagUseCase;
 use BestThor\ScrappingMaster\Domain\Tag\TagSearchException;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Tag\MysqlPdoTagReaderRepository;
 use BestThor\ScrappingMaster\Tests\Domain\Tag\TagCollectionRawMother;
 use BestThor\ScrappingMaster\Tests\Infrastructure\Repository\PDOMockUtilsTestCase;
 

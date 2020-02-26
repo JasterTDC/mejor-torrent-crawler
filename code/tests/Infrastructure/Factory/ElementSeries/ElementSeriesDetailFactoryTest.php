@@ -3,7 +3,7 @@
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Factory\ElementSeries;
 
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailCollection;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesDetailFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\ElementSeriesDetailFactory;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesDetailArrayMother;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesDetailCollectionArrayMother;
 use PHPUnit\Framework\TestCase;

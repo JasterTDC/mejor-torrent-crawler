@@ -5,8 +5,8 @@ namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDescription;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailCollection;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesImage;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesDetailFactory;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesImageFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\ElementSeriesDetailFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\ElementSeriesImageFactory;
 
 /**
  * Class ElementSeriesDetailParser

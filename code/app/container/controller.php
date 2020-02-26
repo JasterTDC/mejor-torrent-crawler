@@ -4,22 +4,22 @@ use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGenera
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\RetrieveElementSeriesCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\Tag\GetTagUseCase;
-use BestThor\ScrappingMaster\Infrastructure\Controller\GetElementGeneralDetailController;
-use BestThor\ScrappingMaster\Infrastructure\Controller\GetTagController;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\GetTagDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\Controller\General\GetElementGeneralDetailController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\Tag\GetTagController;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\General\ElementGeneralDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Tag\GetTagDataTransformer;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
 use BestThor\ScrappingMaster\Infrastructure\Controller\MainController;
 use BestThor\ScrappingMaster\Infrastructure\Renderer\TemplateRenderer;
 use BestThor\ScrappingMaster\Application\UseCase\Torrent\AddSeriesTorrentUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\Torrent\AddGeneralTorrentUseCase;
-use BestThor\ScrappingMaster\Infrastructure\Controller\AddSeriesTorrentController;
-use BestThor\ScrappingMaster\Infrastructure\Controller\AddGeneralTorrentController;
-use BestThor\ScrappingMaster\Infrastructure\Controller\RetrieveElementGeneralCollectionController;
-use BestThor\ScrappingMaster\Infrastructure\Controller\RetrieveElementSeriesCollectionController;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\Controller\Series\AddSeriesTorrentController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\General\AddGeneralTorrentController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\General\RetrieveElementGeneralCollectionController;
+use BestThor\ScrappingMaster\Infrastructure\Controller\Series\RetrieveElementSeriesCollectionController;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\General\ElementGeneralCollectionDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDataTransformer;
 
 $container->register(
     MainController::class,

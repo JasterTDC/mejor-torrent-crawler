@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Factory\ElementGeneral;
 
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDownloadFactory;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\ElementGeneralDownloadRawMother;
 use PHPUnit\Framework\TestCase;
 

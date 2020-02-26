@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Parser;
 
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDetailParser;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\ElementGeneralDetailRawMother;
 use PHPUnit\Framework\TestCase;
