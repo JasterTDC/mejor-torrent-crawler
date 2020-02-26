@@ -1,14 +1,14 @@
 <?php
 
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralCollectionDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementGeneralDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\GetTagDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\General\ElementGeneralCollectionDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\General\ElementGeneralDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Tag\GetTagDataTransformer;
 use Symfony\Component\DependencyInjection\Reference;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesImageDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDetailDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDownloadDataTransformer;
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDescriptionDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesImageDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDetailDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDownloadDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDescriptionDataTransformer;
 
 $container->register(
     ElementSeriesImageDataTransformer::class,

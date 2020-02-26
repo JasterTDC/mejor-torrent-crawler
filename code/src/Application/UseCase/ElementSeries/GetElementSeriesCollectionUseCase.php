@@ -2,8 +2,8 @@
 
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementSeries;
 
-use BestThor\ScrappingMaster\Domain\ElementDownloadContentEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementImageEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementDownloadContentEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementImageEmptyException;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeries;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetail;

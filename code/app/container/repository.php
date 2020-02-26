@@ -1,18 +1,18 @@
 <?php
 
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralTagWriterRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagReaderRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Tag\MysqlPdoElementGeneralTagWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Tag\MysqlPdoTagReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Tag\MysqlPdoTagWriterRepository;
 use Symfony\Component\DependencyInjection\Reference;
 use BestThor\ScrappingMaster\Infrastructure\Repository\PdoAccess;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementGeneralFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Series\FromMysqlElementSeriesFactory;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesReaderRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesWriterRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralReaderRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWriterRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesDetailWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Series\MysqlPdoElementSeriesReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Series\MysqlPdoElementSeriesWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\General\MysqlPdoElementGeneralReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\General\MysqlPdoElementGeneralWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Series\MysqlPdoElementSeriesDetailWriterRepository;
 
 $writerHost = getenv('DB_ELEMENT_WRITER_HOSTNAME');
 $writerPort = getenv('DB_ELEMENT_WRITER_PORT');

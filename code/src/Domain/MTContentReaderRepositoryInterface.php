@@ -2,6 +2,10 @@
 
 namespace BestThor\ScrappingMaster\Domain;
 
+use BestThor\ScrappingMaster\Domain\General\ElementDetailContentEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementDownloadContentEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralContentEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementImageEmptyException;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailEmptyException;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesEmptyException;
 

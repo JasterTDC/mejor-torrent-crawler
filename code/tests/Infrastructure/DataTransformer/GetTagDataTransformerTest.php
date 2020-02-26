@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\DataTransformer;
 
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\GetTagDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Tag\GetTagDataTransformer;
 use BestThor\ScrappingMaster\Tests\Domain\Tag\TagCollectionMother;
 use PHPUnit\Framework\TestCase;
 
@@ -44,5 +44,4 @@ final class GetTagDataTransformerTest extends TestCase
         $this->assertIsArray($collectionTransformed['tagCollection']);
         $this->assertNotEmpty($collectionTransformed['tagCollection']);
     }
-
 }

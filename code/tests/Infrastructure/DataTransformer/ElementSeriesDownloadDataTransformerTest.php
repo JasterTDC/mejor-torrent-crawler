@@ -2,7 +2,7 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\DataTransformer;
 
-use BestThor\ScrappingMaster\Infrastructure\DataTransformer\ElementSeriesDownloadDataTransformer;
+use BestThor\ScrappingMaster\Infrastructure\DataTransformer\Series\ElementSeriesDownloadDataTransformer;
 use BestThor\ScrappingMaster\Tests\Domain\ElementSeries\ElementSeriesDownloadMother;
 use PHPUnit\Framework\TestCase;
 

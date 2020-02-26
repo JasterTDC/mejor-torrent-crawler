@@ -1,32 +1,31 @@
 <?php
 
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralCollectionUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralDetailUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\GetElementSeriesCollectionUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\RetrieveElementSeriesCollectionUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\Notification\SendNotificationUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\Tag\GetTagUseCase;
-use BestThor\ScrappingMaster\Infrastructure\Bot\TelegramRequest;
-use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\GeneralTagFactory;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralTagWriterRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagReaderRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoTagWriterRepository;
-use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
-use Symfony\Component\DependencyInjection\Reference;
-use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
-use BestThor\ScrappingMaster\Application\UseCase\GetElementUseCase;
-use BestThor\ScrappingMaster\Infrastructure\Service\GeneralService;
-use BestThor\ScrappingMaster\Infrastructure\Transmission\TransmissionClient;
-use BestThor\ScrappingMaster\Application\UseCase\Torrent\AddSeriesTorrentUseCase;
 use BestThor\ScrappingMaster\Application\UseCase\Torrent\AddGeneralTorrentUseCase;
+use BestThor\ScrappingMaster\Application\UseCase\Torrent\AddSeriesTorrentUseCase;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\GeneralTagFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
+use BestThor\ScrappingMaster\Infrastructure\Repository\General\MysqlPdoElementGeneralReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\General\MysqlPdoElementGeneralWriterRepository;
 use BestThor\ScrappingMaster\Infrastructure\Repository\GuzzleMTContentReaderRepository;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralUseCase;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesReaderRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesWriterRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralReaderRepository;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementGeneralWriterRepository;
-use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\GetElementSeriesCollectionUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\GetElementGeneralCollectionUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementGeneral\RetrieveElementGeneralCollectionUseCase;
-use BestThor\ScrappingMaster\Application\UseCase\ElementSeries\RetrieveElementSeriesCollectionUseCase;
-use BestThor\ScrappingMaster\Infrastructure\Repository\MysqlPdoElementSeriesDetailWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Series\MysqlPdoElementSeriesDetailWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Series\MysqlPdoElementSeriesReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Series\MysqlPdoElementSeriesWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Tag\MysqlPdoElementGeneralTagWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Tag\MysqlPdoTagReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\Tag\MysqlPdoTagWriterRepository;
+use BestThor\ScrappingMaster\Infrastructure\Service\GeneralService;
+use BestThor\ScrappingMaster\Infrastructure\Service\SeriesService;
+use BestThor\ScrappingMaster\Infrastructure\Transmission\TransmissionClient;
+use Symfony\Component\DependencyInjection\Reference;
 
 $container->register(
     GetElementGeneralUseCase::class,

@@ -2,8 +2,8 @@
 
 namespace BestThor\ScrappingMaster\Application\UseCase\ElementGeneral;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollectionEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralReaderRepositoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralCollectionEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralReaderRepositoryInterface;
 
 /**
  * RetrieveElementGeneralCollectionUseCase

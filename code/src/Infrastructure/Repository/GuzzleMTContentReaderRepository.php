@@ -2,10 +2,10 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Repository;
 
-use BestThor\ScrappingMaster\Domain\ElementDetailContentEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementDownloadContentEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralContentEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementImageEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementDetailContentEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementDownloadContentEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralContentEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementImageEmptyException;
 use BestThor\ScrappingMaster\Domain\MTContentReaderRepositoryInterface;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesDetailEmptyException;
 use BestThor\ScrappingMaster\Domain\Series\ElementSeriesEmptyException;

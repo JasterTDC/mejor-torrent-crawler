@@ -72,7 +72,7 @@ final class AddSeriesTorrentUseCaseTest extends TestCase
         $this->assertNull($response->getError());
 
         /** @var \DirectoryIterator $file */
-        foreach(new \DirectoryIterator($directory) as $file) {
+        foreach (new \DirectoryIterator($directory) as $file) {
             if (!$file->isDot()) {
                 unlink($file->getPathname());
             }

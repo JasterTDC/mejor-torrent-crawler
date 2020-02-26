@@ -2,10 +2,10 @@
 
 namespace BestThor\ScrappingMaster\Infrastructure\Parser;
 
-use BestThor\ScrappingMaster\Domain\ElementGeneralCollection;
-use BestThor\ScrappingMaster\Domain\ElementGeneralEmptyException;
-use BestThor\ScrappingMaster\Domain\ElementGeneralFactoryInterface;
-use BestThor\ScrappingMaster\Domain\ElementGeneralParserInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralCollection;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralEmptyException;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralFactoryInterface;
+use BestThor\ScrappingMaster\Domain\General\ElementGeneralParserInterface;
 
 /**
  * Class ElementGeneralParser

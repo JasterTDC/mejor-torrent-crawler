@@ -10,17 +10,17 @@ use BestThor\ScrappingMaster\Infrastructure\Renderer\TemplateRenderer;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDetailParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementSeriesParser;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementGeneralParser;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDetailFactory;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDetailFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\ElementSeriesFactory;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementDownloadParser;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementGeneralFactory;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementDownloadFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementGeneralFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDownloadFactory;
 use BestThor\ScrappingMaster\Infrastructure\Transmission\TransmissionClient;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementSeriesDetailParser;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesImageFactory;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesDetailFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\ElementSeriesImageFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\ElementSeriesDetailFactory;
 use BestThor\ScrappingMaster\Infrastructure\Parser\ElementSeriesDownloadParser;
-use BestThor\ScrappingMaster\Infrastructure\Factory\ElementSeriesDownloadFactory;
+use BestThor\ScrappingMaster\Infrastructure\Factory\Series\ElementSeriesDownloadFactory;
 use BestThor\ScrappingMaster\Infrastructure\Repository\GuzzleMTContentReaderRepository;
 
 $container->register(
