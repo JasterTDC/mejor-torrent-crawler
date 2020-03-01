@@ -11,11 +11,13 @@ sniffer:
 test:
 	docker run --rm \
     --volume=${PWD}/code:/code \
+    --network='crawler_network' \
     mejor-torrent-crawler_crawler:latest \
 	php /code/vendor/bin/phpunit -c /code/phpunit.xml --no-coverage
 coverage:
 	docker run --rm \
     --volume=${PWD}/code:/code \
+    --network='crawler_network' \
     mejor-torrent-crawler_crawler:latest \
 	php /code/vendor/bin/phpunit -c /code/phpunit.xml
 command:

@@ -9,10 +9,14 @@ services:
     volumes:
       - ./init-db:/docker-entrypoint-initdb.d
       - ./.mysql-data:/var/lib/mysql/
+    networks:
+      - crawler_network
   memcached:
     image: memcached:latest
     ports:
       - "11211:11211"
+    networks:
+      - crawler_network
   crawler:
     build:
       context: './docker-base'
@@ -31,3 +35,8 @@ services:
       - ./code:/code
       - ./logs:/LOGS
       - ./crawler:/crawler
+    networks:
+      - crawler_network
+networks:
+  crawler_network:
+    external: true

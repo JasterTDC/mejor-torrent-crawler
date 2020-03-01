@@ -56,6 +56,6 @@ final class ElementSeriesFactoryTest extends TestCase
                 ElementSeriesCollectionRawMother::random()
             );
 
-        $this->assertGreaterThan(2, $seriesCollection->count());
+        $this->assertGreaterThanOrEqual(2, $seriesCollection->count());
     }
 }
