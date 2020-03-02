@@ -9,11 +9,15 @@ use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDetailFactory
 use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementDownloadFactory;
 use BestThor\ScrappingMaster\Infrastructure\Factory\General\ElementGeneralFactory;
 use BestThor\ScrappingMaster\Infrastructure\Repository\General\MysqlPdoElementGeneralReaderRepository;
+use BestThor\ScrappingMaster\Infrastructure\Repository\PdoAccess;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\ElementGeneralCollectionRawMother;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\ElementGeneralRawMother;
 use BestThor\ScrappingMaster\Tests\Domain\ElementGeneral\GeneralTotalMother;
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
 use BestThor\ScrappingMaster\Tests\Domain\Tag\GeneralIdMother;
+use Mockery;
+use PDO;
+use PDOStatement;
 
 /**
  * Class MysqlPdoElementGeneralReaderRepositoryTest
@@ -249,5 +253,44 @@ final class MysqlPdoElementGeneralReaderRepositoryTest extends PDOMockUtilsTestC
                 1,
                 10
             );
+    }
+
+    public function testIfGetTotalFetchAllReturnsEmpty(): void
+    {
+        $mockPdoStatement = Mockery::mock(PDOStatement::class);
+        $mockPdoStatement
+            ->shouldReceive('execute')
+            ->andReturn(true);
+
+        $mockPdoStatement
+            ->shouldReceive('fetchAll')
+            ->andReturn([]);
+
+        $mockPdo = Mockery::mock(PDO::class);
+        $mockPdo
+            ->shouldReceive('prepare')
+            ->andReturn($mockPdoStatement);
+
+        $mockPdoAccess = Mockery::mock(PdoAccess::class);
+        $mockPdoAccess
+            ->shouldReceive('getPdo')
+            ->andReturn($mockPdo);
+
+        $this->elementGeneralReaderRepository = new MysqlPdoElementGeneralReaderRepository(
+            $mockPdoAccess,
+            new ElementGeneralFactory(
+                new ElementDetailFactory(),
+                new ElementDownloadFactory(
+                    MotherCreator::random()->slug
+                )
+            )
+        );
+
+        $result = $this
+            ->elementGeneralReaderRepository
+            ->getTotal();
+
+        $this->assertIsInt($result);
+        $this->assertEquals(0, $result);
     }
 }

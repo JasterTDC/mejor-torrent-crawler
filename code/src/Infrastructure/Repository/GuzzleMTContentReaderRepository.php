@@ -54,18 +54,21 @@ final class GuzzleMTContentReaderRepository implements
 
     /**
      * GuzzleMTContentReaderRepository constructor.
+     *
      * @param string $baseUrl
      * @param string $generalUrl
      * @param string $seriesUrl
      * @param string $downloadUrl
      * @param string $seriesDownloadUrl
+     * @param Client $httpClient
      */
     public function __construct(
         string $baseUrl,
         string $generalUrl,
         string $seriesUrl,
         string $downloadUrl,
-        string $seriesDownloadUrl
+        string $seriesDownloadUrl,
+        Client $httpClient
     ) {
         $this->baseUrl      = $baseUrl;
         $this->generalUrl   = $generalUrl;
@@ -73,9 +76,7 @@ final class GuzzleMTContentReaderRepository implements
         $this->seriesUrl    = $seriesUrl;
         $this->seriesDownloadUrl = $seriesDownloadUrl;
 
-        $this->httpClient = new Client([
-            'base_uri'  => $this->baseUrl
-        ]);
+        $this->httpClient = $httpClient;
     }
 
     /**

@@ -2,11 +2,16 @@
 
 namespace BestThor\ScrappingMaster\Tests\Infrastructure\Repository;
 
+use BestThor\ScrappingMaster\Domain\Tag\TagCriteria;
 use BestThor\ScrappingMaster\Domain\Tag\TagSearchException;
 use BestThor\ScrappingMaster\Infrastructure\Factory\Tag\TagFactory;
+use BestThor\ScrappingMaster\Infrastructure\Repository\PdoAccess;
 use BestThor\ScrappingMaster\Infrastructure\Repository\Tag\MysqlPdoTagReaderRepository;
 use BestThor\ScrappingMaster\Tests\Domain\MotherCreator;
 use BestThor\ScrappingMaster\Tests\Domain\Tag\TagRawMother;
+use Mockery;
+use PDO;
+use PDOStatement;
 
 /**
  * Class MysqlPdoTagReaderRepositoryTest
@@ -72,6 +77,47 @@ final class MysqlPdoTagReaderRepositoryTest extends PDOMockUtilsTestCase
             ->findByName(
                 MotherCreator::random()->lastName
             );
+
+        $this->assertNull($result);
+    }
+
+    public function testIfFindAllReturnsEmptyStatement(): void
+    {
+        $mockPdoStatement = Mockery::mock(PDOStatement::class);
+        $mockPdoStatement
+            ->shouldReceive('fetchAll')
+            ->andReturn(null);
+
+        $mockPdoStatement
+            ->shouldReceive('execute')
+            ->andReturn(true);
+
+        $mockPdo = Mockery::mock(PDO::class);
+        $mockPdo
+            ->shouldReceive('prepare')
+            ->andReturn($mockPdoStatement);
+
+        $mockPdoAccess = Mockery::mock(PdoAccess::class);
+        $mockPdoAccess
+            ->shouldReceive('getPdo')
+            ->andReturn($mockPdo);
+
+        $this->tagReaderRepository = new MysqlPdoTagReaderRepository(
+            $mockPdoAccess,
+            new TagFactory()
+        );
+
+        $tagCriteria = new TagCriteria();
+        $tagCriteria->setOderType(
+            TagCriteria::ORDER_TYPE_ASC
+        );
+        $tagCriteria->setOrderBy(
+            TagCriteria::ORDER_NAME
+        );
+
+        $result = $this
+            ->tagReaderRepository
+            ->findAll($tagCriteria);
 
         $this->assertNull($result);
     }

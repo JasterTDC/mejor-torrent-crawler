@@ -57,6 +57,10 @@ $container->register(
     ElementDownloadParser::class
 )->addArgument(new Reference(ElementDownloadFactory::class));
 
+$htmlGuzzleClient = new Client([
+    'base_uri' => $container->getParameter('homeUrl')
+]);
+
 $container->register(
     GuzzleMTContentReaderRepository::class,
     GuzzleMTContentReaderRepository::class
@@ -65,7 +69,8 @@ $container->register(
     ->addArgument('%filmUrl%')
     ->addArgument('%seriesUrl%')
     ->addArgument('%downloadElementUrl%')
-    ->addArgument('%seriesDownloadUrl%');
+    ->addArgument('%seriesDownloadUrl%')
+    ->addArgument($htmlGuzzleClient);
 
 $container->register(
     TemplateRenderer::class,
